@@ -4,7 +4,7 @@
 (function (NB) {
   const PM = () => NB.ProgressManager;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const spoken = t => String(t).replace(/<[^>]+>/g, '').replace(/×/g, ' times ').replace(/÷/g, ' divided by ')
+  const spoken = t => String(t).replace(/<[^>]+>/g, '').replace(/cm²/g, ' square centimetres').replace(/°/g, ' degrees').replace(/−/g, ' minus ').replace(/×/g, ' times ').replace(/÷/g, ' divided by ')
     .replace(/\s=\s\?/g, ' equals what').replace(/\?\s\+/g, 'what plus').replace(/=/g, ' equals ').replace(/\+/g, ' plus ').replace(/\s+/g, ' ').trim();
   const eqHTML = t => esc(t).replace(/\[\]/g, '<span class="slot"></span>').replace(/\?/g, '<span class="qm">?</span>');
 
@@ -206,4 +206,5 @@
 
   }
   NB.LessonController = LessonController;
+  NB.spoken = spoken;
 })(window.NB = window.NB || {});

@@ -1,0 +1,5567 @@
+[
+ {
+  "h": "1crgx86",
+  "t": "Rico needs the total for six parts packages at 47 dollars each.",
+  "b": "mult-1"
+ },
+ {
+  "h": "ph7obw",
+  "t": "That's 47 times 6.",
+  "b": "mult-1"
+ },
+ {
+  "h": "2kq8wm",
+  "t": "47 times 6.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1pp1iy0",
+  "t": "Big numbers are easier in pieces.",
+  "b": "common"
+ },
+ {
+  "h": "iqsmhc",
+  "t": "Split 47 into 40 and 7.",
+  "b": "mult-1"
+ },
+ {
+  "h": "7zog9y",
+  "t": "The box shows 6 rows of 47, cut into parts.",
+  "b": "mult-1"
+ },
+ {
+  "h": "qa7v9t",
+  "t": "40 times 6.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1x3ria8",
+  "t": "Think 4 times 6, which is 24.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1hm1rre",
+  "t": "These are tens, so 24 tens is 240.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1tzmo5g",
+  "t": "Now the units: 7 times 6 is 42.",
+  "b": "mult-1"
+ },
+ {
+  "h": "lsa19f",
+  "t": "Add the parts together: 240 plus 42 is 282.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1mx1mzs",
+  "t": "So 47 times 6 is 282.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1qh3i5x",
+  "t": "Split, multiply each part, then add.",
+  "b": "common"
+ },
+ {
+  "h": "ja6z33",
+  "t": "Remember: Split the big number into hundreds, tens and units.",
+  "b": "common"
+ },
+ {
+  "h": "yta7qp",
+  "t": "Multiply each part, then add the answers.",
+  "b": "common"
+ },
+ {
+  "h": "17iyjf9",
+  "t": "Now you try one, and I'll help with every step.",
+  "b": "common"
+ },
+ {
+  "h": "jwyv2y",
+  "t": "Your turn: 32 times 4.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1e4qn6m",
+  "t": "Same steps.",
+  "b": "common"
+ },
+ {
+  "h": "25pdeo",
+  "t": "You type every number, and I give you a tip for each one.",
+  "b": "mult-1"
+ },
+ {
+  "h": "6q79pu",
+  "t": "Three deals on your own.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1tnmb",
+  "t": "Split, tens, units, add, answer.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1lby92q",
+  "t": "I'll stay quiet unless you get stuck.",
+  "b": "common"
+ },
+ {
+  "h": "1lr6ji3",
+  "t": "Tap 32 to split it into tens and units.",
+  "b": "mult-1"
+ },
+ {
+  "h": "7z3tau",
+  "t": "Split 32",
+  "b": "mult-1"
+ },
+ {
+  "h": "1ttufqa",
+  "t": "First, split 32 into tens and units.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1hhot23",
+  "t": "Small pieces are easier to multiply.",
+  "b": "mult-1"
+ },
+ {
+  "h": "7gvzat",
+  "t": "How much are the tens in 32 worth?",
+  "b": "mult-1"
+ },
+ {
+  "h": "19im36i",
+  "t": "What are the tens worth?",
+  "b": "mult-1"
+ },
+ {
+  "h": "8a6btm",
+  "t": "The 3 in 32 sits in the tens place, so it's worth 30.",
+  "b": "mult-1"
+ },
+ {
+  "h": "6gil86",
+  "t": "The 3 is in the tens place, so it means 3 tens.",
+  "b": "mult-1"
+ },
+ {
+  "h": "16vocz9",
+  "t": "How much is that?",
+  "b": "mult-1"
+ },
+ {
+  "h": "48yjyz",
+  "t": "Think of money: 3 ten-dollar notes.",
+  "b": "mult-1"
+ },
+ {
+  "h": "d6fsw7",
+  "t": "In 23, the 2 means 2 tens, which is 20.",
+  "b": "mult-1"
+ },
+ {
+  "h": "15hpxy2",
+  "t": "Do the same for the 3 in 32.",
+  "b": "mult-1"
+ },
+ {
+  "h": "oy5sxc",
+  "t": "And how many units?",
+  "b": "mult-1"
+ },
+ {
+  "h": "1jbnwxr",
+  "t": "Now the units.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1ozqb88",
+  "t": "The 2 is the units.",
+  "b": "mult-1"
+ },
+ {
+  "h": "59c42x",
+  "t": "So 32 is 30 plus 2.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1hiebsj",
+  "t": "The units are the last digit of 32.",
+  "b": "mult-1"
+ },
+ {
+  "h": "12187xy",
+  "t": "32 take away 30 leaves the units.",
+  "b": "mult-1"
+ },
+ {
+  "h": "jgeesq",
+  "t": "Multiply the tens digit: 3 times 4",
+  "b": "mult-1"
+ },
+ {
+  "h": "18nteib",
+  "t": "Multiply the tens digit: 3 times 4 is 12.",
+  "b": "mult-1"
+ },
+ {
+  "h": "eo059y",
+  "t": "Count up in 4s, 3 times.",
+  "b": "common"
+ },
+ {
+  "h": "1k0e63i",
+  "t": "Count in 4s and keep going.",
+  "b": "mult-1"
+ },
+ {
+  "h": "gumt8",
+  "t": "Start from a smaller one: 2 times 4 is 8.",
+  "b": "mult-1"
+ },
+ {
+  "h": "15t8k8x",
+  "t": "Add one more 4.",
+  "b": "mult-1"
+ },
+ {
+  "h": "16gpf16",
+  "t": "Those are tens.",
+  "b": "mult-1"
+ },
+ {
+  "h": "c4iyqo",
+  "t": "What are 12 tens worth?",
+  "b": "mult-1"
+ },
+ {
+  "h": "oqwf3u",
+  "t": "Those are tens, so 12 tens are worth 120.",
+  "b": "mult-1"
+ },
+ {
+  "h": "nlcn27",
+  "t": "Just add a zero.",
+  "b": "mult-1"
+ },
+ {
+  "h": "179p90w",
+  "t": "1 ten is 10.",
+  "b": "mult-1"
+ },
+ {
+  "h": "kwarlv",
+  "t": "So 12 tens is 12 lots of 10.",
+  "b": "mult-1"
+ },
+ {
+  "h": "nmapjr",
+  "t": "Count how tens grow.",
+  "b": "mult-1"
+ },
+ {
+  "h": "8ezvtv",
+  "t": "2 tens is 20.",
+  "b": "common"
+ },
+ {
+  "h": "1n0qp0j",
+  "t": "3 tens is 30.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1k1qpaa",
+  "t": "The tens number gets a zero on the end.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1m3fvcv",
+  "t": "Now the units: 2 times 4",
+  "b": "mult-1"
+ },
+ {
+  "h": "a7h4ed",
+  "t": "Multiply the units.",
+  "b": "common"
+ },
+ {
+  "h": "1uxizrx",
+  "t": "Now the units: 2 times 4 is 8.",
+  "b": "mult-1"
+ },
+ {
+  "h": "6izulz",
+  "t": "Count up in 4s, 2 times.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1chobae",
+  "t": "Count in 4s.",
+  "b": "mult-1"
+ },
+ {
+  "h": "k2lnbc",
+  "t": "1 times 4 is 4.",
+  "b": "common"
+ },
+ {
+  "h": "1vn4rra",
+  "t": "Add in columns.",
+  "b": "mult-1"
+ },
+ {
+  "h": "q38q8p",
+  "t": "Start with the units: 0 plus 8",
+  "b": "mult-1"
+ },
+ {
+  "h": "8hrub2",
+  "t": "Add the units column: 0 plus 8 is 8.",
+  "b": "mult-1"
+ },
+ {
+  "h": "shr0rm",
+  "t": "Just add the two digits in the units column: 0 plus 8.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1h6af",
+  "t": "The tens column: just bring down the 2.",
+  "b": "mult-1"
+ },
+ {
+  "h": "qbypyq",
+  "t": "Nothing to add in the tens column, so the 2 comes straight down.",
+  "b": "mult-1"
+ },
+ {
+  "h": "17j4kag",
+  "t": "Nothing to add here.",
+  "b": "mult-1"
+ },
+ {
+  "h": "d16sbu",
+  "t": "Bring the 2 straight down.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1x5dmjz",
+  "t": "The hundreds column: just bring down the 1.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1srtzvu",
+  "t": "Nothing to add in the hundreds column, so the 1 comes straight down.",
+  "b": "mult-1"
+ },
+ {
+  "h": "2dpqcp",
+  "t": "Bring the 1 straight down.",
+  "b": "mult-1"
+ },
+ {
+  "h": "1qjwy32",
+  "t": "Write the answer: 32 times 4",
+  "b": "mult-1"
+ },
+ {
+  "h": "r80v3x",
+  "t": "Write the answer.",
+  "b": "common"
+ },
+ {
+  "h": "191ea6j",
+  "t": "So 32 times 4 is 128.",
+  "b": "mult-1"
+ },
+ {
+  "h": "12uz1dm",
+  "t": "That's the answer!",
+  "b": "mult-1"
+ },
+ {
+  "h": "7mobl4",
+  "t": "It's the number you got when you added the two parts.",
+  "b": "mult-1"
+ },
+ {
+  "h": "jojnng",
+  "t": "Multiply the tens.",
+  "b": "common"
+ },
+ {
+  "h": "1oybklx",
+  "t": "Add the two parts.",
+  "b": "mult-1"
+ },
+ {
+  "h": "b8ljvt",
+  "t": "Rico's selling 26 cars at 34 hundred each.",
+  "b": "mult-2"
+ },
+ {
+  "h": "zgg8lc",
+  "t": "34 times 26.",
+  "b": "mult-2"
+ },
+ {
+  "h": "z4y22d",
+  "t": "Two big numbers!",
+  "b": "mult-2"
+ },
+ {
+  "h": "rzln4r",
+  "t": "The trick: split both into tens and units, multiply every pair, then add.",
+  "b": "mult-2"
+ },
+ {
+  "h": "el1w2l",
+  "t": "Split both numbers: 34 is 30 and 4, and 26 is 20 and 6.",
+  "b": "mult-2"
+ },
+ {
+  "h": "196vk06",
+  "t": "Draw a grid with a box for every pair.",
+  "b": "mult-2"
+ },
+ {
+  "h": "hr7fnm",
+  "t": "30 times 20.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1txaq4m",
+  "t": "Do 3 times 2, which is 6, then put the two zeros back on: 600.",
+  "b": "mult-2"
+ },
+ {
+  "h": "g4owfb",
+  "t": "4 times 20 is 80.",
+  "b": "mult-2"
+ },
+ {
+  "h": "827sph",
+  "t": "And 30 times 6: 3 times 6 is 18, with a zero, 180.",
+  "b": "mult-2"
+ },
+ {
+  "h": "un83vf",
+  "t": "The last box: 4 times 6 is 24.",
+  "b": "mult-2"
+ },
+ {
+  "h": "nhdtip",
+  "t": "Add all four answers: 600 plus 80 plus 180 plus 24 is 884.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1dg37zm",
+  "t": "So 34 times 26 is 884.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1jpx1tr",
+  "t": "Remember: Split both numbers into tens and units.",
+  "b": "mult-2"
+ },
+ {
+  "h": "tfox5w",
+  "t": "Multiply every part by every part, then add all four answers.",
+  "b": "mult-2"
+ },
+ {
+  "h": "12divmz",
+  "t": "Your turn: 23 times 14.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1472m33",
+  "t": "Split both, four multiplications, then add.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1dypu5q",
+  "t": "I give you a tip for each one.",
+  "b": "common"
+ },
+ {
+  "h": "1dqdjj0",
+  "t": "Three on your own: split, multiply the four pairs, add.",
+  "b": "mult-2"
+ },
+ {
+  "h": "7z3tdi",
+  "t": "Split 23.",
+  "b": "mult-2"
+ },
+ {
+  "h": "birmgd",
+  "t": "What are its tens worth?",
+  "b": "mult-2"
+ },
+ {
+  "h": "10kfplk",
+  "t": "Split 23 and 14.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1itkouk",
+  "t": "First split both numbers.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1byo75h",
+  "t": "23 is 20 plus 3.",
+  "b": "mult-2"
+ },
+ {
+  "h": "13p07n3",
+  "t": "The first digit of 23 is tens.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1y3z7io",
+  "t": "23 equals 20 plus 3.",
+  "b": "mult-2"
+ },
+ {
+  "h": "mmkorj",
+  "t": "Type 20.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1sh2fuy",
+  "t": "And the units of 23?",
+  "b": "mult-2"
+ },
+ {
+  "h": "17r8j1k",
+  "t": "Now its units.",
+  "b": "mult-2"
+ },
+ {
+  "h": "ujkazv",
+  "t": "So the units part is 3.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1hiebpv",
+  "t": "The units are the last digit of 23.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1r8t7fo",
+  "t": "Now split 14.",
+  "b": "mult-2"
+ },
+ {
+  "h": "122c4rr",
+  "t": "Its tens are worth?",
+  "b": "mult-2"
+ },
+ {
+  "h": "7z3tci",
+  "t": "Split 14.",
+  "b": "mult-2"
+ },
+ {
+  "h": "kwd9g5",
+  "t": "14 is 10 plus 4.",
+  "b": "mult-2"
+ },
+ {
+  "h": "ahh38j",
+  "t": "1 tens is 10.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1sh2fxq",
+  "t": "And the units of 14?",
+  "b": "mult-2"
+ },
+ {
+  "h": "191bf8e",
+  "t": "Its units.",
+  "b": "mult-2"
+ },
+ {
+  "h": "sr0jy4",
+  "t": "The units part of 14 is 4.",
+  "b": "mult-2"
+ },
+ {
+  "h": "xl4dil",
+  "t": "The last digit of 14.",
+  "b": "mult-2"
+ },
+ {
+  "h": "jnj5ll",
+  "t": "Multiply the tens: 20 times 10",
+  "b": "mult-2"
+ },
+ {
+  "h": "1hcd1dv",
+  "t": "Tens times tens.",
+  "b": "mult-2"
+ },
+ {
+  "h": "mkcgaw",
+  "t": "2 times 1 is 2.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1lgpcpo",
+  "t": "Both are tens, so add two zeros: 200.",
+  "b": "mult-2"
+ },
+ {
+  "h": "cy85y2",
+  "t": "Do 2 times 1 first, then add two zeros.",
+  "b": "mult-2"
+ },
+ {
+  "h": "19eajjh",
+  "t": "2 times 1 equals 2.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1rrbdbt",
+  "t": "Add two zeros.",
+  "b": "mult-2"
+ },
+ {
+  "h": "125wtw5",
+  "t": "20 times 4",
+  "b": "mult-2"
+ },
+ {
+  "h": "1jlru1m",
+  "t": "Tens times units.",
+  "b": "mult-2"
+ },
+ {
+  "h": "ojnpnr",
+  "t": "2 times 4 is 8.",
+  "b": "common"
+ },
+ {
+  "h": "okztwl",
+  "t": "One zero for the tens: 80.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1pfr5xa",
+  "t": "Do 2 times 4, then add one zero.",
+  "b": "mult-2"
+ },
+ {
+  "h": "60eo5e",
+  "t": "2 times 4 equals 8.",
+  "b": "common"
+ },
+ {
+  "h": "6tu12a",
+  "t": "Add one zero.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1ly77v5",
+  "t": "3 times 10",
+  "b": "mult-2"
+ },
+ {
+  "h": "2z8i0q",
+  "t": "Units times tens.",
+  "b": "mult-2"
+ },
+ {
+  "h": "vqw3vs",
+  "t": "3 times 1 is 3.",
+  "b": "mult-2"
+ },
+ {
+  "h": "okzu32",
+  "t": "One zero for the tens: 30.",
+  "b": "mult-2"
+ },
+ {
+  "h": "19jmrei",
+  "t": "Do 3 times 1, then add one zero.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1pzgs7h",
+  "t": "3 times 1 equals 3.",
+  "b": "mult-2"
+ },
+ {
+  "h": "eo5bic",
+  "t": "3 times 4",
+  "b": "mult-2"
+ },
+ {
+  "h": "r92rr7",
+  "t": "Units times units.",
+  "b": "mult-2"
+ },
+ {
+  "h": "gnk865",
+  "t": "3 times 4 is 12.",
+  "b": "common"
+ },
+ {
+  "h": "f1bouj",
+  "t": "3 times 4: 4, 8, 12.",
+  "b": "mult-2"
+ },
+ {
+  "h": "a7cmmn",
+  "t": "Add all four parts.",
+  "b": "mult-2"
+ },
+ {
+  "h": "kwn7dj",
+  "t": "Add the four parts.",
+  "b": "mult-2"
+ },
+ {
+  "h": "e09m5a",
+  "t": "Add the four parts: 200 plus 80 plus 30 plus 12 is 322.",
+  "b": "mult-2"
+ },
+ {
+  "h": "531l5h",
+  "t": "Add the two big ones first: 200 plus 80 equals 280.",
+  "b": "mult-2"
+ },
+ {
+  "h": "yghlkq",
+  "t": "Then add the rest.",
+  "b": "mult-2"
+ },
+ {
+  "h": "kt2sgb",
+  "t": "280 plus 30 equals 310.",
+  "b": "mult-2"
+ },
+ {
+  "h": "1ynmjjl",
+  "t": "Now add 12.",
+  "b": "mult-2"
+ },
+ {
+  "h": "52uuwv",
+  "t": "Write the answer: 23 times 14",
+  "b": "mult-2"
+ },
+ {
+  "h": "6mkk0i",
+  "t": "So 23 times 14 is 322.",
+  "b": "mult-2"
+ },
+ {
+  "h": "13nb084",
+  "t": "The total of the four parts.",
+  "b": "mult-2"
+ },
+ {
+  "h": "12bi2xv",
+  "t": "4 tens is 40.",
+  "b": "mult-2"
+ },
+ {
+  "h": "p6p8l4",
+  "t": "Big deal: 6 sports cars at 324 thousand each.",
+  "b": "mult-3"
+ },
+ {
+  "h": "im90lc",
+  "t": "324 times 6.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1ka6tnq",
+  "t": "Split it into hundreds, tens and units, multiply each, then add.",
+  "b": "mult-3"
+ },
+ {
+  "h": "vi2icb",
+  "t": "Split 324 into 300 and 20 and 4.",
+  "b": "mult-3"
+ },
+ {
+  "h": "4i7mk0",
+  "t": "The box shows 6 rows of 324, cut into parts.",
+  "b": "mult-3"
+ },
+ {
+  "h": "bmpl3a",
+  "t": "300 times 6.",
+  "b": "mult-3"
+ },
+ {
+  "h": "q4jjug",
+  "t": "Think 3 times 6, which is 18.",
+  "b": "mult-3"
+ },
+ {
+  "h": "qg8bwa",
+  "t": "These are hundreds, so 18 hundreds is 1800.",
+  "b": "mult-3"
+ },
+ {
+  "h": "125wtw7",
+  "t": "20 times 6.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1vmf4oj",
+  "t": "Think 2 times 6, which is 12.",
+  "b": "mult-3"
+ },
+ {
+  "h": "dnot4a",
+  "t": "These are tens, so 12 tens is 120.",
+  "b": "mult-3"
+ },
+ {
+  "h": "99tykn",
+  "t": "Now the units: 4 times 6 is 24.",
+  "b": "mult-3"
+ },
+ {
+  "h": "yo89r9",
+  "t": "Add the parts together: 1800 plus 120 plus 24 is 1944.",
+  "b": "mult-3"
+ },
+ {
+  "h": "xski26",
+  "t": "So 324 times 6 is 1944.",
+  "b": "mult-3"
+ },
+ {
+  "h": "e3b3rf",
+  "t": "Your turn: 213 times 4.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1y8xts9",
+  "t": "You type every number, I give you tips.",
+  "b": "mult-3"
+ },
+ {
+  "h": "dgiuou",
+  "t": "Three big deals on your own.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1qzp936",
+  "t": "Split, multiply each part, add.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1gax559",
+  "t": "I'll only step in if you get stuck.",
+  "b": "common"
+ },
+ {
+  "h": "1e35rd3",
+  "t": "Split 213.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1uzd4e9",
+  "t": "What are the hundreds worth?",
+  "b": "mult-3"
+ },
+ {
+  "h": "1ry11lq",
+  "t": "Split 213 into hundreds, tens and units.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1n6dyzd",
+  "t": "The hundreds are worth 200.",
+  "b": "mult-3"
+ },
+ {
+  "h": "5w3o9",
+  "t": "The first digit is hundreds: 2 hundreds.",
+  "b": "mult-3"
+ },
+ {
+  "h": "liv07c",
+  "t": "2 hundreds is 200.",
+  "b": "mult-3"
+ },
+ {
+  "h": "gasvkg",
+  "t": "The tens are worth?",
+  "b": "mult-3"
+ },
+ {
+  "h": "3tp5xi",
+  "t": "Now the tens.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1idkwy9",
+  "t": "The tens are worth 10.",
+  "b": "mult-3"
+ },
+ {
+  "h": "13h6h9p",
+  "t": "The middle digit is tens: 1 tens.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1ca1xky",
+  "t": "And the units?",
+  "b": "mult-3"
+ },
+ {
+  "h": "1s7nl53",
+  "t": "And the units are 3.",
+  "b": "mult-3"
+ },
+ {
+  "h": "s603i9",
+  "t": "The last digit.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1shjgdj",
+  "t": "Multiply the hundreds: 200 times 4",
+  "b": "mult-3"
+ },
+ {
+  "h": "1cbtkmf",
+  "t": "Multiply the hundreds.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1es8lhd",
+  "t": "Hundreds get two zeros: 800.",
+  "b": "mult-3"
+ },
+ {
+  "h": "hg4vbi",
+  "t": "2 times 4, then add two zeros.",
+  "b": "mult-3"
+ },
+ {
+  "h": "v9eiby",
+  "t": "Now two zeros.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1h5wwj3",
+  "t": "Multiply the tens: 10 times 4",
+  "b": "mult-3"
+ },
+ {
+  "h": "1izhozh",
+  "t": "Tens get one zero: 40.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1ptx7p2",
+  "t": "1 times 4, then add one zero.",
+  "b": "mult-3"
+ },
+ {
+  "h": "nyhxkd",
+  "t": "1 times 4 equals 4.",
+  "b": "mult-3"
+ },
+ {
+  "h": "klqzrb",
+  "t": "Add a zero.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1npg8lg",
+  "t": "Multiply the units: 3 times 4",
+  "b": "mult-3"
+ },
+ {
+  "h": "r0ifdj",
+  "t": "Add the three parts.",
+  "b": "mult-3"
+ },
+ {
+  "h": "10v7ks9",
+  "t": "Add the parts.",
+  "b": "mult-3"
+ },
+ {
+  "h": "jsmaqn",
+  "t": "800 plus 40 plus 12 is 852.",
+  "b": "mult-3"
+ },
+ {
+  "h": "8sljvk",
+  "t": "800 plus 40 equals 840.",
+  "b": "mult-3"
+ },
+ {
+  "h": "1pwu5xs",
+  "t": "Then add 12.",
+  "b": "mult-3"
+ },
+ {
+  "h": "plmfbz",
+  "t": "Write the answer: 213 times 4",
+  "b": "mult-3"
+ },
+ {
+  "h": "9m1c0u",
+  "t": "So 213 times 4 is 852.",
+  "b": "mult-3"
+ },
+ {
+  "h": "hb89qc",
+  "t": "The total of the three parts.",
+  "b": "mult-3"
+ },
+ {
+  "h": "ol22l8",
+  "t": "Mia's splitting 96 dollars between 4 of the crew.",
+  "b": "div-1"
+ },
+ {
+  "h": "n43jma",
+  "t": "96 divided by 4.",
+  "b": "div-1"
+ },
+ {
+  "h": "zrtdfc",
+  "t": "We use the bus stop: divide, multiply, subtract, bring down.",
+  "b": "div-1"
+ },
+ {
+  "h": "1miufb8",
+  "t": "Write 96 inside the bus stop and 4 outside.",
+  "b": "div-1"
+ },
+ {
+  "h": "g350lh",
+  "t": "Then work from left to right.",
+  "b": "common"
+ },
+ {
+  "h": "ov5ts3",
+  "t": "On the side is the 4 times table to help.",
+  "b": "common"
+ },
+ {
+  "h": "1l83rtw",
+  "t": "How many 4s go into 9?",
+  "b": "div-1"
+ },
+ {
+  "h": "gyviqa",
+  "t": "Look at the table: 2 times 4 is 8.",
+  "b": "common"
+ },
+ {
+  "h": "dfypng",
+  "t": "So write 2 on top.",
+  "b": "common"
+ },
+ {
+  "h": "1q44uxj",
+  "t": "Take 8 away from 9: that leaves 1.",
+  "b": "div-1"
+ },
+ {
+  "h": "1j00eiu",
+  "t": "Bring down the next digit, 6, to make 16.",
+  "b": "div-1"
+ },
+ {
+  "h": "15mj38a",
+  "t": "How many 4s go into 16?",
+  "b": "div-1"
+ },
+ {
+  "h": "yy3gaz",
+  "t": "Look at the table: 4 times 4 is 16.",
+  "b": "div-1"
+ },
+ {
+  "h": "1kcmkre",
+  "t": "So write 4 on top.",
+  "b": "div-1"
+ },
+ {
+  "h": "5vgsfr",
+  "t": "Take 16 away from 16: that leaves 0.",
+  "b": "div-1"
+ },
+ {
+  "h": "k17brx",
+  "t": "Nothing is left over, so we are finished.",
+  "b": "common"
+ },
+ {
+  "h": "9ttbmi",
+  "t": "The answer is on top of the bus stop: 24.",
+  "b": "div-1"
+ },
+ {
+  "h": "10xkw1q",
+  "t": "Check by multiplying back: 24 times 4 is 96.",
+  "b": "div-1"
+ },
+ {
+  "h": "vzbnor",
+  "t": "Remember: Divide, multiply, subtract, bring down.",
+  "b": "common"
+ },
+ {
+  "h": "gnroop",
+  "t": "Then do it again until every digit is used.",
+  "b": "common"
+ },
+ {
+  "h": "wwlchm",
+  "t": "Your turn: 84 divided by 3.",
+  "b": "div-1"
+ },
+ {
+  "h": "1rrzqer",
+  "t": "Same four moves.",
+  "b": "div-1"
+ },
+ {
+  "h": "1sd9pt8",
+  "t": "Three splits on your own.",
+  "b": "div-1"
+ },
+ {
+  "h": "y32oi4",
+  "t": "Divide, multiply, subtract, bring down.",
+  "b": "div-1"
+ },
+ {
+  "h": "nwimiy",
+  "t": "How many 3s fit in 8?",
+  "b": "div-1"
+ },
+ {
+  "h": "imqa8m",
+  "t": "Divide.",
+  "b": "common"
+ },
+ {
+  "h": "xajjbl",
+  "t": "How many 3s fit into 8?",
+  "b": "div-1"
+ },
+ {
+  "h": "3t07",
+  "t": "2.",
+  "b": "div-1"
+ },
+ {
+  "h": "4vn6r",
+  "t": "That digit goes on top of the bus stop.",
+  "b": "common"
+ },
+ {
+  "h": "1hjivq0",
+  "t": "Count up in 3s and stop before you pass 8: 3, 6, 9…",
+  "b": "div-1"
+ },
+ {
+  "h": "16xdddu",
+  "t": "2 times 3 equals 6, and 3 times 3 equals 9 is too big.",
+  "b": "div-1"
+ },
+ {
+  "h": "lyfmby",
+  "t": "Multiply: 2 times 3",
+  "b": "div-1"
+ },
+ {
+  "h": "4hbsuh",
+  "t": "Multiply.",
+  "b": "common"
+ },
+ {
+  "h": "19jrseh",
+  "t": "Multiply back: 2 times 3 is 6.",
+  "b": "div-1"
+ },
+ {
+  "h": "z87w0g",
+  "t": "Count up in 3s, 2 times.",
+  "b": "div-1"
+ },
+ {
+  "h": "xiunyr",
+  "t": "Subtract: 8 minus 6.",
+  "b": "div-1"
+ },
+ {
+  "h": "7nosfb",
+  "t": "What's left?",
+  "b": "common"
+ },
+ {
+  "h": "12nlixd",
+  "t": "Subtract.",
+  "b": "common"
+ },
+ {
+  "h": "1j89ub5",
+  "t": "Subtract to see what's left: 8 minus 6 is 2.",
+  "b": "div-1"
+ },
+ {
+  "h": "1qr2m4g",
+  "t": "Count up from 6 to 8.",
+  "b": "div-1"
+ },
+ {
+  "h": "1oy3xwp",
+  "t": "6 plus ?",
+  "b": "div-1"
+ },
+ {
+  "h": "yq3fpe",
+  "t": "equals 8",
+  "b": "common"
+ },
+ {
+  "h": "wa36sq",
+  "t": "Bring down the 4.",
+  "b": "common"
+ },
+ {
+  "h": "12fxdsu",
+  "t": "Put it next to the 2.",
+  "b": "common"
+ },
+ {
+  "h": "1ypaylb",
+  "t": "What number is that?",
+  "b": "common"
+ },
+ {
+  "h": "1pa0dji",
+  "t": "Bring down the next digit.",
+  "b": "common"
+ },
+ {
+  "h": "xsm4uy",
+  "t": "Bring down the next digit, 4.",
+  "b": "common"
+ },
+ {
+  "h": "pnlunb",
+  "t": "With the 2 left over, that makes 24.",
+  "b": "div-1"
+ },
+ {
+  "h": "yrj494",
+  "t": "Write 2 then 4 next to it.",
+  "b": "div-1"
+ },
+ {
+  "h": "htnxn5",
+  "t": "2 tens and 4 units.",
+  "b": "div-1"
+ },
+ {
+  "h": "7gu1f8",
+  "t": "How many 3s fit in 24?",
+  "b": "div-1"
+ },
+ {
+  "h": "x77w7j",
+  "t": "How many 3s fit into 24?",
+  "b": "div-1"
+ },
+ {
+  "h": "3t0d",
+  "t": "8.",
+  "b": "div-1"
+ },
+ {
+  "h": "1tw2i4o",
+  "t": "Count up in 3s and stop before you pass 24: 3, 6, 9, 12, 15, 18, 21, 24, 27…",
+  "b": "div-1"
+ },
+ {
+  "h": "7yruxa",
+  "t": "8 times 3 equals 24, and 9 times 3 equals 27 is too big.",
+  "b": "div-1"
+ },
+ {
+  "h": "4nhux0",
+  "t": "Multiply: 8 times 3",
+  "b": "div-1"
+ },
+ {
+  "h": "1d1zcpf",
+  "t": "Multiply back: 8 times 3 is 24.",
+  "b": "div-1"
+ },
+ {
+  "h": "ldu6ai",
+  "t": "Count up in 3s, 8 times.",
+  "b": "div-1"
+ },
+ {
+  "h": "12gm7x9",
+  "t": "Subtract: 24 minus 24.",
+  "b": "div-1"
+ },
+ {
+  "h": "15l81fh",
+  "t": "Subtract to see what's left: 24 minus 24 is 0.",
+  "b": "div-1"
+ },
+ {
+  "h": "1l8xsj2",
+  "t": "Count up from 24 to 24.",
+  "b": "div-1"
+ },
+ {
+  "h": "muc7jt",
+  "t": "24 plus ?",
+  "b": "div-1"
+ },
+ {
+  "h": "9fciv0",
+  "t": "equals 24",
+  "b": "div-1"
+ },
+ {
+  "h": "1rftgbg",
+  "t": "Read the answer off the top: 84 divided by 3",
+  "b": "div-1"
+ },
+ {
+  "h": "h9yhyo",
+  "t": "Read the digits along the top: 84 divided by 3 is 28.",
+  "b": "div-1"
+ },
+ {
+  "h": "1dawgw7",
+  "t": "Put the digits you found together, in order.",
+  "b": "common"
+ },
+ {
+  "h": "49plez",
+  "t": "The top digits read 28.",
+  "b": "div-1"
+ },
+ {
+  "h": "wa36su",
+  "t": "Bring down the 0.",
+  "b": "div-1"
+ },
+ {
+  "h": "yq3fpo",
+  "t": "equals 6",
+  "b": "div-1"
+ },
+ {
+  "h": "12fxdst",
+  "t": "Put it next to the 1.",
+  "b": "common"
+ },
+ {
+  "h": "veicr5",
+  "t": "Payday!",
+  "b": "div-2"
+ },
+ {
+  "h": "ggkw2l",
+  "t": "852 dollars split between 4.",
+  "b": "div-2"
+ },
+ {
+  "h": "kcxgjs",
+  "t": "Same bus stop, just one more round.",
+  "b": "div-2"
+ },
+ {
+  "h": "1oetvya",
+  "t": "852 divided by 4.",
+  "b": "div-2"
+ },
+ {
+  "h": "1nocc1g",
+  "t": "Write 852 inside the bus stop and 4 outside.",
+  "b": "div-2"
+ },
+ {
+  "h": "1l83rtx",
+  "t": "How many 4s go into 8?",
+  "b": "div-2"
+ },
+ {
+  "h": "km25jr",
+  "t": "Take 8 away from 8: that leaves 0.",
+  "b": "div-2"
+ },
+ {
+  "h": "wsg29j",
+  "t": "Bring down the next digit, 5, to make 5.",
+  "b": "div-2"
+ },
+ {
+  "h": "1l83ru0",
+  "t": "How many 4s go into 5?",
+  "b": "div-2"
+ },
+ {
+  "h": "1qqabnh",
+  "t": "Look at the table: 1 times 4 is 4.",
+  "b": "div-2"
+ },
+ {
+  "h": "108lr3z",
+  "t": "So write 1 on top.",
+  "b": "div-2"
+ },
+ {
+  "h": "lnp507",
+  "t": "Take 4 away from 5: that leaves 1.",
+  "b": "div-2"
+ },
+ {
+  "h": "19zyl8m",
+  "t": "Bring down the next digit, 2, to make 12.",
+  "b": "div-2"
+ },
+ {
+  "h": "15mj38e",
+  "t": "How many 4s go into 12?",
+  "b": "div-2"
+ },
+ {
+  "h": "3qxfig",
+  "t": "Look at the table: 3 times 4 is 12.",
+  "b": "div-2"
+ },
+ {
+  "h": "pa3xz1",
+  "t": "So write 3 on top.",
+  "b": "common"
+ },
+ {
+  "h": "19i6v07",
+  "t": "Take 12 away from 12: that leaves 0.",
+  "b": "div-2"
+ },
+ {
+  "h": "147fft8",
+  "t": "The answer is on top of the bus stop: 213.",
+  "b": "div-2"
+ },
+ {
+  "h": "fyteag",
+  "t": "Check by multiplying back: 213 times 4 is 852.",
+  "b": "div-2"
+ },
+ {
+  "h": "t1nnoh",
+  "t": "Your turn: 735 divided by 5.",
+  "b": "div-2"
+ },
+ {
+  "h": "h3bh8n",
+  "t": "Divide, multiply, subtract, bring down, again and again.",
+  "b": "div-2"
+ },
+ {
+  "h": "1dwsz4o",
+  "t": "Three payouts on your own.",
+  "b": "div-2"
+ },
+ {
+  "h": "kmqfb7",
+  "t": "How many 5s fit in 7?",
+  "b": "div-2"
+ },
+ {
+  "h": "lyoxso",
+  "t": "How many 5s fit into 7?",
+  "b": "div-2"
+ },
+ {
+  "h": "3t04",
+  "t": "1.",
+  "b": "div-2"
+ },
+ {
+  "h": "1nf8m55",
+  "t": "Count up in 5s and stop before you pass 7: 5, 10…",
+  "b": "div-2"
+ },
+ {
+  "h": "gofpdn",
+  "t": "1 times 5 equals 5, and 2 times 5 equals 10 is too big.",
+  "b": "div-2"
+ },
+ {
+  "h": "1lhbrd7",
+  "t": "Multiply: 1 times 5",
+  "b": "div-2"
+ },
+ {
+  "h": "1kw6z1r",
+  "t": "Multiply back: 1 times 5 is 5.",
+  "b": "div-2"
+ },
+ {
+  "h": "9etafp",
+  "t": "Count up in 5s, 1 times.",
+  "b": "div-2"
+ },
+ {
+  "h": "197inz3",
+  "t": "Subtract: 7 minus 5.",
+  "b": "div-2"
+ },
+ {
+  "h": "1hxymnx",
+  "t": "Subtract to see what's left: 7 minus 5 is 2.",
+  "b": "div-2"
+ },
+ {
+  "h": "1q2hld8",
+  "t": "Count up from 5 to 7.",
+  "b": "div-2"
+ },
+ {
+  "h": "1o9csui",
+  "t": "5 plus ?",
+  "b": "div-2"
+ },
+ {
+  "h": "yq3fpp",
+  "t": "equals 7",
+  "b": "div-2"
+ },
+ {
+  "h": "wa36st",
+  "t": "Bring down the 3.",
+  "b": "div-2"
+ },
+ {
+  "h": "xsm4v1",
+  "t": "Bring down the next digit, 3.",
+  "b": "div-2"
+ },
+ {
+  "h": "pnlun4",
+  "t": "With the 2 left over, that makes 23.",
+  "b": "div-2"
+ },
+ {
+  "h": "1vjpnvz",
+  "t": "Write 2 then 3 next to it.",
+  "b": "div-2"
+ },
+ {
+  "h": "qaqxp2",
+  "t": "2 tens and 3 units.",
+  "b": "div-2"
+ },
+ {
+  "h": "15k7jlh",
+  "t": "How many 5s fit in 23?",
+  "b": "div-2"
+ },
+ {
+  "h": "ehqfm6",
+  "t": "How many 5s fit into 23?",
+  "b": "div-2"
+ },
+ {
+  "h": "3t01",
+  "t": "4.",
+  "b": "div-2"
+ },
+ {
+  "h": "1yuxkpa",
+  "t": "Count up in 5s and stop before you pass 23: 5, 10, 15, 20, 25…",
+  "b": "div-2"
+ },
+ {
+  "h": "e4tqmg",
+  "t": "4 times 5 equals 20, and 5 times 5 equals 25 is too big.",
+  "b": "div-2"
+ },
+ {
+  "h": "1xojyry",
+  "t": "Multiply: 4 times 5",
+  "b": "div-2"
+ },
+ {
+  "h": "232bkt",
+  "t": "Multiply back: 4 times 5 is 20.",
+  "b": "div-2"
+ },
+ {
+  "h": "17rbez4",
+  "t": "Count up in 5s, 4 times.",
+  "b": "div-2"
+ },
+ {
+  "h": "c5tnjy",
+  "t": "Subtract: 23 minus 20.",
+  "b": "div-2"
+ },
+ {
+  "h": "38ffgd",
+  "t": "Subtract to see what's left: 23 minus 20 is 3.",
+  "b": "div-2"
+ },
+ {
+  "h": "gv25p",
+  "t": "Count up from 20 to 23.",
+  "b": "div-2"
+ },
+ {
+  "h": "pfj9a5",
+  "t": "20 plus ?",
+  "b": "common"
+ },
+ {
+  "h": "9fciuz",
+  "t": "equals 23",
+  "b": "div-2"
+ },
+ {
+  "h": "wa36sr",
+  "t": "Bring down the 5.",
+  "b": "common"
+ },
+ {
+  "h": "12fxdsv",
+  "t": "Put it next to the 3.",
+  "b": "div-2"
+ },
+ {
+  "h": "xsm4uz",
+  "t": "Bring down the next digit, 5.",
+  "b": "div-2"
+ },
+ {
+  "h": "5nk1ja",
+  "t": "With the 3 left over, that makes 35.",
+  "b": "div-2"
+ },
+ {
+  "h": "ybcg88",
+  "t": "Write 3 then 5 next to it.",
+  "b": "div-2"
+ },
+ {
+  "h": "15vbj5d",
+  "t": "3 tens and 5 units.",
+  "b": "div-2"
+ },
+ {
+  "h": "15k7jki",
+  "t": "How many 5s fit in 35?",
+  "b": "div-2"
+ },
+ {
+  "h": "ehqfmx",
+  "t": "How many 5s fit into 35?",
+  "b": "div-2"
+ },
+ {
+  "h": "3t02",
+  "t": "7.",
+  "b": "common"
+ },
+ {
+  "h": "1tooxns",
+  "t": "Count up in 5s and stop before you pass 35: 5, 10, 15, 20, 25, 30, 35, 40…",
+  "b": "div-2"
+ },
+ {
+  "h": "1dexfwh",
+  "t": "7 times 5 equals 35, and 8 times 5 equals 40 is too big.",
+  "b": "div-2"
+ },
+ {
+  "h": "1wy98b1",
+  "t": "Multiply: 7 times 5",
+  "b": "div-2"
+ },
+ {
+  "h": "1y9voe2",
+  "t": "Multiply back: 7 times 5 is 35.",
+  "b": "div-2"
+ },
+ {
+  "h": "1fw8wib",
+  "t": "Count up in 5s, 7 times.",
+  "b": "div-2"
+ },
+ {
+  "h": "fqbmot",
+  "t": "Subtract: 35 minus 35.",
+  "b": "div-2"
+ },
+ {
+  "h": "10xjinx",
+  "t": "Subtract to see what's left: 35 minus 35 is 0.",
+  "b": "div-2"
+ },
+ {
+  "h": "20pe0e",
+  "t": "Count up from 35 to 35.",
+  "b": "div-2"
+ },
+ {
+  "h": "18umn4p",
+  "t": "35 plus ?",
+  "b": "div-2"
+ },
+ {
+  "h": "9fciu4",
+  "t": "equals 35",
+  "b": "div-2"
+ },
+ {
+  "h": "10xrc07",
+  "t": "Read the answer off the top: 735 divided by 5",
+  "b": "div-2"
+ },
+ {
+  "h": "1wnddo3",
+  "t": "Read the digits along the top: 735 divided by 5 is 147.",
+  "b": "div-2"
+ },
+ {
+  "h": "1xvcgj7",
+  "t": "The top digits read 147.",
+  "b": "div-2"
+ },
+ {
+  "h": "12fxdss",
+  "t": "Put it next to the 0.",
+  "b": "common"
+ },
+ {
+  "h": "1buecxh",
+  "t": "Big payout: 1365 split 5 ways.",
+  "b": "div-3"
+ },
+ {
+  "h": "13m1o4l",
+  "t": "1 is too small for 5, so we start with 13.",
+  "b": "div-3"
+ },
+ {
+  "h": "1sf0yzh",
+  "t": "1365 divided by 5.",
+  "b": "div-3"
+ },
+ {
+  "h": "gvyzbf",
+  "t": "Write 1365 inside the bus stop and 5 outside.",
+  "b": "div-3"
+ },
+ {
+  "h": "1njekg2",
+  "t": "On the side is the 5 times table to help.",
+  "b": "div-3"
+ },
+ {
+  "h": "1mc0mia",
+  "t": "1 is too small to share by 5, so we use 13.",
+  "b": "div-3"
+ },
+ {
+  "h": "xbnpjy",
+  "t": "How many 5s go into 13?",
+  "b": "div-3"
+ },
+ {
+  "h": "16ost3e",
+  "t": "Look at the table: 2 times 5 is 10.",
+  "b": "div-3"
+ },
+ {
+  "h": "ou7xo7",
+  "t": "Take 10 away from 13: that leaves 3.",
+  "b": "div-3"
+ },
+ {
+  "h": "1j00ekk",
+  "t": "Bring down the next digit, 6, to make 36.",
+  "b": "div-3"
+ },
+ {
+  "h": "xbnpll",
+  "t": "How many 5s go into 36?",
+  "b": "div-3"
+ },
+ {
+  "h": "1ol2h3c",
+  "t": "Look at the table: 7 times 5 is 35.",
+  "b": "div-3"
+ },
+ {
+  "h": "1g7ov95",
+  "t": "So write 7 on top.",
+  "b": "div-3"
+ },
+ {
+  "h": "1ynd0r9",
+  "t": "Take 35 away from 36: that leaves 1.",
+  "b": "div-3"
+ },
+ {
+  "h": "gm190m",
+  "t": "Bring down the next digit, 5, to make 15.",
+  "b": "div-3"
+ },
+ {
+  "h": "xbnpjs",
+  "t": "How many 5s go into 15?",
+  "b": "div-3"
+ },
+ {
+  "h": "nt8evi",
+  "t": "Look at the table: 3 times 5 is 15.",
+  "b": "div-3"
+ },
+ {
+  "h": "13k0447",
+  "t": "Take 15 away from 15: that leaves 0.",
+  "b": "div-3"
+ },
+ {
+  "h": "147ffnu",
+  "t": "The answer is on top of the bus stop: 273.",
+  "b": "div-3"
+ },
+ {
+  "h": "1422dxd",
+  "t": "Check by multiplying back: 273 times 5 is 1365.",
+  "b": "div-3"
+ },
+ {
+  "h": "1t6fpy6",
+  "t": "Your turn: 2148 divided by 4.",
+  "b": "div-3"
+ },
+ {
+  "h": "jjtd2m",
+  "t": "Same rounds.",
+  "b": "div-3"
+ },
+ {
+  "h": "1ltxi0f",
+  "t": "Tips for every step.",
+  "b": "common"
+ },
+ {
+  "h": "1n2ht10",
+  "t": "Three big payouts on your own.",
+  "b": "div-3"
+ },
+ {
+  "h": "frpnkf",
+  "t": "You've got this.",
+  "b": "div-3"
+ },
+ {
+  "h": "1us267p",
+  "t": "2 is too small for 4, so use 21.",
+  "b": "div-3"
+ },
+ {
+  "h": "1taeqfq",
+  "t": "How many 4s fit in 21?",
+  "b": "div-3"
+ },
+ {
+  "h": "1cwqg7",
+  "t": "2 is smaller than 4, so we use the first two digits, 21.",
+  "b": "div-3"
+ },
+ {
+  "h": "1v0tq5f",
+  "t": "4 goes into 21 5 times.",
+  "b": "div-3"
+ },
+ {
+  "h": "6aynjo",
+  "t": "Count up in 4s and stop before you pass 21: 4, 8, 12, 16, 20, 24…",
+  "b": "div-3"
+ },
+ {
+  "h": "1gji3jf",
+  "t": "5 times 4 equals 20, and 6 times 4 equals 24 is too big.",
+  "b": "div-3"
+ },
+ {
+  "h": "g1qm32",
+  "t": "Multiply: 5 times 4",
+  "b": "div-3"
+ },
+ {
+  "h": "1n2ts4d",
+  "t": "Multiply back: 5 times 4 is 20.",
+  "b": "div-3"
+ },
+ {
+  "h": "obeb4",
+  "t": "Count up in 4s, 5 times.",
+  "b": "div-3"
+ },
+ {
+  "h": "1en5mws",
+  "t": "Subtract: 21 minus 20.",
+  "b": "div-3"
+ },
+ {
+  "h": "1d0dg59",
+  "t": "Subtract to see what's left: 21 minus 20 is 1.",
+  "b": "div-3"
+ },
+ {
+  "h": "gv25r",
+  "t": "Count up from 20 to 21.",
+  "b": "div-3"
+ },
+ {
+  "h": "9fciux",
+  "t": "equals 21",
+  "b": "div-3"
+ },
+ {
+  "h": "usbhxj",
+  "t": "With the 1 left over, that makes 14.",
+  "b": "div-3"
+ },
+ {
+  "h": "13c405n",
+  "t": "Write 1 then 4 next to it.",
+  "b": "div-3"
+ },
+ {
+  "h": "1u8tcky",
+  "t": "1 tens and 4 units.",
+  "b": "div-3"
+ },
+ {
+  "h": "1taeqeo",
+  "t": "How many 4s fit in 14?",
+  "b": "div-3"
+ },
+ {
+  "h": "1xtdvt7",
+  "t": "How many 4s fit into 14?",
+  "b": "div-3"
+ },
+ {
+  "h": "3t06",
+  "t": "3.",
+  "b": "div-3"
+ },
+ {
+  "h": "17d4ouu",
+  "t": "Count up in 4s and stop before you pass 14: 4, 8, 12, 16…",
+  "b": "div-3"
+ },
+ {
+  "h": "1j1pru7",
+  "t": "3 times 4 equals 12, and 4 times 4 equals 16 is too big.",
+  "b": "div-3"
+ },
+ {
+  "h": "13cqbm0",
+  "t": "Multiply: 3 times 4",
+  "b": "div-3"
+ },
+ {
+  "h": "p91th6",
+  "t": "Multiply back: 3 times 4 is 12.",
+  "b": "div-3"
+ },
+ {
+  "h": "bzase3",
+  "t": "Subtract: 14 minus 12.",
+  "b": "div-3"
+ },
+ {
+  "h": "wcx32x",
+  "t": "Subtract to see what's left: 14 minus 12 is 2.",
+  "b": "div-3"
+ },
+ {
+  "h": "4m5548",
+  "t": "Count up from 12 to 14.",
+  "b": "div-3"
+ },
+ {
+  "h": "46tmpo",
+  "t": "12 plus ?",
+  "b": "div-3"
+ },
+ {
+  "h": "9fcivz",
+  "t": "equals 14",
+  "b": "div-3"
+ },
+ {
+  "h": "wa36sm",
+  "t": "Bring down the 8.",
+  "b": "div-3"
+ },
+ {
+  "h": "xsm4uu",
+  "t": "Bring down the next digit, 8.",
+  "b": "div-3"
+ },
+ {
+  "h": "pnlunf",
+  "t": "With the 2 left over, that makes 28.",
+  "b": "div-3"
+ },
+ {
+  "h": "muntms",
+  "t": "Write 2 then 8 next to it.",
+  "b": "div-3"
+ },
+ {
+  "h": "wdbokd",
+  "t": "2 tens and 8 units.",
+  "b": "div-3"
+ },
+ {
+  "h": "1taeqfz",
+  "t": "How many 4s fit in 28?",
+  "b": "div-3"
+ },
+ {
+  "h": "1xtdvs4",
+  "t": "How many 4s fit into 28?",
+  "b": "div-3"
+ },
+ {
+  "h": "1s59xli",
+  "t": "Count up in 4s and stop before you pass 28: 4, 8, 12, 16, 20, 24, 28, 32…",
+  "b": "div-3"
+ },
+ {
+  "h": "2jr65k",
+  "t": "7 times 4 equals 28, and 8 times 4 equals 32 is too big.",
+  "b": "div-3"
+ },
+ {
+  "h": "1wy98b0",
+  "t": "Multiply: 7 times 4",
+  "b": "div-3"
+ },
+ {
+  "h": "1q0vvrr",
+  "t": "Multiply back: 7 times 4 is 28.",
+  "b": "div-3"
+ },
+ {
+  "h": "swvhki",
+  "t": "Count up in 4s, 7 times.",
+  "b": "common"
+ },
+ {
+  "h": "1lz4b31",
+  "t": "Subtract: 28 minus 28.",
+  "b": "div-3"
+ },
+ {
+  "h": "zdcd6l",
+  "t": "Subtract to see what's left: 28 minus 28 is 0.",
+  "b": "div-3"
+ },
+ {
+  "h": "t9jr1q",
+  "t": "Count up from 28 to 28.",
+  "b": "div-3"
+ },
+ {
+  "h": "ulxcc5",
+  "t": "28 plus ?",
+  "b": "div-3"
+ },
+ {
+  "h": "9fciuo",
+  "t": "equals 28",
+  "b": "common"
+ },
+ {
+  "h": "1527gqg",
+  "t": "Read the answer off the top: 2148 divided by 4",
+  "b": "div-3"
+ },
+ {
+  "h": "1us2wlr",
+  "t": "Read the digits along the top: 2148 divided by 4 is 537.",
+  "b": "div-3"
+ },
+ {
+  "h": "1xvcjtc",
+  "t": "The top digits read 537.",
+  "b": "div-3"
+ },
+ {
+  "h": "a9fe1",
+  "t": "7 times 6 equals 42, and 8 times 6 equals 48 is too big.",
+  "b": "div-3"
+ },
+ {
+  "h": "1wy98b2",
+  "t": "Multiply: 7 times 6",
+  "b": "div-3"
+ },
+ {
+  "h": "223chc",
+  "t": "Count up in 6s, 7 times.",
+  "b": "div-3"
+ },
+ {
+  "h": "14pqzqx",
+  "t": "42 plus ?",
+  "b": "div-3"
+ },
+ {
+  "h": "wqfwe5",
+  "t": "Dex's door code: x plus 4 equals 11.",
+  "b": "alg-1"
+ },
+ {
+  "h": "ro1ljv",
+  "t": "Think of a balance.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1hl50r",
+  "t": "Whatever you do to one side, do to the other, until x is alone.",
+  "b": "alg-1"
+ },
+ {
+  "h": "10ywzjg",
+  "t": "x plus 4 equals 11.",
+  "b": "alg-1"
+ },
+ {
+  "h": "68pnwx",
+  "t": "On the left is a bag with x cubes inside, plus 4 cubes.",
+  "b": "alg-1"
+ },
+ {
+  "h": "7szru1",
+  "t": "On the right are 11 cubes.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1jk9imj",
+  "t": "Both sides weigh the same.",
+  "b": "alg-1"
+ },
+ {
+  "h": "cfixgu",
+  "t": "To get x on its own, undo the plus 4.",
+  "b": "alg-1"
+ },
+ {
+  "h": "hbqwhi",
+  "t": "Take 4 cubes away from the left, and 4 away from the right, so it still balances.",
+  "b": "alg-1"
+ },
+ {
+  "h": "qrpa6z",
+  "t": "Now the bag is on its own, and it balances 7 cubes.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1fr2ivg",
+  "t": "So x is 7.",
+  "b": "common"
+ },
+ {
+  "h": "fwcyrp",
+  "t": "Check by putting 7 back in: 7 plus 4 is 11.",
+  "b": "alg-1"
+ },
+ {
+  "h": "jhn52p",
+  "t": "It matches, so x equals 7.",
+  "b": "alg-1"
+ },
+ {
+  "h": "r9ewzw",
+  "t": "Remember: An equation is a balance.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1mf3azm",
+  "t": "Do the same thing to both sides until x is on its own.",
+  "b": "alg-1"
+ },
+ {
+  "h": "kyrwar",
+  "t": "Your turn: x minus 5 equals 4.",
+  "b": "alg-1"
+ },
+ {
+  "h": "18mbcb8",
+  "t": "Undo the minus, work it out, check.",
+  "b": "alg-1"
+ },
+ {
+  "h": "sjkj4j",
+  "t": "Three codes on your own.",
+  "b": "common"
+ },
+ {
+  "h": "1sc8bmk",
+  "t": "Undo, work out, check.",
+  "b": "alg-1"
+ },
+ {
+  "h": "18puh9l",
+  "t": "x has 5 taken away.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1q71mi0",
+  "t": "Undo it: add the same from 4.",
+  "b": "alg-1"
+ },
+ {
+  "h": "tewbp1",
+  "t": "Undo the minus 5.",
+  "b": "alg-1"
+ },
+ {
+  "h": "vhm8fc",
+  "t": "x has 5 taken off.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1oh3c5y",
+  "t": "To get x alone, do the opposite to both sides: add 5.",
+  "b": "alg-1"
+ },
+ {
+  "h": "11oxeky",
+  "t": "The opposite of minus 5 is plus 5.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1mcldmc",
+  "t": "So type 5.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1qyu7e4",
+  "t": "Work it out: 4 plus 5",
+  "b": "alg-1"
+ },
+ {
+  "h": "34ncbb",
+  "t": "Work it out.",
+  "b": "common"
+ },
+ {
+  "h": "gcz1z1",
+  "t": "4 plus 5 is 9.",
+  "b": "alg-1"
+ },
+ {
+  "h": "15e6ik0",
+  "t": "Count on 5 from 4.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1jcol5m",
+  "t": "Check it: put 9 back in.",
+  "b": "alg-1"
+ },
+ {
+  "h": "p1lynk",
+  "t": "9 minus 5 equals what",
+  "b": "alg-1"
+ },
+ {
+  "h": "3vmv8q",
+  "t": "Check your x.",
+  "b": "common"
+ },
+ {
+  "h": "pmp30t",
+  "t": "Check: 9 minus 5 is 4.",
+  "b": "alg-1"
+ },
+ {
+  "h": "gn0vxf",
+  "t": "It matches, so x is right.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1ujguoa",
+  "t": "Work out 9 minus 5.",
+  "b": "alg-1"
+ },
+ {
+  "h": "bh6snq",
+  "t": "It should match 4.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1td16j5",
+  "t": "So what is x?",
+  "b": "common"
+ },
+ {
+  "h": "gjpa68",
+  "t": "Write x.",
+  "b": "common"
+ },
+ {
+  "h": "1fr2iv6",
+  "t": "So x is 9.",
+  "b": "alg-1"
+ },
+ {
+  "h": "ihkgtg",
+  "t": "The door code is cracked!",
+  "b": "alg-1"
+ },
+ {
+  "h": "n1mjo5",
+  "t": "The number you worked out in step 2.",
+  "b": "alg-1"
+ },
+ {
+  "h": "1o8jjl7",
+  "t": "New keypad: 3x equals 15.",
+  "b": "alg-2"
+ },
+ {
+  "h": "14r9jmf",
+  "t": "3x means 3 times x.",
+  "b": "alg-2"
+ },
+ {
+  "h": "blst2h",
+  "t": "To undo times, we divide.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1d6lxkl",
+  "t": "3x equals 15.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1xm3wvc",
+  "t": "3x means 3 times x: three bags, each with the same number of cubes.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1lmal0l",
+  "t": "They balance 15 cubes.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1dwfc0",
+  "t": "To undo times 3, divide by 3.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1j1mss",
+  "t": "Share the 15 cubes into 3 equal groups, one for each bag.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1nn48di",
+  "t": "Each group has 5 cubes, so each bag holds 5.",
+  "b": "alg-2"
+ },
+ {
+  "h": "11qnbsi",
+  "t": "x is 5.",
+  "b": "alg-2"
+ },
+ {
+  "h": "7waayl",
+  "t": "Check: 3 times 5 is 15.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1yfpmu5",
+  "t": "It matches.",
+  "b": "common"
+ },
+ {
+  "h": "1l92323",
+  "t": "Remember: 3x means 3 lots of x.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1vua04i",
+  "t": "To undo times, divide both sides.",
+  "b": "alg-2"
+ },
+ {
+  "h": "eqytn4",
+  "t": "Your turn: 4x equals 28.",
+  "b": "alg-2"
+ },
+ {
+  "h": "16dxa72",
+  "t": "Undo the times, work it out, check.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1hjbhs0",
+  "t": "You know the moves.",
+  "b": "common"
+ },
+ {
+  "h": "cv60l3",
+  "t": "4x means 4 times x.",
+  "b": "alg-2"
+ },
+ {
+  "h": "ki92o7",
+  "t": "Undo it by dividing both sides by?",
+  "b": "alg-2"
+ },
+ {
+  "h": "1hjiohq",
+  "t": "Undo the times 4.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1mpt9go",
+  "t": "The opposite of times is divide, so divide both sides by 4.",
+  "b": "alg-2"
+ },
+ {
+  "h": "rpjk4u",
+  "t": "The opposite of times 4 is divided by 4.",
+  "b": "alg-2"
+ },
+ {
+  "h": "ak387",
+  "t": "28 divided by 4",
+  "b": "alg-2"
+ },
+ {
+  "h": "1pe1pyy",
+  "t": "28 divided by 4 is 7.",
+  "b": "alg-2"
+ },
+ {
+  "h": "gbak81",
+  "t": "How many 4s make 28?",
+  "b": "alg-2"
+ },
+ {
+  "h": "qnt5b7",
+  "t": "Count up in 4s.",
+  "b": "alg-2"
+ },
+ {
+  "h": "1eprjiv",
+  "t": "4 times ?",
+  "b": "alg-2"
+ },
+ {
+  "h": "jeuqp2",
+  "t": "Check: 4 times 7",
+  "b": "alg-2"
+ },
+ {
+  "h": "74eg2e",
+  "t": "Check: 4 times 7 is 28.",
+  "b": "alg-2"
+ },
+ {
+  "h": "v4vief",
+  "t": "Door open!",
+  "b": "alg-2"
+ },
+ {
+  "h": "121tlop",
+  "t": "The number from step 2.",
+  "b": "common"
+ },
+ {
+  "h": "1et22kf",
+  "t": "The vault: 3x plus 5 equals 20.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1h4hhh0",
+  "t": "Two things happened to x, so we undo them backwards.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1f30lck",
+  "t": "Plus first, then times.",
+  "b": "alg-3"
+ },
+ {
+  "h": "y0jdb0",
+  "t": "3x plus 5 equals 20.",
+  "b": "alg-3"
+ },
+ {
+  "h": "40m9n3",
+  "t": "On the left: 3 bags of x and 5 cubes.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1bmpna5",
+  "t": "On the right: 20 cubes.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1s93iym",
+  "t": "Two things were done to x, so we undo them, last one first.",
+  "b": "alg-3"
+ },
+ {
+  "h": "kcdyyh",
+  "t": "First undo the plus 5.",
+  "b": "alg-3"
+ },
+ {
+  "h": "6oxvdr",
+  "t": "Take 5 cubes off both sides.",
+  "b": "alg-3"
+ },
+ {
+  "h": "ksx13",
+  "t": "Now 3 bags balance 15 cubes.",
+  "b": "alg-3"
+ },
+ {
+  "h": "jhg8os",
+  "t": "Now undo times 3: share 15 into 3 groups.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1183hjg",
+  "t": "Each bag holds 5, so x is 5.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1a0a4x6",
+  "t": "Check: 3 times 5 is 15, plus 5 is 20.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1um9g9b",
+  "t": "Remember: Two steps: undo the plus or minus first, then undo the times .",
+  "b": "alg-3"
+ },
+ {
+  "h": "15s1ece",
+  "t": "Always do the same to both sides.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1yhk87l",
+  "t": "Your turn: 2x plus 3 equals 15.",
+  "b": "alg-3"
+ },
+ {
+  "h": "e63klr",
+  "t": "Undo the plus, then the times, then check.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1qvfvzd",
+  "t": "Three vault codes on your own.",
+  "b": "alg-3"
+ },
+ {
+  "h": "516vcl",
+  "t": "Undo plus or minus first, then times.",
+  "b": "alg-3"
+ },
+ {
+  "h": "jq513s",
+  "t": "First undo the plus 3: take away it from both sides.",
+  "b": "alg-3"
+ },
+ {
+  "h": "166hghr",
+  "t": "Undo the plus 3 first.",
+  "b": "alg-3"
+ },
+ {
+  "h": "18veiwd",
+  "t": "Two things happen to x: times 2, then plus 3.",
+  "b": "alg-3"
+ },
+ {
+  "h": "15ers3d",
+  "t": "Undo them backwards.",
+  "b": "alg-3"
+ },
+ {
+  "h": "3pmsae",
+  "t": "First take away 3 from both sides.",
+  "b": "alg-3"
+ },
+ {
+  "h": "qfyia",
+  "t": "The opposite of plus 3 is minus 3.",
+  "b": "alg-3"
+ },
+ {
+  "h": "194pla6",
+  "t": "15 minus 3",
+  "b": "alg-3"
+ },
+ {
+  "h": "1831ag7",
+  "t": "15 minus 3 is 12.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1gwfvhh",
+  "t": "Now 2x equals 12.",
+  "b": "alg-3"
+ },
+ {
+  "h": "l6ptf0",
+  "t": "Count back 3 from 15.",
+  "b": "alg-3"
+ },
+ {
+  "h": "htr6g9",
+  "t": "Undo the times 2: divide both sides by?",
+  "b": "alg-3"
+ },
+ {
+  "h": "1hjiohk",
+  "t": "Undo the times 2.",
+  "b": "alg-3"
+ },
+ {
+  "h": "13ajcst",
+  "t": "Now undo the times 2: divide both sides by 2.",
+  "b": "alg-3"
+ },
+ {
+  "h": "2xtmwe",
+  "t": "The opposite of times 2 is divided by 2.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1h9128o",
+  "t": "12 divided by 2",
+  "b": "alg-3"
+ },
+ {
+  "h": "5plfkk",
+  "t": "12 divided by 2 is 6.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1vw2hla",
+  "t": "How many 2s make 12?",
+  "b": "alg-3"
+ },
+ {
+  "h": "10q2m1d",
+  "t": "2 times ?",
+  "b": "alg-3"
+ },
+ {
+  "h": "9fcivt",
+  "t": "equals 12",
+  "b": "common"
+ },
+ {
+  "h": "9jwu88",
+  "t": "Check: 2 times 6 plus 3",
+  "b": "alg-3"
+ },
+ {
+  "h": "wca5f3",
+  "t": "Check: 2 times 6 is 12, plus 3 is 15.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1kizs7v",
+  "t": "2 times 6 equals 12.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1gbvovv",
+  "t": "Then plus 3.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1fr2ivh",
+  "t": "So x is 6.",
+  "b": "alg-3"
+ },
+ {
+  "h": "1yelp4h",
+  "t": "Code cracked!",
+  "b": "alg-3"
+ },
+ {
+  "h": "1edyrkf",
+  "t": "Lu has 20 slices of garlic bread and three quarters go out for delivery.",
+  "b": "frac-1"
+ },
+ {
+  "h": "sv4y93",
+  "t": "Three quarters of 20.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1fdofx0",
+  "t": "Divide by the bottom, times by the top.",
+  "b": "frac-1"
+ },
+ {
+  "h": "ej9u7v",
+  "t": "The bottom number, 4, tells us to cut 20 into 4 equal parts.",
+  "b": "frac-1"
+ },
+ {
+  "h": "n2obet",
+  "t": "The top number, 3, tells us how many parts we take.",
+  "b": "frac-1"
+ },
+ {
+  "h": "aaqn7c",
+  "t": "Divide by the bottom number.",
+  "b": "frac-1"
+ },
+ {
+  "h": "blp7zk",
+  "t": "20 divided by 4 is 5.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1804rkh",
+  "t": "Each quarter is 5.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1yei16n",
+  "t": "Now times by the top number.",
+  "b": "frac-1"
+ },
+ {
+  "h": "n768bp",
+  "t": "We take 3 parts: 5 times 3 is 15.",
+  "b": "frac-1"
+ },
+ {
+  "h": "15s5c91",
+  "t": "So three quarters of 20 is 15.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1il53vf",
+  "t": "Remember: To find a fraction of an amount: divide by the bottom number, then times by the top number.",
+  "b": "frac-1"
+ },
+ {
+  "h": "gznti7",
+  "t": "Your turn: two thirds of 12.",
+  "b": "frac-1"
+ },
+ {
+  "h": "uwxgg3",
+  "t": "Divide by the bottom, then times by the top.",
+  "b": "frac-1"
+ },
+ {
+  "h": "7ajlww",
+  "t": "Three orders on your own.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1tu2kss",
+  "t": "Bottom first, then top.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1e6djvt",
+  "t": "The bottom number says cut 12 into 3 equal slices.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1h9128p",
+  "t": "12 divided by 3?",
+  "b": "frac-1"
+ },
+ {
+  "h": "1v49mm3",
+  "t": "Divide by the bottom.",
+  "b": "frac-1"
+ },
+ {
+  "h": "oq5qiw",
+  "t": "The bottom number, 3, means cut it into 3 equal slices.",
+  "b": "frac-1"
+ },
+ {
+  "h": "10hp1ld",
+  "t": "12 divided by 3 is 4, so one slice is 4.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1r686ys",
+  "t": "Share 12 into 3 equal groups.",
+  "b": "frac-1"
+ },
+ {
+  "h": "rroeti",
+  "t": "How many in each?",
+  "b": "frac-1"
+ },
+ {
+  "h": "1ktpea8",
+  "t": "3 times ?",
+  "b": "common"
+ },
+ {
+  "h": "b885ly",
+  "t": "The top number says take 2 slices.",
+  "b": "frac-1"
+ },
+ {
+  "h": "12dmxvp",
+  "t": "4 times 2?",
+  "b": "frac-1"
+ },
+ {
+  "h": "1h1w86i",
+  "t": "Times by the top.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1r3sucf",
+  "t": "The top number, 2, says how many slices we take.",
+  "b": "frac-1"
+ },
+ {
+  "h": "e5nquf",
+  "t": "4 times 2 is 8.",
+  "b": "frac-1"
+ },
+ {
+  "h": "mcakdb",
+  "t": "One slice is 4.",
+  "b": "frac-1"
+ },
+ {
+  "h": "19u7ps5",
+  "t": "You want 2 of them.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1709le3",
+  "t": "So 2 thirds of 12 is?",
+  "b": "frac-1"
+ },
+ {
+  "h": "pozwgj",
+  "t": "So 2 thirds of 12 is 8.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1g30rm0",
+  "t": "6 eighths of a pizza is the same as how many quarters?",
+  "b": "frac-2"
+ },
+ {
+  "h": "xwavk6",
+  "t": "Matching fractions: whatever you do to the bottom, do to the top.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1jhr76g",
+  "t": "6 eighths is the same as how many quarters?",
+  "b": "frac-2"
+ },
+ {
+  "h": "qcj17b",
+  "t": "Here is 6 eighths: a bar cut into 8 slices with 6 coloured.",
+  "b": "frac-2"
+ },
+ {
+  "h": "13h0bn",
+  "t": "Compare the bottom numbers: 8 and 4.",
+  "b": "frac-2"
+ },
+ {
+  "h": "ty519p",
+  "t": "8 divided by 2 is 4.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1s73658",
+  "t": "So every 2 small slices join to make 1 big slice.",
+  "b": "frac-2"
+ },
+ {
+  "h": "12266o5",
+  "t": "Do the same to the top: 6 divided by 2 is 3.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1o9ojjy",
+  "t": "3 quarters are coloured: exactly the same amount of the bar.",
+  "b": "frac-2"
+ },
+ {
+  "h": "aof3bw",
+  "t": "So 6 eighths is the same as 3 quarters.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1da2o3h",
+  "t": "Remember: Equivalent fractions: whatever you do to the bottom, do the same to the top.",
+  "b": "frac-2"
+ },
+ {
+  "h": "105v96v",
+  "t": "Your turn: two thirds is how many twelfths?",
+  "b": "frac-2"
+ },
+ {
+  "h": "ub25n5",
+  "t": "Compare the bottoms, then do the same to the top.",
+  "b": "frac-2"
+ },
+ {
+  "h": "c2cqx9",
+  "t": "Three on your own.",
+  "b": "common"
+ },
+ {
+  "h": "hkq10e",
+  "t": "Bottoms first, then the same to the top.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1u5lg0d",
+  "t": "How many times bigger is 12 than 3?",
+  "b": "frac-2"
+ },
+ {
+  "h": "3hrr53",
+  "t": "Compare the bottoms.",
+  "b": "frac-2"
+ },
+ {
+  "h": "10v7ujj",
+  "t": "Compare the bottoms: 12 is 4 times 3.",
+  "b": "frac-2"
+ },
+ {
+  "h": "10nwus5",
+  "t": "Each slice was cut into 4.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1gcmeec",
+  "t": "Do the same to the top: 2 times 4",
+  "b": "frac-2"
+ },
+ {
+  "h": "zlg06c",
+  "t": "Do the same to the top.",
+  "b": "frac-2"
+ },
+ {
+  "h": "w8lajy",
+  "t": "Whatever you do to the bottom, do to the top: 2 times 4 is 8.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1u4vdt0",
+  "t": "The bottom was multiplied by 4.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1ec1dds",
+  "t": "Multiply the top by 4 too.",
+  "b": "frac-2"
+ },
+ {
+  "h": "t643wt",
+  "t": "Fill in the matching fraction.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1wvbpzf",
+  "t": "Write the fraction.",
+  "b": "frac-2"
+ },
+ {
+  "h": "1p61e79",
+  "t": "So 2 thirds is the same as 8 over 12.",
+  "b": "frac-2"
+ },
+ {
+  "h": "drsqip",
+  "t": "The top number you just worked out.",
+  "b": "frac-2"
+ },
+ {
+  "h": "g5lyj2",
+  "t": "The bottom was divided by 4.",
+  "b": "frac-2"
+ },
+ {
+  "h": "ob65tr",
+  "t": "Divide the top by 4 too.",
+  "b": "frac-2"
+ },
+ {
+  "h": "9qshc7",
+  "t": "Half a pizza plus a third.",
+  "b": "frac-3"
+ },
+ {
+  "h": "imrna5",
+  "t": "You can't add different slices, so we cut them the same size first.",
+  "b": "frac-3"
+ },
+ {
+  "h": "admhr3",
+  "t": "A half plus a third.",
+  "b": "frac-3"
+ },
+ {
+  "h": "txae9",
+  "t": "The slices are different sizes, so we can't just add them.",
+  "b": "frac-3"
+ },
+ {
+  "h": "5g5s71",
+  "t": "First we make them the same size.",
+  "b": "frac-3"
+ },
+ {
+  "h": "14m722s",
+  "t": "Find a number that 2 and 3 both go into.",
+  "b": "frac-3"
+ },
+ {
+  "h": "mdqdz5",
+  "t": "6 works.",
+  "b": "frac-3"
+ },
+ {
+  "h": "9knd1",
+  "t": "Cut both bars into sixths.",
+  "b": "frac-3"
+ },
+ {
+  "h": "688c1m",
+  "t": "Now the slices match.",
+  "b": "frac-3"
+ },
+ {
+  "h": "s6osqk",
+  "t": "3 sixths plus 2 sixths is 5 sixths.",
+  "b": "frac-3"
+ },
+ {
+  "h": "2dt6qz",
+  "t": "Add the tops, keep the bottom the same.",
+  "b": "frac-3"
+ },
+ {
+  "h": "73fkjw",
+  "t": "Remember: You can only add fractions with the same bottom number.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1148zpi",
+  "t": "Make the bottoms match, then add the tops.",
+  "b": "frac-3"
+ },
+ {
+  "h": "j3651g",
+  "t": "Your turn: a third plus a quarter.",
+  "b": "frac-3"
+ },
+ {
+  "h": "120itfa",
+  "t": "Common bottom, convert both, then add the tops.",
+  "b": "frac-3"
+ },
+ {
+  "h": "y3ra4t",
+  "t": "Three mixed orders on your own.",
+  "b": "frac-3"
+ },
+ {
+  "h": "133hsuc",
+  "t": "Match the bottoms, then add the tops.",
+  "b": "frac-3"
+ },
+ {
+  "h": "11tkjdu",
+  "t": "The bottoms don't match.",
+  "b": "frac-3"
+ },
+ {
+  "h": "ba01ea",
+  "t": "What's the smallest number both 3 and 4 go into?",
+  "b": "frac-3"
+ },
+ {
+  "h": "7awqhv",
+  "t": "Find a common bottom.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1usly49",
+  "t": "You can't add different slices.",
+  "b": "frac-3"
+ },
+ {
+  "h": "109x89q",
+  "t": "Find a bottom that 3 and 4 both fit into: 12.",
+  "b": "frac-3"
+ },
+ {
+  "h": "x49ja4",
+  "t": "Count in 4s: 4, 8, 12, 16… Which one does 3 also go into?",
+  "b": "frac-3"
+ },
+ {
+  "h": "11dujke",
+  "t": "3 times 4 equals 12 and 4 times 3 equals 12.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1k2l57c",
+  "t": "3 times 4 equals 12.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1v8gnhj",
+  "t": "Do the same to the top: 1 times 4",
+  "b": "frac-3"
+ },
+ {
+  "h": "17r5mk0",
+  "t": "Convert 1/3.",
+  "b": "frac-3"
+ },
+ {
+  "h": "fzbizq",
+  "t": "3 times 4 makes 12, so do the same to the top: 1 times 4 is 4.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1xgtbvt",
+  "t": "The bottom went times 4.",
+  "b": "frac-3"
+ },
+ {
+  "h": "2uyr4x",
+  "t": "Do times 4 to the top too.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1ihn7rs",
+  "t": "4 times 3 equals 12.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1v8gnhc",
+  "t": "Do the same to the top: 1 times 3",
+  "b": "frac-3"
+ },
+ {
+  "h": "17r5mk7",
+  "t": "Convert 1/4.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1hthzk6",
+  "t": "4 times 3 makes 12, so do the same to the top: 1 times 3 is 3.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1xgtbvy",
+  "t": "The bottom went times 3.",
+  "b": "frac-3"
+ },
+ {
+  "h": "cicveu",
+  "t": "Do times 3 to the top too.",
+  "b": "frac-3"
+ },
+ {
+  "h": "16e2cyt",
+  "t": "Now the bottoms match.",
+  "b": "frac-3"
+ },
+ {
+  "h": "15x5p6g",
+  "t": "Add the tops: 4 plus 3",
+  "b": "frac-3"
+ },
+ {
+  "h": "13ux1c5",
+  "t": "Add the tops.",
+  "b": "frac-3"
+ },
+ {
+  "h": "xqt3kh",
+  "t": "Now the slices are the same size, just add the tops: 4 plus 3 is 7.",
+  "b": "frac-3"
+ },
+ {
+  "h": "2o76sc",
+  "t": "The bottom stays 12.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1hx65rl",
+  "t": "Only add the tops.",
+  "b": "frac-3"
+ },
+ {
+  "h": "oipg7w",
+  "t": "The bottom stays the same.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1d3cj18",
+  "t": "So the answer is 7 over 12.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1olfw30",
+  "t": "The top you just added.",
+  "b": "frac-3"
+ },
+ {
+  "h": "17r5mk1",
+  "t": "Convert 1/2.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1v8gnhd",
+  "t": "Do the same to the top: 1 times 2",
+  "b": "frac-3"
+ },
+ {
+  "h": "1xgtbvz",
+  "t": "The bottom went times 2.",
+  "b": "frac-3"
+ },
+ {
+  "h": "db4crr",
+  "t": "Do times 2 to the top too.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1ooo1lg",
+  "t": "What's the smallest number both 2 and 3 go into?",
+  "b": "frac-3"
+ },
+ {
+  "h": "bf7fgt",
+  "t": "Count in 3s: 3, 6, 9, 12… Which one does 2 also go into?",
+  "b": "frac-3"
+ },
+ {
+  "h": "1ukbzou",
+  "t": "2 times 3 equals 6 and 3 times 2 equals 6.",
+  "b": "frac-3"
+ },
+ {
+  "h": "8t87cb",
+  "t": "2 times 3 equals 6.",
+  "b": "frac-3"
+ },
+ {
+  "h": "1b8ip4b",
+  "t": "3 times 2 equals 6.",
+  "b": "frac-3"
+ },
+ {
+  "h": "zi6noe",
+  "t": "Add the tops: 3 plus 2",
+  "b": "frac-3"
+ },
+ {
+  "h": "1jeczo3",
+  "t": "Two fill-ups: 47 litres and 38 litres.",
+  "b": "add-1"
+ },
+ {
+  "h": "eyva1j",
+  "t": "47 plus 38.",
+  "b": "add-1"
+ },
+ {
+  "h": "ornsw",
+  "t": "Line the numbers up in columns and start with the units.",
+  "b": "add-1"
+ },
+ {
+  "h": "fmcuwy",
+  "t": "Here are 47 and 38 as blocks.",
+  "b": "add-1"
+ },
+ {
+  "h": "1h7lrbt",
+  "t": "The long rods are tens and the little cubes are units.",
+  "b": "add-1"
+ },
+ {
+  "h": "1p60l5u",
+  "t": "To add in columns, line them up: units under units, tens under tens.",
+  "b": "add-1"
+ },
+ {
+  "h": "17k0we2",
+  "t": "Always start with the units.",
+  "b": "add-1"
+ },
+ {
+  "h": "uivq0g",
+  "t": "7 units plus 8 units.",
+  "b": "add-1"
+ },
+ {
+  "h": "125wkob",
+  "t": "Put them together and count: 15 units.",
+  "b": "add-1"
+ },
+ {
+  "h": "l7xlqg",
+  "t": "15 units is too many for one column.",
+  "b": "add-1"
+ },
+ {
+  "h": "14sxkpe",
+  "t": "10 units make 1 ten, so we swap them.",
+  "b": "add-1"
+ },
+ {
+  "h": "bpebjq",
+  "t": "The 5 units stay: write 5 in the units column.",
+  "b": "add-1"
+ },
+ {
+  "h": "1180t89",
+  "t": "The new ten is carried over to the tens column.",
+  "b": "add-1"
+ },
+ {
+  "h": "1l8k48g",
+  "t": "Now the tens column.",
+  "b": "add-1"
+ },
+ {
+  "h": "19weze0",
+  "t": "4 tens plus 3 tens, plus the 1 ten we carried, makes 8 tens.",
+  "b": "add-1"
+ },
+ {
+  "h": "f8ak78",
+  "t": "Write 8 in the tens column.",
+  "b": "add-1"
+ },
+ {
+  "h": "g6dkdt",
+  "t": "Read the answer row from left to right: 8 tens and 5 units.",
+  "b": "add-1"
+ },
+ {
+  "h": "3hlag",
+  "t": "85.",
+  "b": "add-1"
+ },
+ {
+  "h": "1s7ubbw",
+  "t": "So 47 plus 38 is 85.",
+  "b": "add-1"
+ },
+ {
+  "h": "yxj73g",
+  "t": "Remember: Start with the units.",
+  "b": "add-1"
+ },
+ {
+  "h": "cgxzj1",
+  "t": "If a column makes 10 or more, swap 10 units for 1 ten: write the units, carry the ten.",
+  "b": "add-1"
+ },
+ {
+  "h": "16t275h",
+  "t": "Your turn: 56 plus 27.",
+  "b": "add-1"
+ },
+ {
+  "h": "92i6dw",
+  "t": "Units first, carry if it gets to 10 or more.",
+  "b": "add-1"
+ },
+ {
+  "h": "f4i9ug",
+  "t": "I give you a tip for each step.",
+  "b": "add-1"
+ },
+ {
+  "h": "1bmz1y3",
+  "t": "Units, carry, tens, answer.",
+  "b": "add-1"
+ },
+ {
+  "h": "gguyo6",
+  "t": "Start with the units column: 6 plus 7",
+  "b": "add-1"
+ },
+ {
+  "h": "10sw8w8",
+  "t": "Add the units.",
+  "b": "common"
+ },
+ {
+  "h": "1aurnm",
+  "t": "Always start on the right, with the units.",
+  "b": "common"
+ },
+ {
+  "h": "1g73axy",
+  "t": "6 plus 7 is 13.",
+  "b": "add-1"
+ },
+ {
+  "h": "1rrhapr",
+  "t": "Add the digits in the units column: 6 plus 7.",
+  "b": "add-1"
+ },
+ {
+  "h": "1yjpn1f",
+  "t": "6 plus 7 equals 13",
+  "b": "add-1"
+ },
+ {
+  "h": "zkds24",
+  "t": "13 is too big for one column.",
+  "b": "common"
+ },
+ {
+  "h": "1cz67o3",
+  "t": "13 units is 1 ten and how many units?",
+  "b": "common"
+ },
+ {
+  "h": "13gxoe5",
+  "t": "Write a digit, carry the 1.",
+  "b": "common"
+ },
+ {
+  "h": "1s5rpkb",
+  "t": "13 won't fit in one column.",
+  "b": "common"
+ },
+ {
+  "h": "hw7tsb",
+  "t": "13 units is 1 ten and 3 units.",
+  "b": "common"
+ },
+ {
+  "h": "qgwlqi",
+  "t": "Write the 3, and carry the 1 over to the tens.",
+  "b": "common"
+ },
+ {
+  "h": "12r350l",
+  "t": "Take 10 away from 13.",
+  "b": "common"
+ },
+ {
+  "h": "10hmh8u",
+  "t": "That's what stays in this column.",
+  "b": "common"
+ },
+ {
+  "h": "d56fc6",
+  "t": "13 minus 10 equals 3",
+  "b": "common"
+ },
+ {
+  "h": "1erom7a",
+  "t": "Now the tens column: 5 plus 2 plus 1",
+  "b": "add-1"
+ },
+ {
+  "h": "13ux93l",
+  "t": "Add the tens.",
+  "b": "common"
+ },
+ {
+  "h": "156dn5h",
+  "t": "Next, the tens column: 5 plus 2 plus 1 is 8.",
+  "b": "add-1"
+ },
+ {
+  "h": "13usfiw",
+  "t": "Don't forget the 1 you carried.",
+  "b": "common"
+ },
+ {
+  "h": "1gbufyj",
+  "t": "Add the digits in the tens column: 5 plus 2 plus 1.",
+  "b": "add-1"
+ },
+ {
+  "h": "msz5as",
+  "t": "5 plus 2 plus 1 equals 8",
+  "b": "add-1"
+ },
+ {
+  "h": "192d3hv",
+  "t": "Read the answer along the bottom: 56 plus 27",
+  "b": "add-1"
+ },
+ {
+  "h": "1oxtu4w",
+  "t": "Read the bottom row from left to right: 56 plus 27 is 83.",
+  "b": "add-1"
+ },
+ {
+  "h": "aot550",
+  "t": "Read the digits you wrote, from left to right.",
+  "b": "common"
+ },
+ {
+  "h": "135rhls",
+  "t": "It's 83.",
+  "b": "add-1"
+ },
+ {
+  "h": "1a2hezg",
+  "t": "Big order: 468 dollars plus 275.",
+  "b": "add-2"
+ },
+ {
+  "h": "kyj5cj",
+  "t": "Same columns, just one more.",
+  "b": "add-2"
+ },
+ {
+  "h": "smcnit",
+  "t": "468 plus 275.",
+  "b": "add-2"
+ },
+ {
+  "h": "2a64df",
+  "t": "On the left are counters: yellow for units, blue for tens, green for hundreds.",
+  "b": "add-2"
+ },
+ {
+  "h": "jfcdb5",
+  "t": "In columns, line up hundreds, tens and units, then always start with the units.",
+  "b": "add-2"
+ },
+ {
+  "h": "11wi59s",
+  "t": "The units column: 8 plus 5, is 13.",
+  "b": "add-2"
+ },
+ {
+  "h": "1up93rx",
+  "t": "That's 10 or more, so 10 units swap for 1 of the tens.",
+  "b": "add-2"
+ },
+ {
+  "h": "5rdzoz",
+  "t": "Write 3 and carry the 1.",
+  "b": "add-2"
+ },
+ {
+  "h": "manzpk",
+  "t": "The tens column: 6 plus 7, plus the 1 we carried, is 14.",
+  "b": "add-2"
+ },
+ {
+  "h": "xw39hb",
+  "t": "That's 10 or more, so 10 tens swap for 1 of the hundreds.",
+  "b": "add-2"
+ },
+ {
+  "h": "794egk",
+  "t": "Write 4 and carry the 1.",
+  "b": "add-2"
+ },
+ {
+  "h": "15jpcva",
+  "t": "The hundreds column: 4 plus 2, plus the 1 we carried, is 7.",
+  "b": "add-2"
+ },
+ {
+  "h": "gjpa4v",
+  "t": "Write 7.",
+  "b": "add-2"
+ },
+ {
+  "h": "1o0f9pw",
+  "t": "Read the answer from left to right: 743.",
+  "b": "add-2"
+ },
+ {
+  "h": "3goi6b",
+  "t": "So 468 plus 275 is 743.",
+  "b": "add-2"
+ },
+ {
+  "h": "yv62nq",
+  "t": "Remember: Units first, then tens, then hundreds.",
+  "b": "add-2"
+ },
+ {
+  "h": "n3cbrv",
+  "t": "Every time a column makes 10 or more, carry 1 to the next column.",
+  "b": "add-2"
+ },
+ {
+  "h": "zb10ym",
+  "t": "Your turn: 357 plus 286.",
+  "b": "add-2"
+ },
+ {
+  "h": "11jh77v",
+  "t": "Units, tens, hundreds.",
+  "b": "add-2"
+ },
+ {
+  "h": "89kg6y",
+  "t": "Carry when a column hits 10.",
+  "b": "add-2"
+ },
+ {
+  "h": "ycimy8",
+  "t": "Three big totals on your own.",
+  "b": "add-2"
+ },
+ {
+  "h": "ts21y",
+  "t": "Start with the units column: 7 plus 6",
+  "b": "add-2"
+ },
+ {
+  "h": "lsy4jq",
+  "t": "7 plus 6 is 13.",
+  "b": "add-2"
+ },
+ {
+  "h": "8dg5cv",
+  "t": "Add the digits in the units column: 7 plus 6.",
+  "b": "add-2"
+ },
+ {
+  "h": "1kdlww3",
+  "t": "7 plus 6 equals 13",
+  "b": "add-2"
+ },
+ {
+  "h": "aen2gc",
+  "t": "Now the tens column: 5 plus 8 plus 1",
+  "b": "add-2"
+ },
+ {
+  "h": "a0tptu",
+  "t": "Next, the tens column: 5 plus 8 plus 1 is 14.",
+  "b": "add-2"
+ },
+ {
+  "h": "1tr5341",
+  "t": "Add the digits in the tens column: 5 plus 8 plus 1.",
+  "b": "add-2"
+ },
+ {
+  "h": "15aatdv",
+  "t": "5 plus 8 plus 1 equals 14",
+  "b": "add-2"
+ },
+ {
+  "h": "92nua3",
+  "t": "14 is too big for one column.",
+  "b": "add-2"
+ },
+ {
+  "h": "1ahqhf3",
+  "t": "14 tens is 1 hundred and how many tens?",
+  "b": "add-2"
+ },
+ {
+  "h": "1qrrpd8",
+  "t": "14 won't fit in one column.",
+  "b": "add-2"
+ },
+ {
+  "h": "fsei8",
+  "t": "14 tens is 1 hundred and 4 tens.",
+  "b": "add-2"
+ },
+ {
+  "h": "rdk2wm",
+  "t": "Write the 4, and carry the 1 over to the hundreds.",
+  "b": "add-2"
+ },
+ {
+  "h": "12r350i",
+  "t": "Take 10 away from 14.",
+  "b": "add-2"
+ },
+ {
+  "h": "1n3b546",
+  "t": "14 minus 10 equals 4",
+  "b": "add-2"
+ },
+ {
+  "h": "1ku55nf",
+  "t": "Now the hundreds column: 3 plus 2 plus 1",
+  "b": "add-2"
+ },
+ {
+  "h": "17c8tca",
+  "t": "Add the hundreds.",
+  "b": "add-2"
+ },
+ {
+  "h": "tvu012",
+  "t": "Next, the hundreds column: 3 plus 2 plus 1 is 6.",
+  "b": "add-2"
+ },
+ {
+  "h": "mtp912",
+  "t": "Add the digits in the hundreds column: 3 plus 2 plus 1.",
+  "b": "add-2"
+ },
+ {
+  "h": "jlcbmk",
+  "t": "3 plus 2 plus 1 equals 6",
+  "b": "add-2"
+ },
+ {
+  "h": "1cugcm0",
+  "t": "Read the answer along the bottom: 357 plus 286",
+  "b": "add-2"
+ },
+ {
+  "h": "17f0h8h",
+  "t": "Read the bottom row from left to right: 357 plus 286 is 643.",
+  "b": "add-2"
+ },
+ {
+  "h": "dq6dtm",
+  "t": "It's 643.",
+  "b": "add-2"
+ },
+ {
+  "h": "aa8rnz",
+  "t": "10 is too big for one column.",
+  "b": "add-2"
+ },
+ {
+  "h": "12r350m",
+  "t": "Take 10 away from 10.",
+  "b": "add-2"
+ },
+ {
+  "h": "14ahqxy",
+  "t": "10 minus 10 equals 0",
+  "b": "add-2"
+ },
+ {
+  "h": "58yo7l",
+  "t": "The tank had 352 litres and 127 went into the cars.",
+  "b": "add-3"
+ },
+ {
+  "h": "9qxf00",
+  "t": "352 take away 127.",
+  "b": "add-3"
+ },
+ {
+  "h": "183bdfw",
+  "t": "When the top digit is too small, we exchange.",
+  "b": "add-3"
+ },
+ {
+  "h": "mqu3bx",
+  "t": "The counters show 352: 3 hundreds, 5 tens and 2 units.",
+  "b": "add-3"
+ },
+ {
+  "h": "1ptj4qu",
+  "t": "Write the bigger number on top, line up the columns, and start with the units.",
+  "b": "add-3"
+ },
+ {
+  "h": "1mvtl3u",
+  "t": "Units first: 2 take away 7.",
+  "b": "add-3"
+ },
+ {
+  "h": "wdkg0s",
+  "t": "We can't take 7 units away from 2.",
+  "b": "add-3"
+ },
+ {
+  "h": "d3xe2l",
+  "t": "We need more units.",
+  "b": "add-3"
+ },
+ {
+  "h": "1076n9s",
+  "t": "So we exchange.",
+  "b": "add-3"
+ },
+ {
+  "h": "3xdlvt",
+  "t": "Take 1 ten from the tens column and swap it for 10 units.",
+  "b": "add-3"
+ },
+ {
+  "h": "btau5i",
+  "t": "The tens go down from 5 to 4.",
+  "b": "add-3"
+ },
+ {
+  "h": "179sst4",
+  "t": "The units go up from 2 to 12.",
+  "b": "add-3"
+ },
+ {
+  "h": "1a04ch9",
+  "t": "Now we have 12 units.",
+  "b": "add-3"
+ },
+ {
+  "h": "wtestn",
+  "t": "12 take away 7 is 5.",
+  "b": "add-3"
+ },
+ {
+  "h": "1wajt1s",
+  "t": "Write 5 in the units column.",
+  "b": "add-3"
+ },
+ {
+  "h": "17ix8ow",
+  "t": "The tens column: we have 4 tens now, not 5.",
+  "b": "add-3"
+ },
+ {
+  "h": "1m8cin2",
+  "t": "4 take away 2 is 2.",
+  "b": "add-3"
+ },
+ {
+  "h": "5weshg",
+  "t": "The hundreds: 3 take away 1 is 2.",
+  "b": "add-3"
+ },
+ {
+  "h": "1ssk6g7",
+  "t": "Read the answer: 225.",
+  "b": "add-3"
+ },
+ {
+  "h": "628fqy",
+  "t": "Check it by adding back: 225 plus 127 is 352.",
+  "b": "add-3"
+ },
+ {
+  "h": "fecnea",
+  "t": "It matches, so we got it right.",
+  "b": "add-3"
+ },
+ {
+  "h": "1a8pr59",
+  "t": "Remember: Units first.",
+  "b": "add-3"
+ },
+ {
+  "h": "1vlj8qd",
+  "t": "If the top digit is smaller, exchange: take 1 from the next column and make 10 more here.",
+  "b": "add-3"
+ },
+ {
+  "h": "wbmr84",
+  "t": "Your turn: 463 take away 238.",
+  "b": "add-3"
+ },
+ {
+  "h": "1ynd3i8",
+  "t": "Check each column: is the top big enough?",
+  "b": "add-3"
+ },
+ {
+  "h": "163lhz8",
+  "t": "If not, exchange.",
+  "b": "add-3"
+ },
+ {
+  "h": "w6ngx7",
+  "t": "Exchange when the top is too small, then take away.",
+  "b": "add-3"
+ },
+ {
+  "h": "v6xw60",
+  "t": "3 take away 8 won't work.",
+  "b": "add-3"
+ },
+ {
+  "h": "s44y29",
+  "t": "Swap 1 ten for 10 units.",
+  "b": "add-3"
+ },
+ {
+  "h": "1fe5pko",
+  "t": "3 plus 10 equals what",
+  "b": "add-3"
+ },
+ {
+  "h": "12zlfus",
+  "t": "Exchange first.",
+  "b": "add-3"
+ },
+ {
+  "h": "nfylbs",
+  "t": "You can't take 8 from 3.",
+  "b": "add-3"
+ },
+ {
+  "h": "zequzu",
+  "t": "So swap 1 ten from next door for 10 units.",
+  "b": "add-3"
+ },
+ {
+  "h": "1aulkpo",
+  "t": "The 6 becomes 5, and the 3 becomes 13.",
+  "b": "add-3"
+ },
+ {
+  "h": "q52vaf",
+  "t": "Borrow 10 from the next column: 3 plus 10.",
+  "b": "add-3"
+ },
+ {
+  "h": "n7a7gw",
+  "t": "3 plus 10 equals 13",
+  "b": "add-3"
+ },
+ {
+  "h": "ffp15p",
+  "t": "Start with the units: 13 minus 8",
+  "b": "add-3"
+ },
+ {
+  "h": "ctmogs",
+  "t": "Take away the units.",
+  "b": "add-3"
+ },
+ {
+  "h": "1mup8hy",
+  "t": "Units column: 13 take away 8 is 5.",
+  "b": "add-3"
+ },
+ {
+  "h": "bbv3mc",
+  "t": "Count up from 8 to 13.",
+  "b": "add-3"
+ },
+ {
+  "h": "1vf0gx3",
+  "t": "8 plus ?",
+  "b": "add-3"
+ },
+ {
+  "h": "9fcivs",
+  "t": "equals 13",
+  "b": "add-3"
+ },
+ {
+  "h": "si6byk",
+  "t": "Now the tens: 5 minus 3",
+  "b": "add-3"
+ },
+ {
+  "h": "hlvjwl",
+  "t": "Take away the tens.",
+  "b": "add-3"
+ },
+ {
+  "h": "iwp72c",
+  "t": "Tens column: 5 take away 3 is 2.",
+  "b": "add-3"
+ },
+ {
+  "h": "1ty1dpk",
+  "t": "Count up from 3 to 5.",
+  "b": "add-3"
+ },
+ {
+  "h": "1s58gcs",
+  "t": "3 plus ?",
+  "b": "add-3"
+ },
+ {
+  "h": "yq3fpr",
+  "t": "equals 5",
+  "b": "add-3"
+ },
+ {
+  "h": "1r82qf",
+  "t": "Now the hundreds: 4 minus 2",
+  "b": "add-3"
+ },
+ {
+  "h": "12nvvfi",
+  "t": "Take away the hundreds.",
+  "b": "add-3"
+ },
+ {
+  "h": "tx7bkv",
+  "t": "Hundreds column: 4 take away 2 is 2.",
+  "b": "add-3"
+ },
+ {
+  "h": "1tc3v9k",
+  "t": "Count up from 2 to 4.",
+  "b": "add-3"
+ },
+ {
+  "h": "1rjazn1",
+  "t": "2 plus ?",
+  "b": "add-3"
+ },
+ {
+  "h": "yq3fpq",
+  "t": "equals 4",
+  "b": "add-3"
+ },
+ {
+  "h": "1kkxqvf",
+  "t": "Read the answer along the bottom: 463 minus 238",
+  "b": "add-3"
+ },
+ {
+  "h": "3936m1",
+  "t": "Read the bottom row: 463 take away 238 is 225.",
+  "b": "add-3"
+ },
+ {
+  "h": "1tpkyhn",
+  "t": "Check: 225 plus 238 equals 463.",
+  "b": "add-3"
+ },
+ {
+  "h": "1y67cb6",
+  "t": "Read the digits you wrote, left to right.",
+  "b": "add-3"
+ },
+ {
+  "h": "dq6am6",
+  "t": "It's 225.",
+  "b": "add-3"
+ },
+ {
+  "h": "1qujuku",
+  "t": "1 plus ?",
+  "b": "add-3"
+ },
+ {
+  "h": "nbd8hf",
+  "t": "Swap 1 hundred for 10 tens.",
+  "b": "add-3"
+ },
+ {
+  "h": "yq3fpk",
+  "t": "equals 2",
+  "b": "add-3"
+ },
+ {
+  "h": "1sniui5",
+  "t": "Count up from 1 to 2.",
+  "b": "add-3"
+ },
+ {
+  "h": "1w0xxmu",
+  "t": "9 plus ?",
+  "b": "add-3"
+ },
+ {
+  "h": "1715yu6",
+  "t": "Turning on the drift circuit.",
+  "b": "ang-1"
+ },
+ {
+  "h": "yksbwj",
+  "t": "The car faces North and spins clockwise to South.",
+  "b": "ang-1"
+ },
+ {
+  "h": "zhwmeh",
+  "t": "How far did it turn?",
+  "b": "ang-1"
+ },
+ {
+  "h": "gtg3oh",
+  "t": "We measure turns in degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "12a74r2",
+  "t": "Start facing North.",
+  "b": "ang-1"
+ },
+ {
+  "h": "k8m9nd",
+  "t": "A quarter turn is a right angle, like the corner of a page.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1jxk14t",
+  "t": "It measures 90 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "6n0j71",
+  "t": "Now turn clockwise, the way a clock's hands go, from North to South.",
+  "b": "ang-1"
+ },
+ {
+  "h": "13tvjyb",
+  "t": "Count each quarter turn: 1, 2.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1phe2mv",
+  "t": "That's 2 quarter turns.",
+  "b": "ang-1"
+ },
+ {
+  "h": "zn5zne",
+  "t": "Each quarter turn is 90 degrees, so 2 quarter turns is 2 times 90: 180 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "10udx1c",
+  "t": "That's a half turn.",
+  "b": "ang-1"
+ },
+ {
+  "h": "10w85cy",
+  "t": "So turning from North to South is a turn of 180 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "14zsivy",
+  "t": "Remember: A quarter turn is a right angle: 90 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "hcntui",
+  "t": "Count the quarter turns and times by 90.",
+  "b": "ang-1"
+ },
+ {
+  "h": "jac59t",
+  "t": "Your turn: North to East, but anticlockwise, the long way round.",
+  "b": "ang-1"
+ },
+ {
+  "h": "lokrmu",
+  "t": "Count the quarter turns, then times by 90.",
+  "b": "ang-1"
+ },
+ {
+  "h": "13qssbn",
+  "t": "Three turns on your own.",
+  "b": "ang-1"
+ },
+ {
+  "h": "sdf26g",
+  "t": "Count quarter turns, times by 90.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1mos7uf",
+  "t": "A quarter turn is a right angle.",
+  "b": "ang-1"
+ },
+ {
+  "h": "3nrbq2",
+  "t": "How many degrees is that?",
+  "b": "ang-1"
+ },
+ {
+  "h": "t8a45f",
+  "t": "How big is a right angle?",
+  "b": "ang-1"
+ },
+ {
+  "h": "zlg702",
+  "t": "A quarter turn makes a right angle, like the corner of a page.",
+  "b": "ang-1"
+ },
+ {
+  "h": "eb3zzs",
+  "t": "That is 90 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1knlbtu",
+  "t": "A full turn is 360 degrees.",
+  "b": "common"
+ },
+ {
+  "h": "fedf0e",
+  "t": "A quarter of it is…",
+  "b": "ang-1"
+ },
+ {
+  "h": "9kxqcx",
+  "t": "A right angle is 90 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "6of80b",
+  "t": "Turn anticlockwise from North to East.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1uy7nck",
+  "t": "How many quarter turns?",
+  "b": "ang-1"
+ },
+ {
+  "h": "fmrfph",
+  "t": "Count the quarter turns.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1nhx5vu",
+  "t": "Start facing North and turn anticlockwise.",
+  "b": "ang-1"
+ },
+ {
+  "h": "vp658o",
+  "t": "Count each quarter turn: that's 3, which is a three-quarter turn.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1spqq4v",
+  "t": "Follow the arrow anticlockwise and count each compass point you pass.",
+  "b": "ang-1"
+ },
+ {
+  "h": "qrl4ue",
+  "t": "Anticlockwise goes N, W, S, E.",
+  "b": "ang-1"
+ },
+ {
+  "h": "vrkuyf",
+  "t": "Each quarter turn is 90 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "whqyuk",
+  "t": "3 times 90 equals what",
+  "b": "ang-1"
+ },
+ {
+  "h": "1c0m9ld",
+  "t": "Times by 90.",
+  "b": "ang-1"
+ },
+ {
+  "h": "o4tz1y",
+  "t": "Each quarter turn is 90 degrees, so 3 quarter turns is 3 times 90: 270 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "bs65by",
+  "t": "Count in 90s: 90, 180, 270.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1pvkfv8",
+  "t": "How many degrees did the car turn?",
+  "b": "ang-1"
+ },
+ {
+  "h": "1k5op6p",
+  "t": "So North to East anticlockwise is a turn of 270 degrees.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1kb5sx4",
+  "t": "The number from the last step.",
+  "b": "common"
+ },
+ {
+  "h": "eu4iv1",
+  "t": "Follow the arrow clockwise and count each compass point you pass.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1vwu9tg",
+  "t": "Clockwise goes N, E, S, W.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1fxx51p",
+  "t": "2 times 90 equals what",
+  "b": "ang-1"
+ },
+ {
+  "h": "1jp4rgr",
+  "t": "Count in 90s: 90, 180.",
+  "b": "ang-1"
+ },
+ {
+  "h": "1d581v2",
+  "t": "A ramp leans on the straight track.",
+  "b": "ang-2"
+ },
+ {
+  "h": "ho972u",
+  "t": "The angles on a straight line always add up to 180 degrees.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1bnwgso",
+  "t": "Use that to find the missing one.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1at2g8w",
+  "t": "Here is a straight line, with angles of 65, 40 and x degrees sitting on it.",
+  "b": "ang-2"
+ },
+ {
+  "h": "d0sv8y",
+  "t": "A straight line is a half turn, so the angles on it always add up to 180 degrees.",
+  "b": "ang-2"
+ },
+ {
+  "h": "pc3adj",
+  "t": "Add up the angles you know: 65 plus 40 is 105.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1mld8qf",
+  "t": "x gets whatever is left: 180 take away 105 is 75.",
+  "b": "ang-2"
+ },
+ {
+  "h": "18h5c5a",
+  "t": "So x is 75 degrees.",
+  "b": "ang-2"
+ },
+ {
+  "h": "xuzwjp",
+  "t": "Check: 65 plus 40 plus 75 is 180.",
+  "b": "ang-2"
+ },
+ {
+  "h": "5t0j7d",
+  "t": "Remember: Angles on a straight line add up to 180 degrees.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1uuym2q",
+  "t": "Angles all the way round a point add up to 360 degrees.",
+  "b": "ang-2"
+ },
+ {
+  "h": "8s9ex1",
+  "t": "Your turn: these angles go all the way around a point.",
+  "b": "ang-2"
+ },
+ {
+  "h": "mf0z14",
+  "t": "Find x.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1nsu0gk",
+  "t": "Straight line: 180.",
+  "b": "ang-2"
+ },
+ {
+  "h": "ct86th",
+  "t": "All the way round: 360.",
+  "b": "ang-2"
+ },
+ {
+  "h": "d6bx75",
+  "t": "Angles all the way around a point add up to?",
+  "b": "ang-2"
+ },
+ {
+  "h": "ub7wpn",
+  "t": "What do they add up to?",
+  "b": "ang-2"
+ },
+ {
+  "h": "1tidbd4",
+  "t": "These angles go all the way round a point.",
+  "b": "ang-2"
+ },
+ {
+  "h": "8xg1jc",
+  "t": "That is a full turn, so they add up to 360 degrees.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1bk31nd",
+  "t": "All the way round is a full turn: four right angles.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1fbmkr8",
+  "t": "4 times 90 equals 360",
+  "b": "ang-2"
+ },
+ {
+  "h": "1ay1xpl",
+  "t": "Add the angles you know: 120 plus 95 plus 70",
+  "b": "ang-2"
+ },
+ {
+  "h": "xcbry4",
+  "t": "Add the known angles.",
+  "b": "ang-2"
+ },
+ {
+  "h": "xbvip5",
+  "t": "Add up the angles you know: 120 plus 95 plus 70 is 285.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1yqjkh1",
+  "t": "Add two at a time: 120 plus 95 equals 215.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1xyhkck",
+  "t": "What's left for x?",
+  "b": "ang-2"
+ },
+ {
+  "h": "zklo8z",
+  "t": "360 minus 285",
+  "b": "ang-2"
+ },
+ {
+  "h": "1rku9jx",
+  "t": "Take away from the total.",
+  "b": "ang-2"
+ },
+ {
+  "h": "7tk4o1",
+  "t": "x is whatever is left over: 360 take away 285 is 75.",
+  "b": "ang-2"
+ },
+ {
+  "h": "q4z49w",
+  "t": "Count up from 285 to 360.",
+  "b": "ang-2"
+ },
+ {
+  "h": "p25j28",
+  "t": "285 plus ?",
+  "b": "ang-2"
+ },
+ {
+  "h": "qy11qn",
+  "t": "equals 360",
+  "b": "ang-2"
+ },
+ {
+  "h": "b9h6yu",
+  "t": "So how big is angle x?",
+  "b": "common"
+ },
+ {
+  "h": "a3kk2x",
+  "t": "Check: 120 plus 95 plus 70 plus 75 equals 360.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1t8e2cx",
+  "t": "Angles on a straight line always add up to?",
+  "b": "ang-2"
+ },
+ {
+  "h": "b3lkif",
+  "t": "A straight line is a half turn: two right angles.",
+  "b": "ang-2"
+ },
+ {
+  "h": "1xpxlfd",
+  "t": "90 plus 90 equals 180",
+  "b": "ang-2"
+ },
+ {
+  "h": "qy132b",
+  "t": "equals 180",
+  "b": "common"
+ },
+ {
+  "h": "11ry3tk",
+  "t": "Every triangle's three angles add up to 180 degrees.",
+  "b": "ang-3"
+ },
+ {
+  "h": "nawu33",
+  "t": "Know two, and you can find the third.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1wlmzhv",
+  "t": "Here is a fact about every triangle ever drawn: its three angles add up to 180 degrees.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1tmoji6",
+  "t": "Tear off the three corners and put their points together.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1c7dhrc",
+  "t": "They make a straight line, and a straight line is 180 degrees.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1n1ljrn",
+  "t": "Back to our triangle.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1aqo5ml",
+  "t": "Add the two angles we know: 70 plus 50 is 120.",
+  "b": "ang-3"
+ },
+ {
+  "h": "n8vc2g",
+  "t": "The third angle gets whatever is left from 180: 180 take away 120 is 60.",
+  "b": "ang-3"
+ },
+ {
+  "h": "12s7y8q",
+  "t": "So x is 60 degrees.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1dkwmv8",
+  "t": "Check: 70 plus 50 plus 60 is 180.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1ytlupf",
+  "t": "Remember: The three angles inside any triangle always add up to 180 degrees.",
+  "b": "ang-3"
+ },
+ {
+  "h": "137b7t",
+  "t": "Your turn: 35 degrees and 85 degrees.",
+  "b": "ang-3"
+ },
+ {
+  "h": "ql7dqz",
+  "t": "Find the third angle.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1tpkzao",
+  "t": "Three triangles on your own.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1lx8lv",
+  "t": "Total, add, take away.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1e4q2ps",
+  "t": "The three angles in any triangle add up to?",
+  "b": "ang-3"
+ },
+ {
+  "h": "13n4lex",
+  "t": "Triangle total?",
+  "b": "ang-3"
+ },
+ {
+  "h": "1n032qt",
+  "t": "Tear off the corners and they make a straight line.",
+  "b": "ang-3"
+ },
+ {
+  "h": "108yt0k",
+  "t": "Same as a straight line.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1ova3a3",
+  "t": "180 degrees",
+  "b": "ang-3"
+ },
+ {
+  "h": "1sqbtos",
+  "t": "Add the two angles you know: 35 plus 85",
+  "b": "ang-3"
+ },
+ {
+  "h": "7xu7lb",
+  "t": "Add the two you know.",
+  "b": "ang-3"
+ },
+ {
+  "h": "7efz78",
+  "t": "Add the two angles we know: 35 plus 85 is 120.",
+  "b": "ang-3"
+ },
+ {
+  "h": "iuuhp1",
+  "t": "Add the tens first, then the rest.",
+  "b": "ang-3"
+ },
+ {
+  "h": "1fts683",
+  "t": "180 minus 120",
+  "b": "ang-3"
+ },
+ {
+  "h": "v1n38f",
+  "t": "Take away from 180.",
+  "b": "ang-3"
+ },
+ {
+  "h": "2uuwnr",
+  "t": "The third angle gets whatever is left: 180 take away 120 is 60.",
+  "b": "ang-3"
+ },
+ {
+  "h": "wsvuuc",
+  "t": "Count up from 120 to 180.",
+  "b": "ang-3"
+ },
+ {
+  "h": "4w0h70",
+  "t": "120 plus ?",
+  "b": "ang-3"
+ },
+ {
+  "h": "w31m0",
+  "t": "Check: 35 plus 85 plus 60 equals 180.",
+  "b": "ang-3"
+ },
+ {
+  "h": "l9073g",
+  "t": "We're putting neon tape all round the edge of a parking bay.",
+  "b": "shp-1"
+ },
+ {
+  "h": "hiziaq",
+  "t": "The distance round the edge is called the perimeter.",
+  "b": "shp-1"
+ },
+ {
+  "h": "18opm8v",
+  "t": "Perimeter is the distance all the way round the edge of a shape, like driving one lap round a track.",
+  "b": "shp-1"
+ },
+ {
+  "h": "1md3du2",
+  "t": "This rectangle is 9 centimetres long and 5 centimetres wide.",
+  "b": "shp-1"
+ },
+ {
+  "h": "1r1jb2j",
+  "t": "Half way round is one long side and one short side: 9 plus 5 is 14.",
+  "b": "shp-1"
+ },
+ {
+  "h": "hffvc9",
+  "t": "The other half is exactly the same, so double it: 14 times 2 is 28.",
+  "b": "shp-1"
+ },
+ {
+  "h": "18etc5u",
+  "t": "Remember: Perimeter is the distance all the way round.",
+  "b": "shp-1"
+ },
+ {
+  "h": "18os4iw",
+  "t": "For a rectangle: (long side plus short side) times 2.",
+  "b": "shp-1"
+ },
+ {
+  "h": "ihpe71",
+  "t": "Your turn: a bay 12 by 7.",
+  "b": "shp-1"
+ },
+ {
+  "h": "15gn3ft",
+  "t": "Half way round, then double.",
+  "b": "shp-1"
+ },
+ {
+  "h": "ztyjo",
+  "t": "Three bays on your own.",
+  "b": "shp-1"
+ },
+ {
+  "h": "erj5cz",
+  "t": "Half way round, double it.",
+  "b": "shp-1"
+ },
+ {
+  "h": "cqq549",
+  "t": "Walk half way round: one long side and one short side.",
+  "b": "shp-1"
+ },
+ {
+  "h": "gf4j6z",
+  "t": "12 plus 7",
+  "b": "shp-1"
+ },
+ {
+  "h": "ryhmz",
+  "t": "Half way round.",
+  "b": "shp-1"
+ },
+ {
+  "h": "fwp1zj",
+  "t": "Perimeter is the distance all the way round the edge.",
+  "b": "shp-1"
+ },
+ {
+  "h": "1oihh2n",
+  "t": "Half way round is one long side plus one short side: 12 plus 7 is 19.",
+  "b": "shp-1"
+ },
+ {
+  "h": "es3j6d",
+  "t": "Add one length and one width.",
+  "b": "shp-1"
+ },
+ {
+  "h": "14zirss",
+  "t": "12 plus 7 equals 19",
+  "b": "shp-1"
+ },
+ {
+  "h": "1g77ude",
+  "t": "The other half is the same.",
+  "b": "shp-1"
+ },
+ {
+  "h": "1baq8b5",
+  "t": "Double it: 19 times 2",
+  "b": "shp-1"
+ },
+ {
+  "h": "i8yyp9",
+  "t": "Double it.",
+  "b": "shp-1"
+ },
+ {
+  "h": "l1vjqw",
+  "t": "The other half of the way round is exactly the same, so double it: 19 times 2 is 38.",
+  "b": "shp-1"
+ },
+ {
+  "h": "mbw8an",
+  "t": "19 plus 19",
+  "b": "shp-1"
+ },
+ {
+  "h": "wcgsp7",
+  "t": "Double the tens, then double the units.",
+  "b": "shp-1"
+ },
+ {
+  "h": "quh527",
+  "t": "So the perimeter is?",
+  "b": "shp-1"
+ },
+ {
+  "h": "1k51mh0",
+  "t": "Write the perimeter.",
+  "b": "shp-1"
+ },
+ {
+  "h": "igz02t",
+  "t": "The perimeter is 38 centimetres.",
+  "b": "shp-1"
+ },
+ {
+  "h": "1qpf87h",
+  "t": "Check: 12 plus 7 plus 12 plus 7 equals 38.",
+  "b": "shp-1"
+ },
+ {
+  "h": "1v6bcc5",
+  "t": "Now we're painting the floor.",
+  "b": "shp-2"
+ },
+ {
+  "h": "tidck9",
+  "t": "Area is how many squares cover the inside.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1uoglts",
+  "t": "Area is how much flat space a shape covers.",
+  "b": "shp-2"
+ },
+ {
+  "h": "rridbn",
+  "t": "We measure it in squares, each 1 centimetre by 1 centimetre.",
+  "b": "shp-2"
+ },
+ {
+  "h": "j3ebl5",
+  "t": "This rectangle is 6 centimetres long and 4 wide.",
+  "b": "shp-2"
+ },
+ {
+  "h": "19pf5bn",
+  "t": "Fill the first row with squares.",
+  "b": "shp-2"
+ },
+ {
+  "h": "4bvctu",
+  "t": "One row along the 6 centimetre side holds 6 squares.",
+  "b": "shp-2"
+ },
+ {
+  "h": "16spdf",
+  "t": "The width is 4 centimetres, so 4 rows fit.",
+  "b": "shp-2"
+ },
+ {
+  "h": "rgns71",
+  "t": "4 rows of 6 is 6 times 4: 24 squares.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1t8a721",
+  "t": "No need to count them one by one.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1i4xkzf",
+  "t": "The area is 24 square centimetres.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1mqwjv1",
+  "t": "Remember: Area is how many squares cover the shape.",
+  "b": "shp-2"
+ },
+ {
+  "h": "ge7yuw",
+  "t": "Rectangle: length times width.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1pe1eqe",
+  "t": "Write the answer in square centimetres.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1kubx8p",
+  "t": "Your turn: a 7 by 5 floor.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1ytw4mq",
+  "t": "Squares in a row, how many rows, then multiply.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1e3390m",
+  "t": "Three floors on your own.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1n1z0jd",
+  "t": "Length times width.",
+  "b": "shp-2"
+ },
+ {
+  "h": "bteluo",
+  "t": "Each little square is 1 square centimetres.",
+  "b": "shp-2"
+ },
+ {
+  "h": "sntc4i",
+  "t": "How many squares fit along one row?",
+  "b": "shp-2"
+ },
+ {
+  "h": "1vi7vp7",
+  "t": "Squares in a row.",
+  "b": "shp-2"
+ },
+ {
+  "h": "jy4rr9",
+  "t": "Area is how many 1 centimetre squares cover the shape.",
+  "b": "shp-2"
+ },
+ {
+  "h": "15oiry4",
+  "t": "One row along the length holds 7 squares.",
+  "b": "shp-2"
+ },
+ {
+  "h": "89dxub",
+  "t": "Count the squares along the bottom edge.",
+  "b": "shp-2"
+ },
+ {
+  "h": "17hh0ub",
+  "t": "The length is 7 cm.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1s3bd8v",
+  "t": "How many rows are there?",
+  "b": "shp-2"
+ },
+ {
+  "h": "112o47a",
+  "t": "Count the rows.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1misxir",
+  "t": "The width is 5 cm, so there are 5 rows.",
+  "b": "shp-2"
+ },
+ {
+  "h": "te3nvl",
+  "t": "Count up the side.",
+  "b": "shp-2"
+ },
+ {
+  "h": "3k1xaz",
+  "t": "The width is 5 cm.",
+  "b": "shp-2"
+ },
+ {
+  "h": "ysyf5",
+  "t": "5 rows of 7 squares: 7 times 5",
+  "b": "shp-2"
+ },
+ {
+  "h": "u8dn8d",
+  "t": "5 rows of 7 is 7 times 5: 35 squares.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1os694z",
+  "t": "No need to count them all.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1lrlspi",
+  "t": "Count in 7s, 5 times.",
+  "b": "shp-2"
+ },
+ {
+  "h": "y03k31",
+  "t": "So the area is?",
+  "b": "shp-2"
+ },
+ {
+  "h": "1hdo6za",
+  "t": "Write the area.",
+  "b": "common"
+ },
+ {
+  "h": "lij8m3",
+  "t": "The area is 35 square centimetres.",
+  "b": "shp-2"
+ },
+ {
+  "h": "1ughtip",
+  "t": "Length times width, every time.",
+  "b": "shp-2"
+ },
+ {
+  "h": "x6d7eq",
+  "t": "An L-shaped garage floor.",
+  "b": "shp-3"
+ },
+ {
+  "h": "18sscl0",
+  "t": "It's not a rectangle, so cut it into two rectangles, find each area, then add.",
+  "b": "shp-3"
+ },
+ {
+  "h": "10ivo79",
+  "t": "An L-shape is two rectangles stuck together.",
+  "b": "shp-3"
+ },
+ {
+  "h": "d5somr",
+  "t": "Draw a line to cut it into rectangle A at the bottom and rectangle B on top.",
+  "b": "shp-3"
+ },
+ {
+  "h": "12o1w7f",
+  "t": "Some sides are missing.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1lonpne",
+  "t": "The whole height is 7, and B takes 3 of it, so A is 4 centimetres tall.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1sdu4ni",
+  "t": "The whole width is 9, minus the 4 cut out, so B is 5 centimetres wide.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1egnrnk",
+  "t": "Rectangle A is 9 by 4: 36 square centimetres.",
+  "b": "shp-3"
+ },
+ {
+  "h": "18ldt49",
+  "t": "Rectangle B is 5 by 3: 15 square centimetres.",
+  "b": "shp-3"
+ },
+ {
+  "h": "xcr0hc",
+  "t": "Add the two areas: 36 plus 15 is 51.",
+  "b": "shp-3"
+ },
+ {
+  "h": "h426jt",
+  "t": "The L-shape covers 51 square centimetres.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1lclo5q",
+  "t": "Remember: Cut an L-shape into two rectangles.",
+  "b": "shp-3"
+ },
+ {
+  "h": "cbm77z",
+  "t": "Find any missing sides, work out each area, then add them.",
+  "b": "shp-3"
+ },
+ {
+  "h": "10cif96",
+  "t": "Your turn: find the missing sides first, then each area, then add.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1pe9pbx",
+  "t": "Three L-shapes on your own.",
+  "b": "shp-3"
+ },
+ {
+  "h": "14d4aey",
+  "t": "Split, multiply, add.",
+  "b": "shp-3"
+ },
+ {
+  "h": "22ouy8",
+  "t": "Cut the L into two rectangles.",
+  "b": "shp-3"
+ },
+ {
+  "h": "6be48",
+  "t": "Shape A's height is missing: 8 minus 5",
+  "b": "shp-3"
+ },
+ {
+  "h": "154nwk5",
+  "t": "Find the missing sides.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1e5vs3b",
+  "t": "Cut the L-shape into two rectangles, A and B.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1ue96fe",
+  "t": "Shape A's height isn't written on, but the whole side is 8 and the top part is 5, so it is 8 take away 5: 3.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1o777mv",
+  "t": "The whole left side is 8.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1q0q8kx",
+  "t": "Take off the part that belongs to B.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1954ooz",
+  "t": "Shape B's width: 10 minus 3",
+  "b": "shp-3"
+ },
+ {
+  "h": "1gc1pml",
+  "t": "Shape B's width.",
+  "b": "shp-3"
+ },
+ {
+  "h": "28dulb",
+  "t": "Shape B's width: the bottom is 10 wide, minus the 3 cut out of the corner, is 7.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1nxetyp",
+  "t": "The whole bottom is 10.",
+  "b": "shp-3"
+ },
+ {
+  "h": "e05wks",
+  "t": "Take away the 3 gap.",
+  "b": "shp-3"
+ },
+ {
+  "h": "18enxqm",
+  "t": "Area of A: 10 times 3",
+  "b": "shp-3"
+ },
+ {
+  "h": "ynhhei",
+  "t": "Area of A.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1e0n43o",
+  "t": "Shape A is 10 by 3, so its area is 30.",
+  "b": "shp-3"
+ },
+ {
+  "h": "16updu5",
+  "t": "Length times width: 10 times 3.",
+  "b": "shp-3"
+ },
+ {
+  "h": "12rsm3h",
+  "t": "Area of B: 7 times 5",
+  "b": "shp-3"
+ },
+ {
+  "h": "ynhheh",
+  "t": "Area of B.",
+  "b": "shp-3"
+ },
+ {
+  "h": "1de9z76",
+  "t": "Shape B is 7 by 5, so its area is 35.",
+  "b": "shp-3"
+ },
+ {
+  "h": "119cd4t",
+  "t": "Length times width: 7 times 5.",
+  "b": "shp-3"
+ },
+ {
+  "h": "qplj56",
+  "t": "Add the two areas: 30 plus 35",
+  "b": "shp-3"
+ },
+ {
+  "h": "116r321",
+  "t": "Add the areas.",
+  "b": "shp-3"
+ },
+ {
+  "h": "rnmh03",
+  "t": "Add the two parts: 30 plus 35 is 65.",
+  "b": "shp-3"
+ },
+ {
+  "h": "79skyy",
+  "t": "Add the tens, then the units.",
+  "b": "shp-3"
+ },
+ {
+  "h": "hsw5ku",
+  "t": "So the area of the L-shape is?",
+  "b": "shp-3"
+ },
+ {
+  "h": "kc6gd3",
+  "t": "The whole L-shape covers 65 square centimetres.",
+  "b": "shp-3"
+ },
+ {
+  "h": "121tlov",
+  "t": "The number from step 4.",
+  "b": "shp-3"
+ },
+ {
+  "h": "o8q438",
+  "t": "Fantastic!",
+  "b": "common"
+ },
+ {
+  "h": "1gg8yrw",
+  "t": "You're getting really good at this!",
+  "b": "common"
+ },
+ {
+  "h": "1esnhk1",
+  "t": "Excellent!",
+  "b": "common"
+ },
+ {
+  "h": "1xexhck",
+  "t": "You've got it.",
+  "b": "common"
+ },
+ {
+  "h": "yk9gn0",
+  "t": "Spot on!",
+  "b": "common"
+ },
+ {
+  "h": "w0sr6b",
+  "t": "Nailed it!",
+  "b": "common"
+ },
+ {
+  "h": "1bbaqde",
+  "t": "That's it!",
+  "b": "common"
+ },
+ {
+  "h": "1wib63d",
+  "t": "Well worked out.",
+  "b": "common"
+ },
+ {
+  "h": "375zxm",
+  "t": "Yes!",
+  "b": "common"
+ },
+ {
+  "h": "2w62l0",
+  "t": "You got there.",
+  "b": "common"
+ },
+ {
+  "h": "7mz9j",
+  "t": "Great, you cracked it.",
+  "b": "common"
+ },
+ {
+  "h": "lppxnx",
+  "t": "Almost!",
+  "b": "common"
+ },
+ {
+  "h": "x3z9el",
+  "t": "Let's have another look.",
+  "b": "common"
+ },
+ {
+  "h": "elq8ux",
+  "t": "Good try!",
+  "b": "common"
+ },
+ {
+  "h": "17dz9gw",
+  "t": "Let's look at that again.",
+  "b": "common"
+ },
+ {
+  "h": "z39b4n",
+  "t": "You're getting closer.",
+  "b": "common"
+ },
+ {
+  "h": "1ydhu3q",
+  "t": "Nearly there.",
+  "b": "common"
+ },
+ {
+  "h": "9h4xbj",
+  "t": "Let's look at it a different way.",
+  "b": "common"
+ },
+ {
+  "h": "15gouw5",
+  "t": "Let's try another example together.",
+  "b": "common"
+ },
+ {
+  "h": "1tcen5l",
+  "t": "I'll slow down.",
+  "b": "common"
+ },
+ {
+  "h": "15diicr",
+  "t": "Let's work it out together.",
+  "b": "common"
+ },
+ {
+  "h": "187t1ca",
+  "t": "Watch this.",
+  "b": "common"
+ },
+ {
+  "h": "pd54wj",
+  "t": "Let's check you've really got it.",
+  "b": "common"
+ },
+ {
+  "h": "bzngt4",
+  "t": "Try this one.",
+  "b": "common"
+ },
+ {
+  "h": "1oe9x9q",
+  "t": "Brilliant!",
+  "b": "common"
+ },
+ {
+  "h": "128h9th",
+  "t": "You did that one all by yourself.",
+  "b": "common"
+ },
+ {
+  "h": "zef6zq",
+  "t": "Superb.",
+  "b": "common"
+ },
+ {
+  "h": "j5uc4v",
+  "t": "That one was all you!",
+  "b": "common"
+ },
+ {
+  "h": "m3vjm2",
+  "t": "Good effort!",
+  "b": "common"
+ },
+ {
+  "h": "w5sl7n",
+  "t": "Here's how that one works.",
+  "b": "common"
+ },
+ {
+  "h": "17wgtjc",
+  "t": "Amazing streak!",
+  "b": "common"
+ },
+ {
+  "h": "1aeqg6u",
+  "t": "Keep going!",
+  "b": "common"
+ },
+ {
+  "h": "i3plnr",
+  "t": "Three in a row!",
+  "b": "common"
+ },
+ {
+  "h": "iknq14",
+  "t": "You're on fire!",
+  "b": "common"
+ },
+ {
+  "h": "zeyk4f",
+  "t": "Streak!",
+  "b": "common"
+ },
+ {
+  "h": "5lcbf2",
+  "t": "Your engine is roaring!",
+  "b": "common"
+ },
+ {
+  "h": "1yvg845",
+  "t": "Five in a row!",
+  "b": "common"
+ },
+ {
+  "h": "rkjdcl",
+  "t": "Bonus time!",
+  "b": "common"
+ },
+ {
+  "h": "1ysv2m4",
+  "t": "Unstoppable!",
+  "b": "common"
+ },
+ {
+  "h": "39gk4y",
+  "t": "You did it!",
+  "b": "common"
+ },
+ {
+  "h": "17n32h0",
+  "t": "Time to celebrate!",
+  "b": "common"
+ },
+ {
+  "h": "1gghnz4",
+  "t": "Mission complete!",
+  "b": "common"
+ },
+ {
+  "h": "16g3b00",
+  "t": "What a driver!",
+  "b": "common"
+ },
+ {
+  "h": "129ata2",
+  "t": "Take your time.",
+  "b": "common"
+ },
+ {
+  "h": "61yqwj",
+  "t": "Think it through.",
+  "b": "common"
+ },
+ {
+  "h": "1apfxv3",
+  "t": "Look at the steps.",
+  "b": "common"
+ },
+ {
+  "h": "1odl8nb",
+  "t": "You can do this.",
+  "b": "common"
+ },
+ {
+  "h": "1ji4roh",
+  "t": "That's how it's done.",
+  "b": "common"
+ },
+ {
+  "h": "1bjf61t",
+  "t": "Now you do one, and I'll help with every step.",
+  "b": "common"
+ },
+ {
+  "h": "7lu8dp",
+  "t": "You did every step yourself!",
+  "b": "common"
+ },
+ {
+  "h": "oakjwt",
+  "t": "Next, I'll give you less help.",
+  "b": "common"
+ },
+ {
+  "h": "iiqrk7",
+  "t": "No hints needed!",
+  "b": "common"
+ },
+ {
+  "h": "yiryv9",
+  "t": "Done!",
+  "b": "common"
+ },
+ {
+  "h": "2sasai",
+  "t": "You're ready.",
+  "b": "common"
+ },
+ {
+  "h": "1j28sih",
+  "t": "The next ones are all yours.",
+  "b": "common"
+ },
+ {
+  "h": "1x3zzhu",
+  "t": "Perfect, no help at all!",
+  "b": "common"
+ },
+ {
+  "h": "u8pt6a",
+  "t": "You finished on your own!",
+  "b": "common"
+ },
+ {
+  "h": "p97la9",
+  "t": "Perfect deal, no help needed!",
+  "b": "common"
+ },
+ {
+  "h": "1v657u1",
+  "t": "Deal done.",
+  "b": "common"
+ },
+ {
+  "h": "x3ctjw",
+  "t": "Nice work sticking with it!",
+  "b": "common"
+ },
+ {
+  "h": "10u34x5",
+  "t": "Your turn.",
+  "b": "common"
+ },
+ {
+  "h": "1lsrcsy",
+  "t": "Fill in the glowing box.",
+  "b": "common"
+ },
+ {
+  "h": "ezdv7q",
+  "t": "This time I only tell you which step comes next.",
+  "b": "common"
+ },
+ {
+  "h": "fq347c",
+  "t": "Tap Hint if you need more.",
+  "b": "common"
+ }
+]

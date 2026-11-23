@@ -22,6 +22,7 @@
   };
 
   class AdaptiveLearningEngine {
+    static get PHRASES() { return PHRASES; }
     constructor(stats) { this.stats = stats; }
     phrase(kind) { return pick(PHRASES[kind]); }
 

@@ -1,4 +1,6 @@
 /* AudioController — narration with synchronised captions.
+   0. If every sentence of the line has been recorded (NB.VOICE: tools/make-voice.mjs + tools/pack-voice.mjs, a natural AI voice),
+      it plays those recordings one after another. Lines with random numbers are never all recorded, so they use step 2.
    1. If a recorded clip exists in NB.AUDIO_MANIFEST[lessonId][clipId], it plays that file.
    2. Otherwise (or if the file fails) it falls back to the browser's speech voice.
    3. If muted or no voice exists, captions still run on a timer.
@@ -51,6 +53,19 @@
     onChange(cb) { if (synth) try { synth.addEventListener('voiceschanged', cb); } catch (e) {} }
   };
 
+  /* Recorded sentences arrive in bundles (audio/voice/<lesson>.js, made by tools/pack-voice.mjs). */
+  NB.VOICE = {
+    data: {}, asked: {},
+    add(m) { Object.assign(this.data, m); },
+    /* resolves when the bundle is in (or failed, or there is none); never rejects */
+    load(name) {
+      const I = NB.VOICE_INDEX; if (!I || !I.bundles.includes(name)) return Promise.resolve();
+      if (!this.asked[name]) this.asked[name] = new Promise(res => { const sc = document.createElement('script'); sc.src = `audio/voice/${name}.js`; sc.async = true; sc.onload = sc.onerror = () => res(); document.head.appendChild(sc); });
+      return this.asked[name];
+    }
+  };
+  NB.VOICE.load('common');
+
   class AudioController {
     constructor({ lessonId, onWord, onState, isMuted }) {
       this.lessonId = lessonId;
@@ -65,6 +80,15 @@
     }
     static hasVoice() { return !!synth; }
 
+    /* Recorded natural voice, sentence by sentence. Returns the file list only if every sentence is recorded. */
+    static sentences(t) { return String(t).split(/(?<=[.!?])\s+/).map(x => x.trim()).filter(Boolean); }
+    static key(t) { return String(t).toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim(); }
+    static hash(t) { let h = 5381; for (const ch of t) h = (Math.imul(h, 33) ^ ch.charCodeAt(0)) >>> 0; return h.toString(36); }
+    recorded(text) {
+      const D = NB.VOICE.data;
+      const parts = AudioController.sentences(text), files = parts.map(p => { const d = D[AudioController.hash(AudioController.key(p))]; return d ? `data:audio/mpeg;base64,${d}` : null; });
+      return parts.length && files.every(Boolean) ? parts.map((p, i) => ({ url: files[i], words: AudioController.words(p).length })) : null;
+    }
     clipUrl(clipId) {
       const m = (NB.AUDIO_MANIFEST || {})[this.lessonId] || {};
       return m[clipId] || null;
@@ -147,6 +171,21 @@
         };
 
         if (this.isMuted()) return silent();
+        const seq = this.recorded(text);
+        if (seq) {   // play the recorded sentences in order; the caption follows along
+          this.mode = 'file';
+          let j = 0, off = 0;
+          const next = () => {
+            if (my !== this.token) return;
+            if (j >= seq.length) return done('ended');
+            const part = seq[j], a = new Audio(part.url); this.el = a; a.playbackRate = rate;
+            a.ontimeupdate = () => { if (my === this.token && a.duration) this.onWord(Math.min(words.length - 1, off + Math.floor(a.currentTime / a.duration * part.words))); };
+            a.onended = () => { off += part.words; j++; next(); };
+            a.onerror = () => { if (my === this.token) { this.el = null; j ? done('ended') : speak(); } };
+            a.play().catch(() => { if (my === this.token) { this.el = null; j ? done('ended') : speak(); } });
+          };
+          return next();
+        }
         const url = this.clipUrl(clipId);
         if (url) {
           this.mode = 'file';

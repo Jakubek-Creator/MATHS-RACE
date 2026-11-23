@@ -109,6 +109,7 @@
       if (L.v !== 4) { const R = PM().restart(this.id); R.v = 4; R.phase = 'sheet'; R.si = 0; R.cur = null; PM().update(this.id, () => {}); }
       const H = this.c.handover;
       this.M = (this.c.method && NB.Methods[this.c.method]) || MULT1;
+      this.voiceReady = Promise.race([NB.VOICE.load(this.id), new Promise(r => setTimeout(r, 3000))]);   // this lesson's recorded voice lines
       const qOf = x => x.q || { a: x.a, b: x.b, key: `${x.a}x${x.b}` };
       this.seq = [{ stage: 0, q: qOf(H.watch) }, { stage: 1, q: qOf(H.together) }]
         .concat(Array.from({ length: H.less.count }, () => ({ stage: 2 })), Array.from({ length: H.alone.count }, () => ({ stage: 3 })));
@@ -184,7 +185,7 @@
         onStep: () => { this.exSaidIntro = true; this.exControls(); },
         onStepDone: () => { this.teacher.set('pointing'); if (this.ex && this.ex.last) this.learnDone(); }
       });
-      this.ex.go(this.sheetDone() ? script.steps.length - 1 : 0);
+      const ex = this.ex; this.voiceReady.then(() => { if (this.ex === ex) ex.go(this.sheetDone() ? script.steps.length - 1 : 0); });
     }
     exControls(done) {
       const ex = this.ex, last = ex && ex.last;
