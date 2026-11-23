@@ -130,9 +130,9 @@
     forest: ['clear', 'rain', 'fog'], volcano: ['clear', 'fog', 'rain'], docks: ['clear', 'rain', 'fog'], farm: ['clear', 'rain', 'fog'] };
   const WET = { clear: 0, rain: .22, snow: .15, fog: 0 };
   function conditions(key, seed) {
-    const r = rng(seed * 17 + 11), u = r(), opts = WEATHER[key] || WEATHER.circuit, pick = () => opts[Math.floor(r() * opts.length)];
-    const from = r() < .55 ? 'clear' : pick(), to = r() < .5 ? from : pick();
-    return { sky: u < .5 ? 'day' : u < .7 ? 'dusk' : 'night', weather: { from, to, at: 12 + Math.floor(r() * 10) } };
+    const r = rng(seed * 17 + 11), u = r(), opts = WEATHER[key] || WEATHER.circuit;
+    const wet = opts.filter(k => k !== 'clear'), w = r() < .45 ? 'clear' : wet[Math.floor(r() * wet.length)];   // random each race, and it stays the same from start to finish
+    return { sky: u < .5 ? 'day' : u < .7 ? 'dusk' : 'night', weather: { from: w, to: w, at: 1e9 } };
   }
 
   /* ---------------- simulation ---------------- */
