@@ -48,3 +48,10 @@ const good = win({ n: 5, clean: 5, fast: 4, hinted: 0, wrong: 0, best: 5 }), wea
 console.log('win rate: perfect mission', good.toFixed(2), 'weak mission', weak.toFixed(2));
 assert.ok(good > weak + .2 && good >= .55 && weak >= .15, 'clean maths should win more races');
 console.log('PASS balance');
+// every track: no two parts of the loop come close enough for their walls to touch
+for (const key of D.THEME_KEYS) {
+  const tr = D.track(key, 1, 1), S = tr.S, N = tr.N; let worst = 1e9;
+  for (let i = 0; i < N; i += 2) for (let j = i + 2; j < N; j += 2) { if (Math.min(j - i, N - j + i) * tr.ds < tr.wall * 3.2) continue; worst = Math.min(worst, Math.hypot(S[i].x - S[j].x, S[i].y - S[j].y)); }
+  assert.ok(worst > 2 * tr.wall, `${key}: track overlaps itself`);
+}
+console.log('PASS tracks');
