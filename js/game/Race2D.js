@@ -14,7 +14,7 @@
   const THEMES = {
     circuit: { name: 'Green Valley GP', ground: '#62b14a', ground2: '#6bbb52', walk: null, road: '#4a4f57', edge: '#f1f3f5', kerb: ['#e84a4a', '#ffffff'], dash: 'rgba(255,255,255,.85)',
       hazards: [['oil', .38], ['cone', .34], ['hole', .28]], curve: [6, 3, 3, 2], side: 'circuit', tip: 'Watch for oil, cones and potholes' },
-    city: { name: 'Downtown Loop', ground: '#8d959d', walk: '#b9c0c7', road: '#454a52', edge: '#2e3238', kerb: ['#F8C537', '#2e3238'], dash: 'rgba(255,255,255,.85)',
+    city: { name: 'Downtown Loop', ground: '#8d959d', walk: '#b9c0c7', zebra: true, road: '#454a52', edge: '#2e3238', kerb: ['#F8C537', '#2e3238'], dash: 'rgba(255,255,255,.85)',
       hazards: [['hole', .38], ['oil', .36], ['cone', .26]], curve: [5, 2, 3, 1], side: 'buildings', tip: 'Watch for potholes, oil and cones' },
     coast: { name: 'Coast Highway', ground: '#efd39a', ground2: '#f3daa6', walk: null, road: '#4a4f57', edge: '#2e3238', kerb: ['#5EC3E8', '#ffffff'], dash: 'rgba(248,197,55,.95)',
       hazards: [['oil', .4], ['sand', .32], ['cone', .28]], curve: [6, 3, 3, 2], side: 'palms', sea: true, tip: 'Watch for oil, sand and cones' }
@@ -33,7 +33,8 @@
   const phone = Math.min(screen.width, screen.height) < 600;
 
   class Race2D {
-    constructor(host, racers, { seed = 1, theme } = {}) {
+    constructor(host, racers, { seed = 1, theme, auto = false } = {}) {
+      this.auto = auto;   // autopilot for the player's car (previews)
       this.host = host; this.racers = racers; this.seed = seed;
       this.themeKey = theme || THEME_KEYS[seed % THEME_KEYS.length]; this.T = THEMES[this.themeKey];
       const r = rng(seed * 7 + 3), [a1, n1, a2, n2] = this.T.curve, p1 = r() * TAU, p2 = r() * TAU, w1 = TAU * n1 / LEN, w2 = TAU * n2 / LEN;
@@ -134,7 +135,7 @@
           const corner = this.track.kn(c.d), dir = -Math.sign(this.ddcx(c.d));
           const grip = 26 + han * .32;                                              // how fast sideways speed can change
           let want;
-          if (i === 0) want = this.steerS * (8 + han * .06) * Math.min(1, v / 22);
+          if (i === 0 && !this.auto) want = this.steerS * (8 + han * .06) * Math.min(1, v / 22);
           else {
             const ahead = this.haz.find(h => { const dd = ((h.d - (c.d % LEN)) + LEN) % LEN; return dd > 4 && dd < 34 && Math.abs(h.x - L.target) < 2.4; });
             if (ahead && !ahead['dodge' + i]) { ahead['dodge' + i] = 1; if (Math.random() < .5 + han / 220) { const opts = [-LANE, 0, LANE].filter(xx => this.haz.every(h => h === ahead || Math.abs(h.d - ahead.d) > 10 || Math.abs(h.x - xx) > 2.4)); L.target = opts.sort((a, b) => Math.abs(a - L.x) - Math.abs(b - L.x))[0] ?? L.target; } }
@@ -190,19 +191,26 @@
       const dTop = pd + (H * .7 + 30) / u, dBot = pd - (H * .3 + 30) / u, px = 6, step = px / u;
       if (T.sea) {
         g.fillStyle = '#3fa7d6'; g.beginPath(); g.moveTo(-12, H + 12);
-        for (let d = dBot; d <= dTop; d += step * 4) g.lineTo(this.sx(d, -HALF - 9 - Math.sin(d * .05) * 1.5, pd), this.sy(d, pd));
+        for (let d = dBot; d <= dTop; d += step * 4) g.lineTo(this.sx(d, -HALF - 4.6 - Math.sin(d * .05) * 1.2, pd), this.sy(d, pd));
         g.lineTo(-12, -12); g.closePath(); g.fill();
       }
       const d0 = Math.floor(dBot / step) * step;
+      // two passes: pavement and run-off first, then the road, so strips never paint over the road
       for (let d = d0; d <= dTop; d += step) {
         const y = Math.round(this.sy(d, pd)), c = this.sx(d, 0, pd), h = px + 1;
-        if (T.walk) { g.fillStyle = T.walk; g.fillRect(c - (HALF + 3.4) * u, y - h, (HALF + 3.4) * 2 * u, h); }
+        if (T.walk) { g.fillStyle = T.walk; g.fillRect(c - (HALF + 3.4) * u, y - h, (HALF + 3.4) * 2 * u, h);
+          if ((((d % 2.5) + 2.5) % 2.5) < step) { g.fillStyle = 'rgba(0,0,0,.1)'; g.fillRect(c - (HALF + 3.4) * u, y - 1, 2.3 * u, 1.5); g.fillRect(c + (HALF + 1.1) * u, y - 1, 2.3 * u, 1.5); } }
         g.fillStyle = T.edge; g.fillRect(c - (HALF + 1.1) * u, y - h, (HALF + 1.1) * 2 * u, h);
+      }
+      for (let d = d0; d <= dTop; d += step) {
+        const y = Math.round(this.sy(d, pd)), c = this.sx(d, 0, pd), h = px + 1;
         g.fillStyle = T.road; g.fillRect(c - HALF * u, y - h, HALF * 2 * u, h);
         if (T.kerb) { g.fillStyle = T.kerb[Math.floor(d / 3) & 1]; g.fillRect(c - (HALF + .9) * u, y - h, .9 * u, h); g.fillRect(c + HALF * u, y - h, .9 * u, h); }
         if (T.dash && !(Math.floor(d / 4) & 1)) { g.fillStyle = T.dash; g.fillRect(c - .5 * LANE * u - .14 * u, y - h, .28 * u, h); g.fillRect(c + .5 * LANE * u - .14 * u, y - h, .28 * u, h); }
         if (!T.dash) { g.fillStyle = 'rgba(0,0,0,.14)'; g.fillRect(c - 2.7 * u, y - h, 1.1 * u, h); g.fillRect(c + 1.6 * u, y - h, 1.1 * u, h); }
         const lapD = ((d % LEN) + LEN) % LEN;
+        if (T.zebra && lapD > 60 && lapD % 160 < 4) { g.fillStyle = 'rgba(255,255,255,.88)'; for (let q = -HALF + .5; q < HALF - .5; q += 1.8) g.fillRect(c + q * u, y - h, .95 * u, h); }
+        if (T.zebra && lapD % 70 < step && lapD % 160 > 8) { const mx = c + ((Math.floor(d / 70) % 3) - 1) * LANE * u + u * .8; g.fillStyle = '#353a41'; g.beginPath(); g.arc(mx, y, .55 * u, 0, TAU); g.fill(); g.strokeStyle = '#5d646c'; g.lineWidth = 2; g.stroke(); }
         if (lapD < step) { const n = 14, cw = HALF * 2 * u / n; for (let q = 0; q < n; q++) for (let rr = 0; rr < 2; rr++) { g.fillStyle = (q + rr) & 1 ? '#111' : '#fff'; g.fillRect(c - HALF * u + q * cw, y - (rr + 1) * cw * .6, cw, cw * .6); } }
       }
       // skid marks
@@ -214,7 +222,8 @@
         if (T.sea && o.side < 0) continue;
         for (const k of [-1, 0, 1]) {
           const d = o.d + base + k * LEN; if (d < dBot - 10 || d > dTop + 10) continue;
-          this.drawDeco(g, T.side, this.sx(d, o.side * (HALF + (T.walk ? 6.2 : 2.4) + o.off), pd), this.sy(d, pd), o, u);
+          const near = T.walk && o.off < 3;   // street trees in planters stand on the pavement, buildings behind
+          this.drawDeco(g, near ? 'planter' : T.side, this.sx(d, o.side * (near ? HALF + 2.3 : HALF + (T.walk ? 6.2 : 2.4) + o.off), pd), this.sy(d, pd), o, u);
         }
       }
       // hazards with a pulsing warning ring
@@ -296,7 +305,12 @@
         for (let k = 0; k < 6; k++) { const a = k / 6 * TAU + o.h * 3; g.beginPath(); g.arc(x + Math.cos(a) * r * .45, y + Math.sin(a) * r * .45, r * .62, 0, TAU); g.fill(); }
         g.fillStyle = '#7cd16a'; g.beginPath(); g.arc(x - r * .28, y - r * .28, r * .38, 0, TAU); g.fill();
       };
-      if (kind === 'buildings') {
+      if (kind === 'planter') {
+        g.fillStyle = '#7a6a58'; g.fillRect(x - .9 * u, y - .9 * u, 1.8 * u, 1.8 * u);
+        g.fillStyle = 'rgba(0,0,0,.2)'; g.beginPath(); g.arc(x + 4, y + 5, .95 * u, 0, TAU); g.fill();
+        g.fillStyle = o.c > .5 ? '#3f9a3a' : '#4aa944'; g.beginPath(); g.arc(x, y, .95 * u, 0, TAU); g.fill();
+        g.fillStyle = '#7cd16a'; g.beginPath(); g.arc(x - .3 * u, y - .3 * u, .35 * u, 0, TAU); g.fill();
+      } else if (kind === 'buildings') {
         const w = (2.4 + o.s * 2.2) * u, h = (2.4 + o.h * 2.6) * u, col = ['#c9cfd5', '#7fb7c9', '#d98f6a'][Math.floor(o.c * 3)];
         g.fillStyle = 'rgba(0,0,0,.25)'; g.fillRect(x - w / 2 + 6, y - h / 2 + 7, w, h);
         g.fillStyle = col; g.fillRect(x - w / 2, y - h / 2, w, h);
