@@ -328,9 +328,13 @@
           c.vals[mv.key] = Number(v);
           if (act.type === 'correct-first') {
             if (c.mode === 'together') this.pay('move', `${c.id}:${mv.key}`);
-            this.feedback(E.phrase('first'), 'good');
+            const n = this.streak = (this.streak || 0) + 1, big = n >= 5 && n % 5 === 0;
+            NB.Reward.combo(n, this.$('.board-eq'));
+            if (big) this.h.addXP(25);
+            this.feedback(big ? `${NB.AdaptiveLearningEngine.phrase('bigStreak')} +25 XP` : n === 3 ? NB.AdaptiveLearningEngine.phrase('streak') : E.phrase('first'), 'good');
             this.advance(true);
           } else {
+            this.streak = 0;
             const fu = QG().similar(mv.kind);
             if (fu && c.mode === 'together') {
               c.mi++; c.att = 0; c.hintsShown = 0; this.reveal = '';
@@ -343,7 +347,7 @@
         });
         return;
       }
-      this.h.sfx('bad'); this.miss();
+      this.h.sfx('bad'); this.miss(); this.streak = 0;
       if (act.type === 'hint') {
         this.feedback(mv.hints[0], 'hint');
         this.say(`${c.id}-${mv.key}-hint`, mv.hints[0], { state: 'encouraging' }).then(() => { if (tok === this.token) this.teacher.set('pointing'); });
@@ -413,6 +417,7 @@
       const c = this.L.cur; if (!c || this.L.phase !== 'sheet') return;
       const mv = this.sheet.moves[c.mi]; if (!mv || mv.type === 'tap') return;
       c.hintsShown = (c.hintsShown || 0) + 1; c.clean = false; this.L.stats.hints++; this.save();
+      this.teacher.flash('thinking', 2600, 'pointing');
       if (c.fu) { this.feedback('Use the same method as before.', 'hint'); return; }
       if (c.hintsShown === 1 || !mv.alt) { this.feedback(mv.hints[0], 'hint'); this.say(`${c.id}-${mv.key}-hint`, mv.hints[0], { state: 'encouraging' }); }
       else { this.help(mv.alt.board, 'Another way to see it'); this.feedback(mv.alt.say, 'hint'); this.say(`${c.id}-${mv.key}-alt`, mv.alt.say, { state: 'explaining' }); }
@@ -467,10 +472,10 @@
       this.canContinue(false, 'Done ✓');
       this.$('#nbl-hint').disabled = true;
       this.renderProgress();
-      this.rest = 'celebrating'; this.teacher.set('celebrating');
-      this.summaryText = clean >= this.deals - 1 ? `Mission complete! ${clean} out of ${this.deals} deals with no help at all. You're ready for the job.`
-        : `Mission complete! You worked through every step. Replay it to make it stick, or try the job.`;
-      if (first) { this.h.burst(); this.say('summary', this.summaryText, { state: 'celebrating' }); } else this.caption(this.summaryText);
+      this.rest = 'excited'; this.teacher.set('excited');
+      this.summaryText = NB.AdaptiveLearningEngine.phrase('mission') + ' ' + (clean >= this.deals - 1 ? `${clean} out of ${this.deals} deals with no help at all. You're ready for the job.`
+        : `You worked through every step. Replay it to make it stick, or try the job.`);
+      if (first) { this.h.burst(); this.say('summary', this.summaryText, { state: 'excited' }); } else this.caption(this.summaryText);
     }
   }
   NB.buildMultSheet = buildSheet;

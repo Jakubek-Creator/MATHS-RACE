@@ -6,15 +6,19 @@
 (function (NB) {
   const pick = a => a[Math.floor(Math.random() * a.length)];
   const PHRASES = {
-    first: ["Excellent! You've got it.", 'Spot on!', 'Nailed it!', "That's exactly right!"],
+    first: ["Fantastic! You're getting really good at this!", "Excellent! You've got it.", 'Spot on!', 'Nailed it!'],
     assisted: ["That's it! Well worked out.", 'Yes! You got there.', 'Great, you cracked it.'],
-    hint: ["Good try! Let's look at that again.", "You're getting closer.", 'Nearly there.'],
+    hint: ["Almost! Let's have another look.", "Good try! Let's look at that again.", "You're getting closer.", 'Nearly there.'],
     reexplain: ["Let's look at it a different way."],
     easier: ["Let's try another example together. I'll slow down."],
     demonstrate: ["Let's work it out together. Watch this."],
     followUp: ["Let's check you've really got it. Try this one."],
     followUpRight: ['Brilliant! You did that one all by yourself.', 'Superb. That one was all you!'],
-    followUpWrong: ["Good effort! Here's how that one works."]
+    followUpWrong: ["Good effort! Here's how that one works."],
+    streak: ['Amazing streak! Keep going!', "Three in a row! You're on fire!", 'Streak! Your engine is roaring!'],
+    bigStreak: ['Five in a row! Bonus time!', 'Unstoppable! Five in a row!'],
+    mission: ['You did it! Time to celebrate!', 'Mission complete! What a driver!'],
+    think: ['Take your time. Think it through.', 'Look at the steps. You can do this.']
   };
 
   class AdaptiveLearningEngine {
@@ -43,5 +47,6 @@
       return p.tier;
     }
   }
+  AdaptiveLearningEngine.phrase = kind => pick(PHRASES[kind]);
   NB.AdaptiveLearningEngine = AdaptiveLearningEngine;
 })(window.NB = window.NB || {});

@@ -1,8 +1,8 @@
 /* TeacherController — NOVA, the hologram co-pilot.
    Pure SVG + CSS, so there is no 3D model to fail to load.
-   States: idle, talking, explaining, pointing, thinking, celebrating, encouraging. */
+   States: idle, talking, explaining, pointing, thinking, celebrating, encouraging, excited, victory. */
 (function (NB) {
-  const STATES = ['idle', 'talking', 'explaining', 'pointing', 'thinking', 'celebrating', 'encouraging'];
+  const STATES = ['idle', 'talking', 'explaining', 'pointing', 'thinking', 'celebrating', 'encouraging', 'excited', 'victory'];
 
   const star = (x, y, s) => `<path d="M${x} ${y - s} L${x + s * .3} ${y - s * .3} L${x + s} ${y} L${x + s * .3} ${y + s * .3} L${x} ${y + s} L${x - s * .3} ${y + s * .3} L${x - s} ${y} L${x - s * .3} ${y - s * .3} Z"/>`;
 

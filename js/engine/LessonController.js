@@ -187,12 +187,12 @@
       if (slot) {
         if (slot.classList.contains('boxes')) slot.innerHTML = String(v).split('').map(d => `<i class="f">${d}</i>`).join('');
         else slot.textContent = v;
-        slot.classList.add('right'); NB.FX.sparks(slot, 8, 56); this.lastSlot = slot;
+        slot.classList.add('right'); NB.Reward.good(slot); this.lastSlot = slot;
       }
       NB.FX.buzz(30);
       return NB.FX.wait(650);
     }
-    miss() { const s = this.kp.slot; if (s) { s.classList.add('wrong'); NB.FX.shake(s); setTimeout(() => s.classList.remove('wrong'), 450); } NB.FX.buzz([30, 40, 30]); this.kp.clear(); }
+    miss() { const s = this.kp.slot; if (s) { s.classList.add('wrong'); NB.Reward.bad(s); setTimeout(() => s.classList.remove('wrong'), 450); } NB.FX.buzz([30, 40, 30]); this.kp.clear(); }
     help(spec, title = "NOVA's tip") {
       const h = this.$('.board-help'); h.hidden = false;
       h.querySelector('.bh-t').textContent = title;

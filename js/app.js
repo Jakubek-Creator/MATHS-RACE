@@ -501,7 +501,7 @@ function startJob(id, l) {
       else qs.push(makeQ(id, l, tier, used));
     });
   }
-  J = { id, l, qs, i: 0, tries: 0, earned: 0, bonus: 0, streak: 0, best: 0, hint: false, fb: null, replay: id === 'boss' ? !!S.boss : l < lvOf(id), unlocked: [], wasOpen: ORDER.filter(districtOpen) };
+  J = { id, l, qs, i: 0, tries: 0, earned: 0, bonus: 0, streak: 0, best: 0, hint: false, fb: null, mood: 'idle', say: `${qs.length} questions. Type each answer on the pad.`, t0: 0, replay: id === 'boss' ? !!S.boss : l < lvOf(id), unlocked: [], wasOpen: ORDER.filter(districtOpen) };
   go({ view: 'job' });
 }
 function workedHTML(Sh) {
@@ -522,6 +522,7 @@ function job() {
   <section class="runcard job2" style="--accent:${m.accent}">
     <div class="run-h"><span class="rh-em">${emblem(x.id)}</span><b>${x.tag ? esc(x.tag) : m.title}</b><span class="ct">${J.i + 1} / ${J.qs.length}</span></div>
     <div class="run-b">
+      <div class="job-nova"><div class="jn-n"></div><p class="jn-say" aria-live="polite">${esc(J.say || '')}</p></div>
       <div class="run-meta"><span class="streak ${hot ? 'hot' : ''}">Nitro ${[0, 1, 2].map(i => `<i class="${i < J.streak ? 'on' : ''}"></i>`).join('')} <small>${hot ? 'Double cash!' : '3 in a row for double cash'}</small></span><span class="paid">${money(J.earned)} this job</span></div>
       <p class="run-story">${x.story}</p>${pic}
       <div class="run-q">${sum}</div>
@@ -537,32 +538,55 @@ function job() {
   return h + '</div></section>';
 }
 let KP = null;
+/* NOVA in jobs: her mood follows the answer; she speaks with the lesson voice when it is on. */
+let JN = null, JV = null;
+function novaSay(mood, text) {
+  J.mood = mood; J.say = text;
+  if (S.voice === false) return;
+  JV = JV || new NB.AudioController({ lessonId: 'jobs', isMuted: () => S.voice === false,
+    onState: st => { if (!JN) return; if (st === 'playing') JN.set('talking'); else if (st === 'ended' || st === 'stopped') JN.set('idle'); } });
+  setTimeout(() => JV.play('react', text), 700);   // let the mood show first, then she talks
+}
 function mountJob() {
+  const nv = $('.jn-n');
+  if (nv) { JN = new NB.TeacherController(nv); if (J.mood !== 'idle') JN.flash(J.mood, 1600, 'idle'); }
+  const fx = J.fx; J.fx = null;
+  if (fx) setTimeout(() => { const el = $('.run-q .slot') || $('.run-q'); if (fx.good) { NB.Reward.good(el, fx.good); NB.Reward.combo(J.streak, $('.run-q')); } else NB.Reward.bad($('.run-q')); }, 30);
   const slot = $('#jslot'), host = $('#jkp');
   if (!slot || !host) return;
+  if (!J.t0) J.t0 = performance.now();
   if (KP) KP.destroy();
   KP = new NB.Keypad(host, { sfx });
   KP.attach(slot, { onSubmit: v => jobAnswer(Number(v)) });
+  if (matchMedia('(max-height: 520px)').matches) setTimeout(() => $('.run-q') && $('.run-q').scrollIntoView({ block: 'center' }), 60);
 }
 function jobAnswer(v) {
-  const x = J.qs[J.i];
+  const x = J.qs[J.i], secs = (performance.now() - J.t0) / 1000;
   if (v === x.answer) {
     const clean = J.tries === 0 && !J.hint, base = (J.id === 'boss' ? 300 : 150 + 50 * J.l) * (J.replay ? .5 : 1);
     J.streak = clean ? J.streak + 1 : 0; J.best = Math.max(J.best, J.streak);
     const nitro = clean && J.streak >= 3, pay = Math.round(clean ? base * (nitro ? 2 : 1) : base * .3);
     payFx($('#jslot'));
-    x.res = true; x.clean = clean; J.earned += pay; S.cash += pay; S.xp = (S.xp || 0) + (clean ? 20 : 8); save(); dailyTick();
-    J.fb = { cls: 'good', t: `${clean ? pick(['Correct!', 'Spot on!', 'Nailed it!']) : 'Got there!'} +${money(pay)}${nitro ? ' Nitro × 2!' : ''}` };
-    sfx(nitro ? 'nitro' : 'good');
+    const big = clean && J.streak >= 5 && J.streak % 5 === 0, xp = (clean ? 20 : 8) + (big ? 50 : 0);
+    // a clean answer inside a few seconds per step counts as fast (feeds the race boost)
+    x.res = true; x.clean = clean; x.hinted = J.hint; x.wrong = J.tries > 0; x.fast = clean && secs < 6 * x.S.moves.length;
+    J.earned += pay; S.cash += pay; S.xp = (S.xp || 0) + xp; save(); dailyTick();
+    J.fb = { cls: 'good', t: `${clean ? pick(['Correct!', 'Spot on!', 'Nailed it!']) : 'Got there!'} +${money(pay)}${nitro ? ' Nitro × 2!' : ''}${big ? ' Streak bonus!' : ''}` };
+    J.fx = { good: `+${xp} XP` };
+    const E = NB.AdaptiveLearningEngine;
+    novaSay('celebrating', big ? E.phrase('bigStreak') : J.streak === 3 ? E.phrase('streak') : clean ? E.phrase('first') : E.phrase('assisted'));
+    sfx(nitro || big ? 'nitro' : 'good');
+    if (clean) { const at = J.i; setTimeout(() => { if (J && V.view === 'job' && J.i === at) nextQ(); }, 1700); }
   } else {
-    J.streak = 0; sfx('bad');
-    if (J.tries === 0) { J.tries = 1; J.fb = { cls: 'bad', t: `${v} isn't it. Here are the steps. Have another go.` }; }
-    else { x.res = false; x.clean = false; x.given = v; J.fb = { cls: 'bad', t: `The answer is ${x.answer}. Read through the working below.` }; }
+    J.streak = 0; sfx('bad'); J.fx = { bad: true };
+    if (J.tries === 0) { J.tries = 1; J.fb = { cls: 'bad', t: `${v} isn't it. Here are the steps. Have another go.` }; novaSay('encouraging', NB.AdaptiveLearningEngine.phrase('hint')); }
+    else { x.res = false; x.clean = false; x.wrong = true; x.given = v; J.fb = { cls: 'bad', t: `The answer is ${x.answer}. Read through the working below.` }; novaSay('encouraging', NB.AdaptiveLearningEngine.phrase('followUpWrong')); }
   }
   render();
 }
 function nextQ() {
-  if (J.i < J.qs.length - 1) { J.i++; J.tries = 0; J.hint = false; J.fb = null; render(); window.scrollTo(0, 0); return; }
+  if (JV) JV.stop();
+  if (J.i < J.qs.length - 1) { J.i++; J.tries = 0; J.hint = false; J.fb = null; J.t0 = 0; J.mood = 'idle'; J.say = ''; render(); window.scrollTo(0, 0); return; }
   const boss = J.id === 'boss', right = J.qs.filter(q => q.res).length, clean = J.qs.filter(q => q.clean).length, pass = right >= (boss ? 5 : 4);
   S.stars = S.stars || {}; const sk = boss ? 'boss' : `${J.id}-${J.l}`; S.stars[sk] = Math.max(S.stars[sk] || 0, clean);
   if (pass) {
@@ -588,12 +612,40 @@ function result() {
       <p class="mc-sub">${right} out of ${J.qs.length} right, ${clean} first time${pass ? '' : `. You need ${need} to pass. Watch the lesson again, then have another go`}${J.bonus ? `, plus a ${money(J.bonus)} first-clear bonus` : ''}.</p>
       <span class="pill stk">${starRow(clean, J.qs.length)}</span></div>
     ${J.unlocked.length ? `<ul class="mc-unlocks">${J.unlocked.map((u, i) => `<li style="--i:${i}"><span>${LOCKOPEN}${u[0]}</span><b>${u[1]}</b></li>`).join('')}</ul>` : ''}
+    <div class="job-nova mc-nova"><div class="jn-n"></div><p class="jn-say">${pass ? `${NB.AdaptiveLearningEngine.phrase('mission')}${J.raced ? '' : ' Your answers have tuned your car for a bonus race.'}` : "Don't give up! Watch the lesson again and you'll get it."}</p></div>
     <img class="mc-car" src="img/complete.webp" alt="">
     <div class="mc-actions">
-      <button class="b-go" ${pass ? nextAct : `data-act="job" data-id="${J.id}" data-l="${J.l}"`}>${pass ? (!boss && J.l < 2 ? 'Next level ▶' : 'Continue ▶') : 'Try again ▶'}</button>
+      ${pass && !J.raced ? `<button class="b-go mc-race" data-act="mrace">${CARIC} Race for a bonus ▶</button>` : ''}
+      <button class="${pass && !J.raced ? 'b-sec' : 'b-go'}" ${pass ? nextAct : `data-act="job" data-id="${J.id}" data-l="${J.l}"`}>${pass ? (!boss && J.l < 2 ? 'Next level ▶' : 'Continue ▶') : 'Try again ▶'}</button>
       <div class="mc-row"><button class="b-sec" data-act="garage">${CARIC} Garage</button>${pass ? `<button class="b-sec" data-act="job" data-id="${J.id}" data-l="${J.l}">Replay</button>` : ''}</div>
       <div class="mc-links">${!boss ? `<button data-act="lesson" data-id="${J.id}" data-l="${J.l}">Watch the lesson again</button><button data-act="district" data-id="${J.id}">Back to ${T[J.id].name}</button>` : '<button data-act="board">Missions</button>'}</div>
     </div></section>`;
+}
+
+/* ---------- mission race: optional, after a passed job; the maths decides the boosts ---------- */
+function missionPerf() {
+  const q = J.qs, best = q.reduce((m, x) => { m.run = x.clean ? m.run + 1 : 0; m.best = Math.max(m.best, m.run); return m; }, { run: 0, best: 0 }).best;
+  return { n: q.length, clean: q.filter(x => x.clean).length, fast: q.filter(x => x.fast).length, hinted: q.filter(x => x.hinted).length, wrong: q.filter(x => x.wrong).length, best };
+}
+function openMissionRace() {
+  if (!J || J.raced) return;
+  const p = missionPerf(), acc = J.qs.filter(x => x.res).length / p.n, league = NB.Race.missionLeague(totalCleared(), acc), c = myCar();
+  const carsBefore = CARS.filter((k, i) => carGot(i)).length;
+  J.raced = true;
+  new NB.Race.RaceScreen({ player: { name: c.name, type: c.type, color: c.color, stats: carStats(c.i), mods: modsOf(c.i) }, league, seed: R(1, 99999), theme: 'city', laps: 1, levels: totalCleared(), acc, sfx,
+    mission: NB.Race.boost(p),
+    onDone: ({ place, time }) => {
+      const cash = Math.round((150 + 100 * league) * [1, .5, .3, .15][place - 1] / 10) * 10, xp = [60, 35, 20, 10][place - 1];
+      const rs = S.raceStats = S.raceStats || { races: 0, wins: 0, podiums: 0, log: [] };
+      rs.races++; if (place === 1) rs.wins++; if (place <= 3) rs.podiums++;
+      rs.log = [{ d: today(), place, time: Math.round(time * 10) / 10, acc: Math.round(acc * 100), league }].concat(rs.log || []).slice(0, 10);
+      S.cash += cash; S.xp = (S.xp || 0) + xp; save(); hud();
+      const newCars = CARS.filter((k, i) => carGot(i)).slice(carsBefore).map(k => k.name);
+      return { cash, xp, summary: `Mission: ${Math.round(acc * 100)}% right, ${p.clean} clean, best streak ${p.best}. Race: ${['1st', '2nd', '3rd', '4th'][place - 1]} in ${time.toFixed(1)}s.`,
+        note: newCars.length ? `New car unlocked: ${newCars.join(', ')}! Check the garage.` : '' };
+    },
+    onExit: nav => { if (nav === 'garage') go({ view: 'garage' }); else render(); }
+  }).open();
 }
 
 /* ---------- progress ---------- */
@@ -614,7 +666,7 @@ function progressView() {
     h += '</div>';
   });
   h += `<h2 class="pg-h">Street racing</h2>
-   <section class="pg-race" style="--lc:${L.color}"><div><b>${L.name}</b><small>League ${Math.min(r.league, 4) + 1} of 5</small></div><div><b>${r.wins || 0}</b><small>Wins</small></div>
+   <section class="pg-race" style="--lc:${L.color}"><div><b>${L.name}</b><small>League ${Math.min(r.league, 4) + 1} of 5</small></div><div><b>${r.wins || 0}</b><small>Daily wins</small></div><div><b>${(S.raceStats && S.raceStats.wins) || 0} / ${(S.raceStats && S.raceStats.races) || 0}</b><small>Mission races won</small></div>
     <div class="pg-lgs">${Rc.LEAGUES.map((g, k) => `<i class="${k < r.league ? 'done' : k === Math.min(r.league, 4) ? 'now' : ''}" title="${g.name}"></i>`).join('')}</div></section>
    <p class="reset-note">Sound, voice and reset are under the settings cog. Progress saves in this browser only.</p>`;
   return h;
@@ -688,6 +740,7 @@ function render() {
   if (V.view === 'brief') wireExplorers();
   if (V.view === 'board') mountMap();
   if (V.view === 'job') mountJob();
+  if (V.view === 'result') { const mn = $('.mc-nova .jn-n'); if (mn) new NB.TeacherController(mn).set(J.qs.filter(q => q.res).length >= (J.id === 'boss' ? 5 : 4) ? 'excited' : 'encouraging'); }
   if (V.view === 'result') { const ti = $('.mcomp:not(.fail) .mc-title'); if (ti) setTimeout(() => NB.FX.sparks(ti, 14, 140), 420); const cv = $('.earned .cv'); if (cv) NB.FX.roll(cv, cv.dataset.to, { delay: 560 }); }
 }
 const DEPTH = { lobby: 0, board: 1, garage: 1, progress: 1, district: 2, brief: 3, job: 4, result: 5 };
@@ -732,7 +785,7 @@ document.addEventListener('click', e => {
     lesson: () => openLesson(id, l),
     job: () => startJob(id, l),
     locked: () => { sfx('bad'); NB.FX.shake(b); },
-    hint: () => { J.hint = true; render(); },
+    hint: () => { J.hint = true; novaSay('thinking', NB.AdaptiveLearningEngine.phrase('think')); render(); },
     next: nextQ,
     gear: () => { V.gear = !V.gear; hud(); },
     sound: () => { S.sound = S.sound === false; save(); hud(); sfx('good'); },
@@ -749,6 +802,7 @@ document.addEventListener('click', e => {
     drive: () => { S.car = V.gi; save(); sfx('cash'); burst(); render(); },
     mod: () => buyMod(b.dataset.m),
     race: openRace,
+    mrace: openMissionRace,
     reset: () => {
       if (b.dataset.armed) { const v = S.voice, s = S.sound; S = { cash: 0, lv: {}, read: {}, boss: false, voice: v, sound: s }; save(); V.gear = false; go({ view: 'board' }); }
       else { b.dataset.armed = '1'; b.textContent = 'Tap again to wipe everything'; }

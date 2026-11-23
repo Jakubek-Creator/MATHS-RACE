@@ -1,0 +1,51 @@
+/* reward.css — answer feedback, combo pops and NOVA's extra moods. Transforms and opacity only. */
+.rw-good{border-color:#3DBE6E !important; box-shadow:0 0 0 4px rgba(61,190,110,.35),0 0 26px rgba(248,197,55,.55) !important; position:relative}
+.rw-good::after{content:"✓"; position:absolute; right:-14px; top:-14px; width:26px; height:26px; border-radius:50%; display:grid; place-items:center;
+  background:#3DBE6E; color:#fff; font:900 15px/1 system-ui, sans-serif; border:2px solid #fff; pointer-events:none}
+.rw-bad{border-color:#FF9D45 !important; box-shadow:0 0 0 4px rgba(255,157,69,.35) !important}
+.rw-float{position:fixed; z-index:120; transform:translate(-50%,-100%); pointer-events:none; white-space:nowrap;
+  font-family:"Exo 2", "Arial Black", sans-serif; font-style:italic; font-weight:900; text-align:center; text-shadow:0 2px 0 rgba(0,0,0,.4)}
+.rw-float.xp{color:#F8C537; font-size:1.3rem}
+.rw-float.combo{padding:4px 14px; background:#5EC3E8; color:#fff; clip-path:polygon(8px 0,100% 0,calc(100% - 8px) 100%,0 100%); font-size:1rem}
+.rw-float.combo.hot{background:#FF9D45}
+.rw-float.combo.big{background:#F8C537; color:#1d2126; font-size:1.5rem; padding:8px 22px; text-shadow:none}
+.rw-float.combo small{display:block; font-size:.7em}
+@media (prefers-reduced-motion:no-preference){
+  .rw-good::after{animation:rwTick .45s cubic-bezier(.3,1.6,.5,1) both}
+  .rw-good{animation:rwPop .35s ease-out}
+  .rw-bad{animation:rwShake .45s ease-in-out}
+  .rw-float{animation:rwUp 1.25s ease-out forwards}
+  .rw-float.combo.big{animation:rwBig 1.3s cubic-bezier(.3,1.4,.5,1) forwards}
+  body.rw-nudge #app,body.rw-nudge .nbl-shell{animation:rwNudge .25s ease-out}
+  /* NOVA: excited (mission done) and victory (race won) build on the happy face */
+  .nova[data-state=excited] .nv-float{animation:nvJump .38s ease-in-out infinite alternate}
+  .nova[data-state=victory] .nv-float{animation:rwVictory 1.1s ease-in-out infinite}
+  .nova[data-state=excited] .nv-spark path,.nova[data-state=victory] .nv-spark path{animation:nvSpark .5s ease-in-out infinite alternate}
+}
+.nova[data-state=excited] .e-happy,.nova[data-state=excited] .m-open,.nova[data-state=victory] .e-happy,.nova[data-state=victory] .m-open{display:inline}
+.nova[data-state=excited] .nv-spark,.nova[data-state=victory] .nv-spark{opacity:1}
+.nova[data-state=excited] .nv-fin,.nova[data-state=victory] .nv-fin{fill:#F8C537}
+@keyframes rwTick{from{transform:scale(0) rotate(-40deg)}to{transform:none}}
+@keyframes rwPop{40%{transform:scale(1.08)}}
+@keyframes rwShake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@keyframes rwUp{0%{opacity:0; transform:translate(-50%,-60%)}15%{opacity:1}100%{opacity:0; transform:translate(-50%,-260%)}}
+@keyframes rwBig{0%{opacity:0; transform:translate(-50%,-50%) scale(.4)}25%{opacity:1; transform:translate(-50%,-140%) scale(1.15)}80%{opacity:1; transform:translate(-50%,-150%) scale(1)}100%{opacity:0; transform:translate(-50%,-170%)}}
+@keyframes rwNudge{30%{transform:translate(2px,-2px)}60%{transform:translate(-2px,1px)}}
+@keyframes rwVictory{0%,100%{transform:translateY(0) rotate(0)}30%{transform:translateY(-16px) rotate(-8deg)}60%{transform:translateY(-16px) rotate(8deg)}}
+
+/* NOVA in jobs and race results: small, at the top, with a speech bubble */
+.job-nova{display:flex; align-items:center; gap:8px; min-height:62px}
+.job-nova .jn-n{flex:0 0 58px; height:62px}
+.job-nova .jn-n .nova{height:62px; width:auto}
+.job-nova .jn-say{position:relative; margin:0; padding:7px 12px; border-radius:4px 12px 12px 12px; background:#fff; color:#1d2126; font-weight:700; font-size:.95rem; line-height:1.3}
+.job-nova .jn-say:empty{display:none}
+
+/* race panels */
+.rg-boost{list-style:none; margin:6px 0; padding:0; display:grid; gap:4px}
+.rg-boost li{padding:6px 10px; background:var(--slate3,#444d56); border-left:4px solid var(--green,#3DBE6E); border-radius:3px; font-weight:700; font-size:.92rem}
+.rg-sum{margin:6px 0 0; font-weight:700; color:var(--sky,#5EC3E8)}
+.rc-nova{margin-bottom:4px}
+.mc-nova{max-width:420px; margin:10px auto 0}
+.pg-race{grid-template-columns:1fr auto auto}
+.mc-race svg{width:34px; height:20px; flex:0 0 auto}
+.mc-race{display:flex; align-items:center; justify-content:center; gap:10px}
