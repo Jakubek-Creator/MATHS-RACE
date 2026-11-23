@@ -1,6 +1,6 @@
 /* Race — car stats, mods, leagues, the race simulation and the race screen.
    Stats (0–100): spd top speed, acc acceleration, han handling (corner speed), nit nitro (charges + power).
-   The simulation is plain JS; Race3D (World3D.js) draws it in 3D, or a 2D track is drawn if 3D is unavailable. */
+   The driving itself (physics, tracks, AI) is NB.Drive (Drive.js), drawn by NB.DriveView (DriveView.js). */
 (function (NB) {
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const BASE = {
@@ -59,77 +59,16 @@
       head: p.clean * 1.5 + p.fast,
       form: Math.max(.9, 1 - .02 * p.wrong)
     };
-    b.lines = [`+${b.spd} top speed from ${p.clean} clean answer${p.clean === 1 ? '' : 's'}`,
+    b.lines = [`+${b.spd} top speed and grip from ${p.clean} clean answer${p.clean === 1 ? '' : 's'}`,
       `+${b.acc} acceleration from ${p.fast} fast answer${p.fast === 1 ? '' : 's'}`,
       b.extra ? `+${b.extra} extra nitro for a ${p.best}-answer streak` : 'Get 3 in a row next time for extra nitro',
       p.wrong ? `−${Math.round((1 - b.form) * 100)}% momentum from ${p.wrong} wrong answer${p.wrong === 1 ? '' : 's'}` : 'No wrong answers: full momentum'];
     return b;
   }
-  /* Opponents match the child: rated around their own (boosted) car. Higher maths level and a strong
+  /* Opponents match the child: rated around their own car before the maths boost, so the boost is a real edge. Higher maths level and a strong
      mission make rivals tougher; a struggling child gets slower rivals so the race stays winnable. */
   const missionLeague = (levels, acc) => clamp(Math.floor(levels / 5) + (acc >= .9 ? 1 : acc < .6 ? -1 : 0), 0, LEAGUES.length - 1);
-  const missionRivalRating = (myRating, levels, acc) => clamp(Math.round(myRating - 15 + Math.min(6, levels / 3) + (acc >= .9 ? 2 : acc < .7 ? -6 : 0)), 15, 95);
-
-  /* ---------------- simulation ---------------- */
-  class RaceSim {
-    /* track: {length, kn(d)} where kn is corner sharpness 0..1. racers: [{stats, ai}] */
-    constructor(track, racers, laps = 2) {
-      this.track = track; this.laps = laps; this.total = track.length * laps;
-      this.t = 0; this.phase = 'grid'; this.goAt = null;
-      this.cars = racers.map((r, i) => ({ ...r, i, d: 0, v: 0, nitro: 0, charges: charges(r.stats), finished: false, time: null,
-        launchAt: r.ai ? .18 + Math.random() * .35 : null, hold: 0, nitroUsed: 0,
-        form: r.ai ? 1 + (Math.random() - .5) * .1 : 1 }));   // rivals have good and bad days
-      this.events = [];
-    }
-    lights(at) { this.phase = 'count'; this.goAt = at; }   // seconds from now until green
-    launch() {                                             // the player's launch tap
-      const p = this.cars.find(c => !c.ai); if (!p || p.launchAt != null) return null;
-      if (this.phase === 'count' && this.t < this.goAt) { p.launchAt = this.goAt + .6; this.events.push('jump'); return 'jump'; }
-      const r = this.t - this.goAt; p.launchAt = this.goAt + Math.max(0, r);
-      if (r < .35) { p.v = 14; this.events.push('perfect'); return 'perfect'; }
-      this.events.push('ok'); return 'ok';
-    }
-    nitro(i) {
-      const c = this.cars[i]; if (!c || c.charges <= 0 || c.nitro > 0 || this.phase !== 'run' || c.finished) return false;
-      c.charges--; c.nitro = 2.2 + c.stats.nit / 100; c.nitroUsed++; return true;
-    }
-    step(dt) {
-      dt = Math.min(dt, .05); this.t += dt;
-      if (this.phase === 'count' && this.t >= this.goAt) this.phase = 'run';
-      if (this.phase !== 'run') return;
-      const L = this.track.length;
-      this.cars.forEach(c => {
-        if (c.finished) { c.v = Math.max(8, c.v - 25 * dt); c.d += c.v * dt; return; }
-        if (c.launchAt == null) { if (this.t > this.goAt + 3) c.launchAt = this.t; else return; }  // never tapped: auto-launch late
-        if (this.t < c.launchAt) return;
-        const s = c.stats, kn = this.track.kn(((c.d % L) + L) % L);
-        let vmax = (32 + s.spd * .34) * (1 - kn * .42 * (1.25 - s.han / 100)) * c.form * (c.grip == null ? 1 : c.grip);
-        let a = 6 + s.acc * .15;
-        if (c.stun > 0) { c.stun -= dt; a *= .15; }        // just hit something: wheels spinning
-        if (c.nitro > 0) { vmax *= 1 + (.18 + s.nit / 400) * (1 - kn * .7); a *= 1.8; c.nitro -= dt; }
-        if (c.ai && c.charges > 0 && c.nitro <= 0 && kn < .08 && c.v > vmax * .7) {
-          const left = (this.total - c.d) / this.total;
-          if (Math.random() < dt * .5 || left < c.charges * .12) this.nitro(c.i);
-        }
-        if (c.v < vmax) c.v = Math.min(vmax, c.v + a * dt); else c.v = Math.max(vmax, c.v - 34 * dt);
-        c.d += c.v * dt;
-        if (c.d >= this.total) { c.finished = true; c.time = this.t - (c.d - this.total) / Math.max(1, c.v); }
-      });
-      const p = this.cars.find(c => !c.ai);
-      if (p && p.finished && this.cars.every(c => c.finished || c.d > this.total - 1)) this.phase = 'done';
-      if (p && p.finished && !this.doneAt) this.doneAt = this.t;
-      if (this.doneAt && this.t - this.doneAt > 2.2) this.phase = 'done';
-    }
-    order() {
-      return this.cars.slice().sort((a, b) => (a.finished && b.finished) ? a.time - b.time : a.finished ? -1 : b.finished ? 1 : b.d - a.d);
-    }
-    finalOrder() { // cars still running get a projected time
-      return this.cars.map(c => ({ c, time: c.finished ? c.time : this.t + (this.total - c.d) / Math.max(10, c.v) })).sort((a, b) => a.time - b.time).map(x => Object.assign(x.c, { time: x.time }));
-    }
-  }
-
-  /* A track description for when 3D is unavailable: four corners per lap. */
-  const flatTrack = { length: 620, kn: d => { const x = (d % 620) / 620 * Math.PI * 4; return Math.pow(Math.max(0, Math.sin(x)), 6); } };
+  const missionRivalRating = (myRating, levels, acc) => clamp(Math.round(myRating - 14 + Math.min(6, levels / 3) + (acc >= .9 ? 2 : acc < .7 ? -2 : 0)), 15, 95);
 
   /* ---------------- race screen ---------------- */
   const ord = n => ['1st', '2nd', '3rd', '4th'][n - 1] || `${n}th`;
@@ -141,33 +80,40 @@
     constructor(opts) { this.o = opts; }
     open() {
       const o = this.o, L = LEAGUES[Math.min(o.league, LEAGUES.length - 1)];
-      const B = o.mission, ps = B ? Object.assign({}, o.player.stats, { spd: clamp(o.player.stats.spd + B.spd, 0, 100), acc: clamp(o.player.stats.acc + B.acc, 0, 100) }) : o.player.stats;
-      this.rivals = rivals(o.league, o.seed, o.mission ? missionRivalRating(rating(ps), o.levels || 0, o.acc || 0) : 0);
-      this.racers = [{ name: 'You', type: o.player.type, color: o.player.color, stats: ps, mods: o.player.mods, ai: false }, ...this.rivals];
+      const B = o.mission, ps = B ? Object.assign({}, o.player.stats, { spd: clamp(o.player.stats.spd + B.spd, 0, 100), acc: clamp(o.player.stats.acc + B.acc, 0, 100), han: clamp(o.player.stats.han + B.spd, 0, 100) }) : o.player.stats;
+      this.rivals = rivals(o.league, o.seed, o.mission ? missionRivalRating(rating(o.player.stats), o.levels || 0, o.acc || 0) : 0);
+      const skill = Math.min(.95, .55 + o.league * .1);
+      this.rivals.forEach(r => { r.skill = skill; r.charges = charges(r.stats); });
+      // good maths puts you near the front of the grid; the daily race starts you third
+      this.slot = B ? (B.head >= 8 ? 0 : B.head >= 4 ? 1 : 3) : 2;
+      this.racers = [{ name: 'You', type: o.player.type, color: o.player.color, stats: ps, mods: o.player.mods, ai: false, charges: charges(ps) + (B ? B.extra : 0), form: B ? B.form : 1 }, ...this.rivals];
+      this.track = NB.Drive.track(o.theme, o.seed, o.league);
+      const slots = [this.slot, ...[0, 1, 2, 3].filter(k => k !== this.slot)];
+      this.sim = new NB.Drive.Sim(this.track, this.racers, { laps: o.laps || this.track.laps, seed: o.seed, slots });
       const el = this.el = document.createElement('div');
       el.className = 'rc'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', o.mission ? 'Mission race' : 'Daily race');
+      const arrow = d => `<svg viewBox="0 0 24 24"><path d="${d}" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
       el.innerHTML = `<div class="rc-stage"></div>
-        <div class="rc-top"><div class="rc-pos"><b>–</b><span>/ 4</span></div><div class="rc-lap">Lap <b>1</b> / ${o.laps || 2}</div><div class="rc-speed"><b>0</b><span>km/h</span></div>
+        <div class="rc-top"><div class="rc-pos"><b>–</b><span>/ 4</span></div><div class="rc-lap">Lap <b>1</b> / ${this.sim.laps}</div><div class="rc-speed"><b>0</b><span>km/h</span></div>
           <div class="rc-time">0:00.0</div><div class="rc-lg" style="--lc:${L.color}">${L.name}</div></div>
         <div class="rc-lights" aria-hidden="true"><i></i><i></i><i></i></div>
         <div class="rc-msg" aria-live="assertive"></div>
-        <div class="rc-bottom"><div class="rc-pads" aria-label="Steering"><button class="rc-pad" data-pad="-1" aria-label="Steer left"><svg viewBox="0 0 24 24"><path d="M15 4 7 12l8 8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button><button class="rc-pad" data-pad="1" aria-label="Steer right"><svg viewBox="0 0 24 24"><path d="m9 4 8 8-8 8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div>
-          <button class="rc-btn rc-launch" data-r="launch">Launch!</button>
-          <button class="rc-btn rc-nitro" data-r="nitro" hidden>Nitro <span class="pips"></span></button></div>
+        <div class="rc-bottom"><div class="rc-pads" aria-label="Steering"><button class="rc-pad" data-pad="-1" aria-label="Steer left">${arrow('M15 4 7 12l8 8')}</button><button class="rc-pad" data-pad="1" aria-label="Steer right">${arrow('m9 4 8 8-8 8')}</button></div>
+          <div class="rc-right"><button class="rc-btn rc-launch" data-r="launch">Launch!</button>
+          <button class="rc-btn rc-drift" data-hb hidden aria-label="Drift (handbrake)">Drift</button>
+          <button class="rc-btn rc-nitro" data-r="nitro" hidden>Nitro <span class="pips"></span></button></div></div>
         <div class="rc-panel"></div>`;
       document.body.appendChild(el); document.body.classList.add('nbl-open');
       el.addEventListener('click', e => { const b = e.target.closest('[data-r]'); if (b && !b.disabled) this.act(b.dataset.r); });
-      this.onKey = e => { if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); this.act(this.sim && this.sim.phase === 'run' && this.launched ? 'nitro' : 'launch'); } if (e.key === 'Escape' && !this.started) this.close(); };
+      this.onKey = e => {
+        const k = e.key.toLowerCase();
+        if (!this.launched && this.started && (k === ' ' || k === 'enter' || k === 'arrowup' || k === 'w')) { e.preventDefault(); this.act('launch'); }
+        if (e.key === 'Escape' && !this.started) this.close();
+      };
       document.addEventListener('keydown', this.onKey);
-      // top-down 2D track (one of three, changes every day), or the plain fallback
-      const stage = el.querySelector('.rc-stage');
-      this.r3 = null;
-      if (NB.Race2D) { try { this.r3 = new NB.Race2D(stage, this.racers, { seed: o.seed, theme: o.theme }); this.r3.onHit = (k, m) => { this.msg(m, 'bad'); this.o.sfx('bad'); }; } catch (e) { console.warn(e); this.r3 = null; } }
-      this.track = this.r3 ? this.r3.track : flatTrack;
-      if (!this.r3) stage.innerHTML = `<div class="rc-flat">${this.racers.map((r, i) => `<div class="rf-lane"><span class="rf-n">${r.name}</span><span class="rf-car" style="--c:${r.color}"></span></div>`).join('')}</div>`;
-      this.sim = new RaceSim(this.track, this.racers, o.laps || 2);
-      if (o.mission) { const me = this.sim.cars[0]; me.charges += o.mission.extra; me.d = o.mission.head; me.form = o.mission.form; }
-      if (this.r3) { this.r3.sim = this.sim; this.r3.onFrame = dt => this.frame(dt); }
+      this.view = new NB.DriveView(el.querySelector('.rc-stage'), this.sim, this.racers, { mapTop: 112 });
+      this.view.onFrame = dt => this.frame(dt); this.view.onNitro = () => this.act('nitro');
+      this.ei = 0;
       this.grid();
     }
     grid() {
@@ -182,8 +128,8 @@
         ${B ? `<ul class="rg-boost">${B.lines.map(t => `<li>${t}</li>`).join('')}</ul>` : ''}
         <div class="rg">${row(this.racers[0])}${this.rivals.map(row).join('')}</div>
         <p class="rg-tip">${tip}</p>
-        <p class="rg-track">Today's track: <b>${this.track.name || 'Neon circuit'}</b>${this.r3 ? ` <span>${this.track.tip}</span>` : ''}</p>
-        <p class="rg-how"><b>How to race:</b> tap <b>Launch</b> when the lights go green. Steer with the big <b>◀ ▶</b> buttons, or drag your finger left and right. Dodge hazards and hold the road in corners. Tap <b>Nitro</b> on straights. Arrow keys and space bar work too.</p>
+        <p class="rg-track">Today's track: <b>${this.track.name}</b>, ${this.sim.laps} laps. <span>${this.track.tip}</span> You start <b>${ord(this.slot + 1)}</b> on the grid.</p>
+        <p class="rg-how"><b>How to race:</b> tap <b>Launch</b> when the lights go green, then your car drives itself forward. Steer with <b>◀ ▶</b> or drag your finger. Hold <b>Drift</b> to slide round tight corners. Drive over blue cans for extra nitro and tap <b>Nitro</b> on straights. Keys: arrows to drive, space to drift, N for nitro.</p>
         <div class="rg-acts"><button class="rc-cta" data-r="start">Start race ▶</button>${B ? '' : '<button class="rc-sec" data-r="garage">Upgrade first</button>'}<button class="rc-sec" data-r="exit">Not now</button></div>`);
     }
     panel(html) { const p = this.el.querySelector('.rc-panel'); p.innerHTML = html; p.hidden = !html; }
@@ -198,35 +144,40 @@
         [0, 1, 2].forEach(k => setTimeout(() => { ls[k].className = 'red'; this.o.sfx('tick'); }, 300 + k * 900));
         setTimeout(() => { ls.forEach(x => (x.className = 'green')); this.msg('GO!', 'go'); this.o.sfx('good'); }, 3000);
         setTimeout(() => this.el.querySelector('.rc-lights').classList.add('off'), 4200);
-        this.last = performance.now();
-        if (!this.r3) this.loop();
       } else if (a === 'launch' && this.started && !this.launched) {
         const r = s.launch(); this.launched = true;
         this.el.querySelector('.rc-launch').hidden = true;
-        const nb = this.el.querySelector('.rc-nitro'); nb.hidden = false; this.pips();
+        const nb = this.el.querySelector('.rc-nitro'); nb.hidden = false; this.el.querySelector('.rc-drift').hidden = false; this.pips();
         if (r === 'perfect') { this.msg('PERFECT START!', 'good'); this.o.sfx('nitro'); }
         else if (r === 'jump') { this.msg('Jump start! Held back', 'bad'); this.o.sfx('bad'); }
         else this.msg('Go go go!', '');
       } else if (a === 'nitro') {
-        if (s.nitro(0)) { this.msg('NITRO!', 'nitro'); this.o.sfx('nitro'); this.pips(); if (this.r3) this.r3.boost(); }
+        if (s.nitro(0)) { this.msg('NITRO!', 'nitro'); this.o.sfx('nitro'); this.pips(); }
       } else if (a === 'exit') this.close();
       else if (a === 'garage') this.close('garage');
       else if (a === 'done') this.close();
     }
-    pips() { const p = this.sim.cars[0]; this.el.querySelector('.rc-nitro .pips').innerHTML = Array.from({ length: charges(p.stats) }, (_, k) => `<i class="${k < p.charges ? 'on' : ''}"></i>`).join(''); this.el.querySelector('.rc-nitro').disabled = p.charges <= 0; }
-    loop() { if (this.closed) return; const now = performance.now(); this.frame((now - this.last) / 1000); this.last = now; requestAnimationFrame(() => this.loop()); }
+    pips() { const p = this.sim.cars[0], n = Math.max(p.charges, charges(p.stats)); this.el.querySelector('.rc-nitro .pips').innerHTML = Array.from({ length: n }, (_, k) => `<i class="${k < p.charges ? 'on' : ''}"></i>`).join(''); this.el.querySelector('.rc-nitro').disabled = p.charges <= 0; }
     frame(dt) {
-      const s = this.sim; if (!this.started || this.finishedShown) return;
-      for (let left = Math.min(dt, .25); left > 1e-4; left -= .05) s.step(Math.min(.05, left));   // keep real time even at low frame rates
+      const s = this.sim; if (this.finishedShown) return;
+      s.step(dt);                                   // fixed physics steps inside, so any frame rate plays the same
+      if (!this.started) return;
       const order = s.order(), me = s.cars[0], pos = order.indexOf(me) + 1;
       const t = Math.max(0, s.t - (s.goAt || 0));
+      for (; this.ei < s.events.length; this.ei++) {
+        const e = s.events[this.ei]; if (e.i !== 0 && e.j !== 0) continue;
+        if (e.type === 'haz') { this.msg(e.msg, 'bad'); this.o.sfx('bad'); }
+        else if (e.type === 'pickup') { this.msg('+1 NITRO', 'nitro'); this.o.sfx('good'); this.pips(); }
+        else if (e.type === 'lap') { this.msg(e.lap === s.laps - 1 ? 'FINAL LAP' : `LAP ${e.lap + 1}`, ''); this.o.sfx('good'); }
+        else if (e.type === 'respawn') this.msg('Back on track', '');
+      }
+      if (me.wrongT > .8 && !this.wrong) { this.wrong = true; this.msg('WRONG WAY! Turn round', 'bad'); } else if (!me.wrongT) this.wrong = false;
       this.el.querySelector('.rc-pos b').textContent = s.phase === 'run' || s.phase === 'done' ? ord(pos) : '–';
-      this.el.querySelector('.rc-lap b').textContent = Math.min(s.laps, 1 + Math.floor(me.d / this.track.length));
+      this.el.querySelector('.rc-lap b').textContent = Math.min(s.laps, me.lap + 1);
       this.el.querySelector('.rc-time').textContent = fmtT(s.phase === 'count' ? 0 : me.finished ? me.time - s.goAt : t);
-      this.el.querySelector('.rc-speed b').textContent = Math.round(me.v * 4.2);
-      this.el.classList.toggle('boost', me.nitro > 0);
-      if (!this.lapShown && s.laps > 1 && me.d >= this.track.length) { this.lapShown = true; this.msg('FINAL LAP', ''); this.o.sfx('good'); }
-      if (!this.r3) this.el.querySelectorAll('.rf-car').forEach((c, i) => { c.style.left = `calc(${Math.min(100, s.cars[i].d / s.total * 100)}% - 34px)`; });
+      this.el.querySelector('.rc-speed b').textContent = Math.round(Math.hypot(me.vx, me.vy) * 4.2);
+      this.el.classList.toggle('boost', me.nitroT > 0);
+      if (this.launched) { const nb = this.el.querySelector('.rc-nitro'); nb.disabled = me.charges <= 0 || me.nitroT > 0 || me.nitroCd > 0; }
       if (me.finished && !this.flagged) { this.flagged = true; this.msg(pos === 1 ? 'YOU WIN!' : `Finished ${ord(pos)}`, pos === 1 ? 'good' : ''); }
       if (s.phase === 'done') this.results();
     }
@@ -234,9 +185,9 @@
       this.finishedShown = true;
       const s = this.sim, fin = s.finalOrder(), pos = fin.indexOf(s.cars[0]) + 1;
       const res = this.o.onDone({ place: pos, time: s.cars[0].time - s.goAt, league: this.o.league }) || {};
-      if (this.r3 && pos === 1) this.r3.fireworks();
+      if (pos === 1) this.view.fireworks();
       const L = LEAGUES[Math.min(this.o.league, LEAGUES.length - 1)];
-      this.el.querySelector('.rc-nitro').hidden = true;
+      this.el.querySelector('.rc-nitro').hidden = true; this.el.querySelector('.rc-drift').hidden = true;
       this.panel(`<div class="job-nova rc-nova"><div class="jn-n"></div><p class="jn-say">${pos === 1 ? 'Victory! Your maths made that car fly!' : pos <= 2 ? 'So close! A few more clean answers and you win.' : 'Good race! Every right answer makes your car faster.'}</p></div>
         <h2 class="${pos === 1 ? 'win' : ''}">${pos === 1 ? 'Race won!' : `You finished ${ord(pos)}`}</h2>
         <div class="rg">${fin.map((c, k) => `<div class="rg-row ${c.ai ? '' : 'me'}"><span class="rg-p">${ord(k + 1)}</span><span class="rg-sw" style="background:${c.color}"></span><b>${c.ai ? c.name : 'You'}</b><span class="rg-r">${fmtT(Math.max(0, c.time - s.goAt))}</span></div>`).join('')}</div>
@@ -252,11 +203,11 @@
     close(nav) {
       if (this.closed) return; this.closed = true;
       document.removeEventListener('keydown', this.onKey);
-      if (this.r3) this.r3.dispose();
+      this.view.dispose();
       this.el.remove(); document.body.classList.remove('nbl-open');
       this.o.onExit && this.o.onExit(nav, this.started);
     }
   }
 
-  NB.Race = { BASE, MODS, LEAGUES, PER_LEVEL, MAX_LEVEL, stats, rating, charges, modCost, rivals, boost, missionLeague, missionRivalRating, RaceSim, RaceScreen, LOCK };
+  NB.Race = { BASE, MODS, LEAGUES, PER_LEVEL, MAX_LEVEL, stats, rating, charges, modCost, rivals, boost, missionLeague, missionRivalRating, RaceScreen, LOCK };
 })(window.NB = window.NB || {});

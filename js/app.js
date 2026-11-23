@@ -632,7 +632,7 @@ function openMissionRace() {
   const p = missionPerf(), acc = J.qs.filter(x => x.res).length / p.n, league = NB.Race.missionLeague(totalCleared(), acc), c = myCar();
   const carsBefore = CARS.filter((k, i) => carGot(i)).length;
   J.raced = true;
-  new NB.Race.RaceScreen({ player: { name: c.name, type: c.type, color: c.color, stats: carStats(c.i), mods: modsOf(c.i) }, league, seed: R(1, 99999), theme: 'city', laps: 1, levels: totalCleared(), acc, sfx,
+  new NB.Race.RaceScreen({ player: { name: c.name, type: c.type, color: c.color, stats: carStats(c.i), mods: modsOf(c.i) }, league, seed: R(1, 99999), levels: totalCleared(), acc, sfx,
     mission: NB.Race.boost(p),
     onDone: ({ place, time }) => {
       const cash = Math.round((150 + 100 * league) * [1, .5, .3, .15][place - 1] / 10) * 10, xp = [60, 35, 20, 10][place - 1];
