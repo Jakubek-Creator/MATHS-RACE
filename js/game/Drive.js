@@ -44,9 +44,12 @@
     coast: { name: 'Coast Highway', tip: 'Long seafront straight. Watch for sand and oil', hazards: [['sand', .4], ['oil', .32], ['cone', .28]] },
     snow: { name: 'Frosty Peaks', tip: 'Snow is slippy: start turning early. Ice patches make you slide', hazards: [['ice', .5], ['cone', .25], ['hole', .25]] },
     canyon: { name: 'Canyon Run', tip: 'Red rock desert with a fast chicane. Dodge fallen rocks and sand', hazards: [['rock', .45], ['sand', .35], ['oil', .2]] },
-    forest: { name: 'Pine Forest Rally', tip: 'Twisty dirt road. Mud pools slow you right down', hazards: [['mud', .5], ['rock', .25], ['cone', .25]] }
+    forest: { name: 'Pine Forest Rally', tip: 'Twisty dirt road. Mud pools slow you right down', hazards: [['mud', .5], ['rock', .25], ['cone', .25]] },
+    volcano: { name: 'Volcano Ridge', tip: 'Black rock and glowing lava. Lava cracks burn your speed', hazards: [['lava', .45], ['rock', .35], ['oil', .2]] },
+    docks: { name: 'Harbour Docks', tip: 'Square turns between the containers. Watch for oil and cones', hazards: [['oil', .45], ['cone', .35], ['hole', .2]] },
+    farm: { name: 'Sunny Farm Lanes', tip: 'Country lanes past the fields. Hay bales and mud on the road', hazards: [['hay', .45], ['mud', .35], ['cone', .2]] }
   };
-  const THEME_KEYS = ['circuit', 'city', 'coast', 'snow', 'canyon', 'forest'];
+  const THEME_KEYS = ['circuit', 'city', 'coast', 'snow', 'canyon', 'forest', 'volcano', 'docks', 'farm'];
   // Loops of control points (the first point sits mid-straight: the start). hw: half road width.
   // verge: run-off between road edge and wall. sub: split long segments so corners stay square (city).
   const LAYOUTS = {
@@ -55,12 +58,16 @@
     coast: { scale: 1.45, hw: 7.4, verge: 6, laps: 3, pts: [[0, 0], [40, 1], [80, -2], [110, -20], [118, -50], [100, -75], [70, -78], [50, -60], [25, -62], [0, -85], [-35, -88], [-60, -70], [-70, -40], [-60, -12], [-35, -1]] },
     snow: { scale: 1.3, hw: 7, verge: 6, laps: 3, grip: .72, pts: [[0, 0], [50, 0], [90, -5], [110, -25], [100, -45], [70, -45], [50, -60], [60, -85], [90, -95], [110, -115], [90, -135], [40, -130], [0, -115], [-30, -90], [-40, -55], [-35, -20]] },
     canyon: { scale: 1.25, hw: 7, verge: 5, laps: 3, pts: [[0, 0], [60, 0], [100, 10], [130, 0], [140, -30], [120, -55], [90, -50], [70, -70], [80, -100], [60, -120], [20, -120], [-20, -112], [-55, -108], [-70, -70], [-60, -30], [-35, -5]] },
-    forest: { scale: 1.2, hw: 6.6, verge: 5, laps: 3, pts: [[0, 0], [40, 0], [70, -12], [78, -40], [58, -58], [28, -52], [8, -68], [12, -98], [42, -110], [75, -98], [105, -110], [128, -90], [120, -60], [138, -30], [125, 5], [95, 28], [55, 36], [15, 37], [-25, 31], [-46, 11], [-36, -8]] }
+    forest: { scale: 1.2, hw: 6.6, verge: 5, laps: 3, pts: [[0, 0], [40, 0], [70, -12], [78, -40], [58, -58], [28, -52], [8, -68], [12, -98], [42, -110], [75, -98], [105, -110], [128, -90], [120, -60], [138, -30], [125, 5], [95, 28], [55, 36], [15, 37], [-25, 31], [-46, 11], [-36, -8]] },
+    volcano: { scale: 1.3, hw: 7, verge: 5.5, laps: 3, pts: [[0, 0], [50, 0], [85, -15], [95, -45], [75, -70], [85, -100], [60, -125], [20, -118], [0, -95], [-30, -105], [-60, -90], [-65, -55], [-45, -35], [-55, -10], [-30, 0]] },
+    docks: { scale: 1.3, hw: 7, verge: 3.2, sub: 11, laps: 2, pts: [[0, 0], [60, 0], [70, -10], [70, -27], [78, -35], [95, -35], [105, -45], [105, -90], [95, -100], [40, -100], [30, -90], [30, -60], [20, -50], [-20, -50], [-30, -40], [-30, -10], [-20, 0]] },
+    farm: { scale: 1.25, hw: 6.8, verge: 5, laps: 3, pts: [[0, 0], [45, 0], [80, -8], [100, -30], [95, -60], [110, -90], [90, -115], [55, -110], [40, -85], [15, -80], [-5, -105], [-40, -110], [-60, -85], [-55, -50], [-65, -20], [-40, -2]] }
   };
   const HAZ = {
     oil: { r: 2.0, msg: 'Oil! Spin out' }, hole: { r: 1.3, msg: 'Pothole!' },
     cone: { r: .9, msg: 'Cone!' }, sand: { r: 2.0, msg: 'Sand drift!' },
-    ice: { r: 2.2, msg: 'Ice! Slide' }, mud: { r: 2.0, msg: 'Mud!' }, rock: { r: 1.3, msg: 'Rock!' }
+    ice: { r: 2.2, msg: 'Ice! Slide' }, mud: { r: 2.0, msg: 'Mud!' }, rock: { r: 1.3, msg: 'Rock!' },
+    lava: { r: 2.0, msg: 'Lava! Too hot' }, hay: { r: 1.3, msg: 'Hay bale!' }
   };
 
   function track(key, seed = 1, level = 0) {
@@ -92,11 +99,11 @@
       laps: L.laps };
     tr.dist = (x, y) => { let b = 1e9; for (const s of S) { const d = (s.x - x) ** 2 + (s.y - y) ** 2; if (d < b) b = d; } return Math.sqrt(b); };
     // ramps on straights: a kicker across half the road; jump it at speed for big air and a little boost
-    const straight = k => { for (let j = -10; j <= 20; j++) if (Math.abs(S[(k + j + N) % N].c) > .02) return false; return true; };
+    const straight = k => { for (let j = -10; j <= 20; j++) if (Math.abs(S[(k + j + N) % N].c) > .03) return false; return true; };
     tr.ramps = [];
-    for (const f of [.42, .74, .2, .9, .56]) {
+    for (const f of [.42, .74, .2, .9, .56, .3, .65]) {
       if (tr.ramps.length >= 2) break;
-      for (let d = 0; d < N * .1; d++) {
+      for (let d = 0; d < N * .12; d++) {
         const k = Math.floor(N * f + d) % N; if (k < N * .08 || k > N * .94 || !straight(k) || tr.ramps.some(m => Math.abs(m.k - k) < N * .15)) continue;
         const lat = (r() < .5 ? -1 : 1) * L.hw * .45, s = S[k]; tr.ramps.push({ k, lat, w: L.hw * 1.05, len: 3.2, x: s.x + s.nx * lat, y: s.y + s.ny * lat, a: Math.atan2(s.ty, s.tx) }); break;
       }
@@ -116,10 +123,23 @@
     return tr;
   }
 
+  /* ---------------- sky and weather ----------------
+     sky: day, dusk or night. weather: {from, to, at}: the race starts in `from` and changes to `to`
+     `at` seconds after the green light (to === from means it stays). Rain and snow cost grip. */
+  const WEATHER = { circuit: ['clear', 'rain', 'fog'], city: ['clear', 'rain', 'fog'], coast: ['clear', 'rain', 'fog'], snow: ['clear', 'snow', 'fog'], canyon: ['clear', 'clear', 'fog'],
+    forest: ['clear', 'rain', 'fog'], volcano: ['clear', 'fog', 'rain'], docks: ['clear', 'rain', 'fog'], farm: ['clear', 'rain', 'fog'] };
+  const WET = { clear: 0, rain: .22, snow: .15, fog: 0 };
+  function conditions(key, seed) {
+    const r = rng(seed * 17 + 11), u = r(), opts = WEATHER[key] || WEATHER.circuit, pick = () => opts[Math.floor(r() * opts.length)];
+    const from = r() < .55 ? 'clear' : pick(), to = r() < .5 ? from : pick();
+    return { sky: u < .5 ? 'day' : u < .7 ? 'dusk' : 'night', weather: { from, to, at: 12 + Math.floor(r() * 10) } };
+  }
+
   /* ---------------- simulation ---------------- */
   class Sim {
     /* racers: [{stats, P?, ai, skill?, charges?, form?, name, type, color, mods}], opts: {laps, seed, slots} */
-    constructor(tr, racers, { laps = tr.laps, seed = 1, slots } = {}) {
+    constructor(tr, racers, { laps = tr.laps, seed = 1, slots, weather } = {}) {
+      this.wplan = weather || { from: 'clear', to: 'clear', at: 1e9 };
       this.track = tr; this.laps = laps; this.rnd = rng(seed * 13 + 5); this.t = 0; this.acc = 0;
       this.phase = 'grid'; this.goAt = null; this.events = []; this.rockets = [];
       const S = tr.S, N = tr.N;
@@ -133,6 +153,13 @@
       });
     }
     ev(e) { this.events.push(e); }
+    /* the weather right now: {kind, w} where w is how strong it is, 0–1 (fades over a few seconds) */
+    wx() {
+      const P = this.wplan, rel = this.goAt == null ? -1 : this.t - this.goAt - P.at;
+      if (rel < 0 || P.to === P.from) return { kind: P.from, w: P.from === 'clear' ? 0 : 1 };
+      const out = P.from === 'clear' ? 0 : Math.max(0, 1 - rel / 3);
+      return out > 0 ? { kind: P.from, w: out } : { kind: P.to, w: P.to === 'clear' ? 0 : clamp((rel - (P.from === 'clear' ? 0 : 3)) / 4, 0, 1) };
+    }
     lights(at) { this.phase = 'count'; this.goAt = this.t + at; this.cars.forEach(c => { if (c.ai) c.launchAt += this.goAt; }); }
     launch(i = 0) {                                  // the player's first press of the gas
       const p = this.cars[i]; if (!p || p.launchAt != null || this.phase === 'grid') return null;
@@ -186,6 +213,8 @@
     tick(h) {
       this.t += h;
       if (this.phase === 'count' && this.t >= this.goAt) this.phase = 'run';
+      if (!this.wDone && this.goAt != null && this.wplan.to !== this.wplan.from && this.t - this.goAt >= this.wplan.at) { this.wDone = true; this.ev({ type: 'weather', from: this.wplan.from, to: this.wplan.to }); }
+      const W = this.wx(); this.wet = 1 - WET[W.kind] * W.w;
       if (this.phase !== 'run' && this.phase !== 'done') return;
       for (const c of this.cars) {
         if (c.launchAt == null && this.t > this.goAt + 3) c.launchAt = this.t;            // never pressed: go anyway
@@ -226,7 +255,7 @@
       const drift = clamp((Math.abs(c.steer) - .55) * 2.2, 0, 1) * clamp((sp - .62 * P.maxSpeed) / (.25 * P.maxSpeed), 0, 1);
       if (inp.hb) yaw *= 1.4;
       yaw *= 1 + .25 * drift;                                        // oversteer: the rear steps out
-      const grip = P.lateralGrip * (1 - P.driftFactor * drift) * (inp.hb ? 1 - P.handbrakeStrength : 1) * (c.off ? .75 : 1) * (c.oilT > 0 ? .1 : 1) * this.track.grip;
+      const grip = P.lateralGrip * (1 - P.driftFactor * drift) * (inp.hb ? 1 - P.handbrakeStrength : 1) * (c.off ? .75 : 1) * (c.oilT > 0 ? .1 : 1) * this.track.grip * (this.wet || 1);
       vr *= Math.exp(-grip * h);                                     // momentum: sideways speed fades, it does not vanish
       c.slip = Math.abs(vr); c.drift = drift; c.hb = inp.hb;
       c.vx = fx * vf + rx * vr; c.vy = fy * vf + ry * vr;
@@ -276,7 +305,7 @@
       }
       // hazards
       for (const z of tr.haz) {
-        if ((z.cool[c.i] || 0) > this.t) continue;
+        if ((z.cool[c.i] || 0) > this.t || (z.gone || 0) > this.t) continue;
         if ((z.x - c.x) ** 2 + (z.y - c.y) ** 2 > (z.r + 1.1) ** 2) continue;
         z.cool[c.i] = this.t + 1.2;
         if (z.kind === 'oil') { c.oilT = .9; c.av += (this.rnd() < .5 ? -1 : 1) * (3 + sp * .05); }
@@ -284,6 +313,8 @@
         else if (z.kind === 'sand') { c.vx *= .86; c.vy *= .86; c.slowT = .6; }
         else if (z.kind === 'ice') { c.oilT = 1.2; c.av += (this.rnd() - .5) * 1.6; }
         else if (z.kind === 'mud') { c.vx *= .78; c.vy *= .78; c.slowT = .9; }
+        else if (z.kind === 'lava') { c.vx *= .72; c.vy *= .72; c.slowT = 1; c.av += (this.rnd() - .5) * 2; }
+        else if (z.kind === 'hay') { c.vx *= .78; c.vy *= .78; c.av += (this.rnd() - .5) * 2.4; z.gone = this.t + 6; }
         else if (z.kind === 'rock') { c.vx *= .62; c.vy *= .62; c.slowT = .3; c.av += (this.rnd() - .5) * 3; }
         else if (z.kind === 'cone') { z.vx = c.vx * 1.15 + (this.rnd() - .5) * 8; z.vy = c.vy * 1.15 + (this.rnd() - .5) * 8; z.av = (this.rnd() - .5) * 18; c.vx *= .93; c.vy *= .93; }
         this.ev({ type: 'haz', i: c.i, kind: z.kind, x: z.x, y: z.y, msg: HAZ[z.kind].msg });
@@ -355,5 +386,5 @@
     }
   }
 
-  NB.Drive = { PARAMS, paramsFor, THEMES, THEME_KEYS, LAYOUTS, HAZ, track, Sim, CPS };
+  NB.Drive = { PARAMS, paramsFor, THEMES, THEME_KEYS, LAYOUTS, HAZ, track, Sim, CPS, conditions, WEATHER };
 })(typeof window !== 'undefined' ? (window.NB = window.NB || {}) : (globalThis.NB = globalThis.NB || {}));

@@ -82,6 +82,13 @@
     rocket: ['Rocket', 'Rocket away!', '<svg viewBox="0 0 24 24"><path d="M12 2c3 2 4 6 4 10v5H8v-5c0-4 1-8 4-10z" fill="#fff"/><path d="M8 13l-3 4v3l3-2zM16 13l3 4v3l-3-2z" fill="#E8423F"/><path d="M10 19h4l-2 3z" fill="#FFC53D"/><circle cx="12" cy="9" r="1.6" fill="#1d2126"/></svg>']
   };
 
+  const WXMSG = { rain: 'Rain! Roads are slippy', snow: 'Snow is falling! Less grip', fog: 'Fog rolling in!', clear: 'The sky is clearing!' };
+  const WXNAME = { clear: 'clear skies', rain: 'rain', snow: 'snow', fog: 'fog' };
+  function forecast(c) {
+    const w = c.weather, sky = { day: 'Day race', dusk: 'Sunset race', night: 'Night race: headlights on' }[c.sky];
+    return `${sky}, ${WXNAME[w.from]}${w.to !== w.from ? `, then ${WXNAME[w.to]} later` : ''}.`;
+  }
+
   class RaceScreen {
     /* opts: {player:{name,type,color,stats}, league, seed, sfx(k), onStart(), onDone(result), onExit()} */
     constructor(opts) { this.o = opts; }
@@ -96,7 +103,8 @@
       this.racers = [{ name: 'You', type: o.player.type, color: o.player.color, stats: ps, mods: o.player.mods, ai: false, charges: charges(ps) + (B ? B.extra : 0), form: B ? B.form : 1 }, ...this.rivals];
       this.track = NB.Drive.track(o.theme, o.seed, o.league);
       const slots = [this.slot, ...[0, 1, 2, 3].filter(k => k !== this.slot)];
-      this.sim = new NB.Drive.Sim(this.track, this.racers, { laps: o.laps || this.track.laps, seed: o.seed, slots });
+      this.cond = NB.Drive.conditions(this.track.key, o.seed);
+      this.sim = new NB.Drive.Sim(this.track, this.racers, { laps: o.laps || this.track.laps, seed: o.seed, slots, weather: this.cond.weather });
       const el = this.el = document.createElement('div');
       el.className = 'rc'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', o.mission ? 'Mission race' : 'Daily race');
       const arrow = d => `<svg viewBox="0 0 24 24"><path d="${d}" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -119,7 +127,7 @@
         if (e.key === 'Escape' && !this.started) this.close();
       };
       document.addEventListener('keydown', this.onKey);
-      this.view = new NB.DriveView(el.querySelector('.rc-stage'), this.sim, this.racers, { mapTop: 112 });
+      this.view = new NB.DriveView(el.querySelector('.rc-stage'), this.sim, this.racers, { mapTop: 112, sky: this.cond.sky });
       this.view.onFrame = dt => this.frame(dt); this.view.onNitro = () => this.act('nitro'); this.view.onItem = () => this.act('item');
       this.ei = 0;
       this.grid();
@@ -137,6 +145,7 @@
         <div class="rg">${row(this.racers[0])}${this.rivals.map(row).join('')}</div>
         <p class="rg-tip">${tip}</p>
         <p class="rg-track">Today's track: <b>${this.track.name}</b>, ${this.sim.laps} laps. <span>${this.track.tip}</span> You start <b>${ord(this.slot + 1)}</b> on the grid.</p>
+        <p class="rg-track"><b>Forecast:</b> ${forecast(this.cond)}</p>
         <p class="rg-how"><b>How to race:</b> tap <b>Launch</b> when the lights go green, then your car drives itself forward. Steer with <b>◀ ▶</b> or drag your finger. Hold <b>Drift</b> to slide round tight corners. Hit the <b>ramps</b> for big air. Drive through <b>?</b> boxes for a power-up (an oil splash to drop behind you, extra nitro, or a rocket that chases the car in front) and tap it to use it. Tap <b>Nitro</b> on straights. Keys: arrows to drive, space to drift, N for nitro, E for the power-up.</p>
         <div class="rg-acts"><button class="rc-cta" data-r="start">Start race ▶</button>${B ? '' : '<button class="rc-sec" data-r="garage">Upgrade first</button>'}<button class="rc-sec" data-r="exit">Not now</button></div>`);
     }
@@ -177,13 +186,14 @@
       for (; this.ei < s.events.length; this.ei++) {
         const e = s.events[this.ei];
         if (e.type === 'boom' && e.by === 0 && e.i > 0) { this.msg('DIRECT HIT!', 'good'); this.o.sfx('good'); continue; }
-        if (e.i !== 0 && e.j !== 0) continue;
+        if (e.i !== 0 && e.j !== 0 && e.type !== 'weather') continue;
         if (e.type === 'haz') { this.msg(e.msg, 'bad'); this.o.sfx('bad'); }
         else if (e.type === 'pickup') { this.msg(`Got ${ITEMS[e.item][0]}!`, 'nitro'); this.o.sfx('good'); }
         else if (e.type === 'boom') { this.msg('Rocket hit!', 'bad'); this.o.sfx('bad'); }
         else if (e.type === 'air') { this.msg(e.t > .6 ? 'BIG AIR!' : 'AIR!', 'good'); this.o.sfx('nitro'); }
         else if (e.type === 'lap') { this.msg(e.lap === s.laps - 1 ? 'FINAL LAP' : `LAP ${e.lap + 1}`, ''); this.o.sfx('good'); }
         else if (e.type === 'respawn') this.msg('Back on track', '');
+        else if (e.type === 'weather') { this.msg(WXMSG[e.to] || 'The weather is changing', e.to === 'clear' ? 'good' : 'nitro'); this.o.sfx('tick'); }
       }
       if (me.wrongT > .8 && !this.wrong) { this.wrong = true; this.msg('WRONG WAY! Turn round', 'bad'); } else if (!me.wrongT) this.wrong = false;
       this.el.querySelector('.rc-pos b').textContent = s.phase === 'run' || s.phase === 'done' ? ord(pos) : '–';

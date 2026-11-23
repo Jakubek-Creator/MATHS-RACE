@@ -55,3 +55,12 @@ for (const key of D.THEME_KEYS) {
   assert.ok(worst > 2 * tr.wall, `${key}: track overlaps itself`);
 }
 console.log('PASS tracks');
+// sky and weather: same seed, same forecast; rain makes the road slippy and the race still finishes
+assert.deepStrictEqual(D.conditions('city', 9), D.conditions('city', 9));
+for (const key of D.THEME_KEYS) for (let seed = 1; seed < 30; seed++) { const c = D.conditions(key, seed); assert.ok(['day', 'dusk', 'night'].includes(c.sky) && D.WEATHER[key].concat('clear').includes(c.weather.to), key); }
+{
+  const tr = D.track('circuit', 4, 1), s = new D.Sim(tr, field(R.stats('coupe', {})), { seed: 4, weather: { from: 'clear', to: 'rain', at: 5 } }); s.lights(.5);
+  let minWet = 1; for (let t = 0; t < 120 && s.phase !== 'done'; t += 1 / 60) { s.step(1 / 60); minWet = Math.min(minWet, s.wet || 1); }
+  assert.ok(minWet < .8 && s.cars[0].finished && s.events.some(e => e.type === 'weather'), 'rain arrives, grip drops, race finishes');
+}
+console.log('PASS weather');
