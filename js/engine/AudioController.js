@@ -6,13 +6,19 @@
 (function (NB) {
   const synth = ('speechSynthesis' in window) ? window.speechSynthesis : null;
   let voice = null;
+  /* Best-sounding English voice first: the natural / neural / premium voices many phones and browsers now ship
+     (Edge "Natural", Chrome "Google", Apple "Enhanced"/"Premium"), Irish and UK accents ahead of others,
+     and the old robotic engines (eSpeak, "compact") last. */
+  function score(v) {
+    const n = v.name, l = String(v.lang).replace('_', '-'); let s = 0;
+    if (/natural|neural/i.test(n)) s += 50; if (/premium|enhanced/i.test(n)) s += 40; if (/google/i.test(n)) s += 25; if (/online/i.test(n)) s += 10;
+    if (/IE|GB/i.test(l)) s += 12; else if (/US|AU|NZ|CA/i.test(l)) s += 6;
+    if (/female|libby|sonia|maisie|emily|serena|kate|moira|martha|hazel|aria|jenny|ava|samantha|karen|catherine|fiona/i.test(n)) s += 5;
+    if (/compact|espeak|robot/i.test(n)) s -= 40;
+    return s;
+  }
   function pickVoice() {
-    try {
-      const vs = synth.getVoices();
-      voice = vs.find(v => /en[-_](IE|GB)/i.test(v.lang) && /female|libby|sonia|serena|kate|moira|martha|hazel/i.test(v.name))
-        || vs.find(v => /en[-_](IE|GB)/i.test(v.lang))
-        || vs.find(v => /^en/i.test(v.lang)) || null;
-    } catch (e) { voice = null; }
+    try { voice = synth.getVoices().filter(v => /^en/i.test(v.lang)).sort((a, b) => score(b) - score(a))[0] || null; } catch (e) { voice = null; }
   }
   if (synth) { pickVoice(); try { synth.addEventListener('voiceschanged', pickVoice); } catch (e) {} }
 
@@ -24,8 +30,7 @@
     list() {
       if (!synth) return [];
       let vs = []; try { vs = synth.getVoices().filter(v => /^en/i.test(v.lang)); } catch (e) {}
-      const rank = v => { const l = v.lang.replace('_', '-'); return (/IE|GB/i.test(l) ? 0 : /US/i.test(l) ? 1 : 2) * 10 + (/natural|neural|online|google|premium|enhanced/i.test(v.name) ? 0 : 1); };
-      return vs.sort((a, b) => rank(a) - rank(b) || a.name.localeCompare(b.name));
+      return vs.sort((a, b) => score(b) - score(a) || a.name.localeCompare(b.name));
     },
     langLabel(lang) { const l = String(lang).replace('_', '-'); return 'English (' + (LANGS[l] || l.split('-')[1] || 'other') + ')'; },
     current() {

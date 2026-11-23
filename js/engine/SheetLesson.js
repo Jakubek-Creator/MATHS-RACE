@@ -97,7 +97,7 @@
 
   /* The handover: NOVA shows one, you do one together, then less help, then on your own. */
   const STAGES = [
-    { mode: 'watch', name: 'NOVA shows you', short: 'Watch' },
+    { mode: 'watch', name: 'Learn it step by step', short: 'Learn' },
     { mode: 'together', name: 'Together', short: 'Together' },
     { mode: 'less', name: 'Less help', short: 'Less help' },
     { mode: 'alone', name: 'On your own', short: 'Solo' }
@@ -115,6 +115,7 @@
       super.open();
       this.root.classList.add('handover');
       this.root.addEventListener('click', e => {
+        const x = e.target.closest('[data-ex]'); if (x && this.ex) { this.exAct(x.dataset.ex); return; }
         const b = e.target.closest('[data-a="tap"],[data-a="show"]'); if (!b || b.disabled) return;
         if (b.dataset.a === 'tap') { const mv = this.sheet && this.sheet.moves[this.L.cur.mi]; if (this.mode() === 'watch' && mv && mv.type === 'tap') this.showMove(); else this.doTap(b); }
         else this.showMove();
@@ -152,6 +153,9 @@
       const c = L.cur;
       this.sheet = this.M.build(c.q, c.mode);
       this.token = (this.token || 0) + 1;
+      if (this.ex) { this.ex.stop(); this.ex = null; }
+      this.root.classList.remove('learning');
+      if (c.mode === 'watch' && NB.Explain && NB.Explain[this.c.method || this.c.id]) return this.enterLearn();
       this.feedback(''); this.helpClear(); this.reveal = '';
       this.renderSheet(true);
       this.renderProgress();
@@ -164,6 +168,45 @@
         : c.mode === 'alone' ? '' : `Next one: ${say}.`;
       this.renderMeter();
       this.askMove(lead);
+    }
+    /* ---------- Learn: the animated worked example replaces "NOVA shows you" ---------- */
+    enterLearn() {
+      const c = this.L.cur, S = this.sheet, script = NB.Explain[this.c.method || this.c.id](c.q), story = this.c.handover.watch.intro.replace(/\s*(Watch me|Watch out|Tap Show me|tap Show me)[^.]*\./g, '').trim();
+      this.root.classList.add('learning'); this.script = script;
+      this.feedback(''); this.helpClear(); this.renderProgress(); this.renderMeter();
+      this.$('.board-eq').innerHTML = NB.fracHTML(esc(S.head.ask)).replace('?', '<span class="qm">?</span>');
+      this.$('.board-visual').innerHTML = '';
+      this.$('#nbl-hint').disabled = true;
+      this.canContinue(false, this.nextLabel());
+      this.ex = new NB.Explainer(this.$('.board-visual'), script, {
+        sfx: k => this.h.sfx(k),
+        speak: (st, k) => this.say(`learn-${k}`, k === 0 && !this.exSaidIntro ? `${story} ${st.say}` : st.say, { state: 'explaining' }),
+        onStep: () => { this.exSaidIntro = true; this.exControls(); },
+        onStepDone: () => { this.teacher.set('pointing'); if (this.ex && this.ex.last) this.learnDone(); }
+      });
+      this.ex.go(this.sheetDone() ? script.steps.length - 1 : 0);
+    }
+    exControls(done) {
+      const ex = this.ex, last = ex && ex.last;
+      this.qclear(`${done ? `<div class="ex-remember"><b>Remember</b>${esc(this.script.remember)}</div>` : ''}
+        <div class="ex-ctl"><button class="nbl-btn" data-ex="back" aria-label="Previous step" ${ex && ex.k > 0 ? '' : 'disabled'}>◀</button>
+        <button class="nbl-btn" data-ex="replay" aria-label="Replay this step">↻ Replay</button>
+        ${done ? '<button class="nbl-btn primary" data-ex="mine">My turn ▶</button>' : `<button class="nbl-btn primary" data-ex="next">${last ? 'Finish ▶' : 'Next step ▶'}</button>`}</div>`);
+    }
+    exAct(a) {
+      const ex = this.ex; if (!ex) return;
+      this.audio.stop(); this.h.sfx('tick');
+      if (a === 'back') ex.go(ex.k - 1);
+      else if (a === 'replay') ex.go(ex.k);
+      else if (a === 'next') { if (ex.last) this.learnDone(); else ex.go(ex.k + 1); }
+      else if (a === 'mine') this.next();
+    }
+    learnDone() {
+      const c = this.L.cur, S = this.sheet;
+      if (!this.sheetDone()) { S.moves.forEach(m => { if (m.answer != null) c.vals[m.key] = m.answer; }); c.mi = S.moves.length; this.save(); }
+      this.exControls(true); this.canContinue(true, this.nextLabel());
+      this.teacher.set('celebrating'); this.h.sfx('good');
+      this.say('learn-remember', `Remember: ${this.script.remember} Now you try one, and I'll help with every step.`, { state: 'explaining' });
     }
     nextLabel() {
       const si = this.L.si; if (si + 1 >= this.total) return 'Finish mission ▶';

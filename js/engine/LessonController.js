@@ -153,10 +153,13 @@
     caption(text) {
       this.capWords = NB.AudioController.words(text);
       this.$('.cap').innerHTML = this.capWords.map(w => `<span>${esc(w.w)}</span>`).join(' ');
+      const box = this.$('.a-caption'); if (box) box.scrollTop = 0;
     }
     capWord(k) {
       const spans = this.$('.cap').children;
       for (let i = 0; i < spans.length; i++) spans[i].className = i < k ? 'said' : i === k ? 'now' : '';
+      const box = this.$('.a-caption'), sp = spans[k];   // keep the word being spoken in view when the bubble scrolls
+      if (box && sp && box.scrollHeight > box.clientHeight + 2) box.scrollTop = Math.max(0, sp.offsetTop - box.offsetTop - box.clientHeight / 3);
     }
     audioState(s) {
       const b = this.$('#nbl-pause'); if (!b) return;
