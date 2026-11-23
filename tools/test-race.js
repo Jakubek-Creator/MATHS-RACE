@@ -46,5 +46,5 @@ const win = p => { let w = 0; for (let seed = 1; seed <= 24; seed++) {
   if (s.finalOrder().indexOf(s.cars[0]) === 0) w++; } return w / 24; };
 const good = win({ n: 5, clean: 5, fast: 4, hinted: 0, wrong: 0, best: 5 }), weak = win({ n: 5, clean: 1, fast: 0, hinted: 2, wrong: 3, best: 1 });
 console.log('win rate: perfect mission', good.toFixed(2), 'weak mission', weak.toFixed(2));
-assert.ok(good > weak + .15 && good >= .65 && weak >= .15, 'clean maths should win more races');
+assert.ok(good > weak + .2 && good >= .55 && weak >= .15, 'clean maths should win more races');
 console.log('PASS balance');

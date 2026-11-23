@@ -1,4 +1,5 @@
-/* Drive — arcade top-down driving: tracks, car physics, AI, checkpoints, hazards and nitro pickups. No DOM.
+/* Drive — arcade top-down driving: tracks, car physics, AI, checkpoints, hazards, ramps and power-ups. No DOM.
+   Power-up boxes give one item: oil (drop a slick behind you), nitro (a free boost) or a rocket (homes in on the car ahead).
    Physics runs in fixed 1/120 s steps, so a race plays the same at any frame rate.
    Every tuning value lives in PARAMS; each car carries its own copy in car.P, so cars (and tests)
    can be balanced without touching code. The model is arcade, not simulation:
@@ -83,17 +84,28 @@
       box: { x0: Math.min(...xs) - W, y0: Math.min(...ys) - W, x1: Math.max(...xs) + W, y1: Math.max(...ys) + W },
       laps: L.laps };
     tr.dist = (x, y) => { let b = 1e9; for (const s of S) { const d = (s.x - x) ** 2 + (s.y - y) ** 2; if (d < b) b = d; } return Math.sqrt(b); };
-    // hazards: more on harder levels, never on the grid, spaced out
+    // ramps on straights: a kicker across half the road; jump it at speed for big air and a little boost
+    const straight = k => { for (let j = -10; j <= 20; j++) if (Math.abs(S[(k + j + N) % N].c) > .02) return false; return true; };
+    tr.ramps = [];
+    for (const f of [.42, .74, .2, .9, .56]) {
+      if (tr.ramps.length >= 2) break;
+      for (let d = 0; d < N * .1; d++) {
+        const k = Math.floor(N * f + d) % N; if (k < N * .08 || k > N * .94 || !straight(k) || tr.ramps.some(m => Math.abs(m.k - k) < N * .15)) continue;
+        const lat = (r() < .5 ? -1 : 1) * L.hw * .45, s = S[k]; tr.ramps.push({ k, lat, w: L.hw * 1.05, len: 3.2, x: s.x + s.nx * lat, y: s.y + s.ny * lat, a: Math.atan2(s.ty, s.tx) }); break;
+      }
+    }
+    // power-up boxes: rows of three, back 5 s after being taken
+    tr.boxes = [];
+    [.3, .62, .86].forEach(f => { let k = Math.floor(N * (f + (r() - .5) * .05)); while (tr.ramps.some(m => Math.abs(m.k - k) < 18)) k = (k + 9) % N; const s = S[k]; [-1, 0, 1].forEach(j => { const lat = j * L.hw * .55; tr.boxes.push({ k, x: s.x + s.nx * lat, y: s.y + s.ny * lat, t: 0 }); }); });
+    // hazards: more on harder levels, never on the grid, ramps or boxes, spaced out
     tr.haz = []; const count = Math.round(4 + level * 1.4);
-    for (let tries = 0; tr.haz.length < count && tries < 200; tries++) {
-      const k = Math.floor(N * (.12 + r() * .82)); if (tr.haz.some(h => Math.abs(h.k - k) < 14)) continue;
+    for (let tries = 0; tr.haz.length < count && tries < 300; tries++) {
+      const k = Math.floor(N * (.12 + r() * .82)); if (tr.haz.some(h => Math.abs(h.k - k) < 14) || tr.ramps.some(m => Math.abs(m.k - k) < 24) || tr.boxes.some(b => Math.abs(b.k - k) < 10)) continue;
       let u = r(), kind = T.hazards[0][0]; for (const [kk, w] of T.hazards) { if ((u -= w) <= 0) { kind = kk; break; } }
       const lat = (r() * 2 - 1) * (L.hw - 2), s = S[k];
       tr.haz.push({ kind, k, lat, x: s.x + s.nx * lat, y: s.y + s.ny * lat, x0: s.x + s.nx * lat, y0: s.y + s.ny * lat, r: HAZ[kind].r, vx: 0, vy: 0, a: r() * TAU, av: 0, cool: {} });
     }
     tr.haz.sort((a, b) => a.k - b.k);
-    // nitro canisters: three per lap, they come back 6 s after being picked up
-    tr.pick = [.3, .58, .84].map(f => { const k = Math.floor(N * (f + (r() - .5) * .06)), s = S[k], lat = (r() * 2 - 1) * L.hw * .5; return { k, x: s.x + s.nx * lat, y: s.y + s.ny * lat, t: 0 }; });
     return tr;
   }
 
@@ -102,7 +114,7 @@
     /* racers: [{stats, P?, ai, skill?, charges?, form?, name, type, color, mods}], opts: {laps, seed, slots} */
     constructor(tr, racers, { laps = tr.laps, seed = 1, slots } = {}) {
       this.track = tr; this.laps = laps; this.rnd = rng(seed * 13 + 5); this.t = 0; this.acc = 0;
-      this.phase = 'grid'; this.goAt = null; this.events = [];
+      this.phase = 'grid'; this.goAt = null; this.events = []; this.rockets = [];
       const S = tr.S, N = tr.N;
       this.cars = racers.map((rc, i) => {
         const slot = slots ? slots[i] : i, k = N - 4 - (slot >> 1) * 5, s = S[k], lat = (slot & 1 ? 1 : -1) * 3.3;
@@ -110,7 +122,7 @@
           x: s.x + s.nx * lat, y: s.y + s.ny * lat, a: Math.atan2(s.ty, s.tx), vx: 0, vy: 0, av: 0, k, prog: k - N, cp: 0, lap: 0, lat,
           finished: false, time: null, charges: rc.charges == null ? 1 : rc.charges, nitroT: 0, nitroCd: 0, oilT: 0, slowT: 0,
           in: { steer: 0, thr: 0, brk: 0, hb: false }, launchAt: rc.ai ? .15 + this.rnd() * .35 : null, stuck: 0, wrongT: 0,
-          lane: (this.rnd() - .5) * tr.hw, laneT: 0, slip: 0, off: false, form: rc.form || 1, steer: 0, nitroUsed: 0 });
+          lane: (this.rnd() - .5) * tr.hw, laneT: 0, air: 0, airT: 0, item: null, itemAt: 0, slip: 0, off: false, form: rc.form || 1, steer: 0, nitroUsed: 0 });
       });
     }
     ev(e) { this.events.push(e); }
@@ -125,6 +137,40 @@
     nitro(i) {
       const c = this.cars[i]; if (!c || c.charges <= 0 || c.nitroT > 0 || c.nitroCd > 0 || this.phase !== 'run' || c.finished || c.launchAt == null || this.t < c.launchAt) return false;
       c.charges--; c.nitroT = c.P.nitroTime; c.nitroUsed++; this.ev({ type: 'nitro', i }); return true;
+    }
+    /* power-ups: the rarer, stronger items go to cars further back */
+    roll(c) {
+      const rank = this.order().indexOf(c), w = { oil: .5 - .1 * rank, nitro: .4, rocket: .1 + .1 * rank };
+      let u = this.rnd() * (w.oil + w.nitro + w.rocket); for (const k in w) { if ((u -= w[k]) <= 0) return k; } return 'nitro';
+    }
+    useItem(i) {
+      const c = this.cars[i]; if (!c || !c.item || this.phase !== 'run' || c.finished || c.launchAt == null) return false;
+      const it = c.item, fx = Math.cos(c.a), fy = Math.sin(c.a); c.item = null;
+      if (it === 'oil') this.track.haz.push({ kind: 'oil', k: c.k, x: c.x - fx * 3.8, y: c.y - fy * 3.8, r: HAZ.oil.r, vx: 0, vy: 0, a: this.rnd() * TAU, av: 0, cool: { [i]: this.t + 2 }, life: 18, dropped: true });
+      else if (it === 'nitro') { c.nitroT = c.P.nitroTime * 1.4; c.nitroCd = 0; }
+      else this.rockets.push({ x: c.x + fx * 3, y: c.y + fy * 3, a: c.a, v: Math.max(Math.hypot(c.vx, c.vy), 20) + 28, owner: i, k: c.k, t: 3.2 });
+      this.ev({ type: 'item', i, item: it, x: c.x, y: c.y }); return true;
+    }
+    hitBy(c, by, x, y) {
+      c.vx *= .45; c.vy *= .45; c.av += (this.rnd() < .5 ? -1 : 1) * 7; c.oilT = .4; c.slowT = .4;
+      this.ev({ type: 'boom', i: c.i, by, x, y });
+    }
+    rocketsStep(h) {
+      const tr = this.track, S = tr.S, N = tr.N;
+      for (const m of this.rockets) {
+        m.t -= h;
+        let best = 1e9; for (let j = -8; j <= 8; j++) { const k = (m.k + j + N) % N, d = (S[k].x - m.x) ** 2 + (S[k].y - m.y) ** 2; if (d < best) { best = d; m.kk = k; } } m.k = m.kk;
+        let tgt = null, bd = 3600;
+        for (const c of this.cars) if (c.i !== m.owner && c.air <= 0) { const dx = c.x - m.x, dy = c.y - m.y, d = dx * dx + dy * dy; if (dx * Math.cos(m.a) + dy * Math.sin(m.a) > 0 && d < bd) { bd = d; tgt = c; } }
+        const s = S[(m.k + 6) % N], tx = tgt ? tgt.x : s.x, ty = tgt ? tgt.y : s.y;
+        m.a += clamp(wrapA(Math.atan2(ty - m.y, tx - m.x) - m.a), -4.5 * h, 4.5 * h); m.v = Math.min(m.v + 30 * h, 95);
+        m.x += Math.cos(m.a) * m.v * h; m.y += Math.sin(m.a) * m.v * h;
+        const hit = this.cars.find(c => c.i !== m.owner && c.air <= 0 && (c.x - m.x) ** 2 + (c.y - m.y) ** 2 < 5);
+        if (hit) { this.hitBy(hit, m.owner, m.x, m.y); m.t = 0; continue; }
+        const sk = S[m.k]; if (Math.abs((m.x - sk.x) * sk.nx + (m.y - sk.y) * sk.ny) > tr.wall - .3 || m.t <= 0) { m.t = 0; this.ev({ type: 'boom', i: -1, by: m.owner, x: m.x, y: m.y }); }
+      }
+      this.rockets = this.rockets.filter(m => m.t > 0);
+      tr.haz = tr.haz.filter(z => !z.dropped || (z.life -= h) > 0);
     }
     step(dt) {
       this.acc += Math.min(dt, .25);
@@ -143,8 +189,9 @@
         this.surface(c, h);
       }
       this.collide();
+      this.rocketsStep(h);
       for (const z of this.track.haz) if (z.vx || z.vy || z.av) { z.x += z.vx * h; z.y += z.vy * h; z.a += z.av * h; const f = Math.exp(-1.6 * h); z.vx *= f; z.vy *= f; z.av *= f; if (Math.hypot(z.vx, z.vy) < .3) { z.vx = z.vy = 0; z.av = 0; } }
-      for (const p of this.track.pick) if (p.t > 0) p.t -= h;
+      for (const b of this.track.boxes) if (b.t > 0) b.t -= h;
       const me = this.cars.find(c => !c.ai) || this.cars[0];
       if (me.finished && !this.doneAt) this.doneAt = this.t;
       if (this.doneAt && (this.t - this.doneAt > 2.2 || this.cars.every(c => c.finished))) this.phase = 'done';
@@ -156,6 +203,11 @@
       c.steer += (inp.steer - c.steer) * Math.min(1, h * 14);
       if (c.nitroT > 0) { c.nitroT -= h; if (c.nitroT <= 0) c.nitroCd = P.nitroCooldown; } else if (c.nitroCd > 0) c.nitroCd -= h;
       const nos = c.nitroT > 0;
+      if (c.air > 0) {                                               // in the air: no grip, no engine, just fly
+        c.air -= h; c.a += (c.steer * .6 + c.av) * h; c.x += c.vx * h; c.y += c.vy * h;
+        if (c.air <= 0) { c.air = 0; this.ev({ type: 'land', i: c.i, x: c.x, y: c.y }); }
+        return;
+      }
       let top = P.maxSpeed * c.form * (c.off ? P.offroad : 1) * (nos ? P.nitroMultiplier : 1) * (c.slowT > 0 ? .7 : 1) * (c.band || 1);
       if (inp.thr > 0 && vf < top) vf = Math.min(top, vf + P.acceleration * inp.thr * (nos ? 1.8 : 1) * (1 - Math.max(0, vf) / top * .55) * h);
       if (inp.brk > 0) { if (vf > .5) vf -= P.brake * inp.brk * h; else vf = Math.max(-P.reverseSpeed, vf - P.acceleration * .5 * inp.brk * h); }
@@ -207,6 +259,14 @@
       const going = this.phase === 'run' && c.launchAt != null && this.t > c.launchAt + 1 && !c.finished;
       c.stuck = going && sp < 2.5 ? c.stuck + h : 0;
       if (c.stuck > 2 || c.wrongT > 4) this.respawn(c);
+      if (c.air > 0) return;
+      for (const m of tr.ramps) {
+        let dk = c.k - m.k; if (dk < -N / 2) dk += N; if (dk > N / 2) dk -= N;
+        if (dk >= 0 && dk * tr.ds <= m.len && Math.abs(lat - m.lat) < m.w / 2 && sp > 12) {
+          c.airT = c.air = clamp(.25 + sp * .009, .35, .85); c.vx *= 1.06; c.vy *= 1.06; c.oilT = 0;
+          this.ev({ type: 'air', i: c.i, x: c.x, y: c.y, t: c.airT }); return;
+        }
+      }
       // hazards
       for (const z of tr.haz) {
         if ((z.cool[c.i] || 0) > this.t) continue;
@@ -218,17 +278,20 @@
         else if (z.kind === 'cone') { z.vx = c.vx * 1.15 + (this.rnd() - .5) * 8; z.vy = c.vy * 1.15 + (this.rnd() - .5) * 8; z.av = (this.rnd() - .5) * 18; c.vx *= .93; c.vy *= .93; }
         this.ev({ type: 'haz', i: c.i, kind: z.kind, x: z.x, y: z.y, msg: HAZ[z.kind].msg });
       }
-      for (const p of tr.pick) if (p.t <= 0 && (p.x - c.x) ** 2 + (p.y - c.y) ** 2 < 6.5) { p.t = 6; c.charges = Math.min(c.charges + 1, 5); this.ev({ type: 'pickup', i: c.i, x: p.x, y: p.y }); }
+      for (const b of tr.boxes) if (b.t <= 0 && (b.x - c.x) ** 2 + (b.y - c.y) ** 2 < 7) {
+        b.t = 5; if (!c.item) { c.item = this.roll(c); c.itemAt = this.t; }
+        this.ev({ type: 'pickup', i: c.i, x: b.x, y: b.y, item: c.item });
+      }
     }
     respawn(c) {
-      const s = this.track.S[c.k]; c.x = s.x; c.y = s.y; c.a = Math.atan2(s.ty, s.tx); c.vx = c.vy = c.av = 0; c.stuck = c.wrongT = 0; c.oilT = 0;
+      const s = this.track.S[c.k]; c.x = s.x; c.y = s.y; c.a = Math.atan2(s.ty, s.tx); c.vx = c.vy = c.av = 0; c.stuck = c.wrongT = 0; c.oilT = 0; c.air = 0;
       this.ev({ type: 'respawn', i: c.i });
     }
     /* ---------- cars bump each other: two circles per car, equal masses ---------- */
     collide() {
       const cs = this.cars, circ = c => { const L = (NB.carTop && NB.carTop.SIZE[c.type] || { L: 4.6, W: 2.2 }), f = L.L * .26, fx = Math.cos(c.a) * f, fy = Math.sin(c.a) * f; return [[c.x + fx, c.y + fy], [c.x - fx, c.y - fy], L.W * .55 + .1]; };
       for (let a = 0; a < cs.length; a++) for (let b = a + 1; b < cs.length; b++) {
-        const A = cs[a], B = cs[b]; if ((A.x - B.x) ** 2 + (A.y - B.y) ** 2 > 49) continue;
+        const A = cs[a], B = cs[b]; if (A.air > 0 || B.air > 0 || (A.x - B.x) ** 2 + (A.y - B.y) ** 2 > 49) continue;
         const [a1, a2, ra] = circ(A), [b1, b2, rb] = circ(B); let best = null;
         for (const p of [a1, a2]) for (const q of [b1, b2]) { const dx = p[0] - q[0], dy = p[1] - q[1], d = Math.hypot(dx, dy), pen = ra + rb - d; if (pen > 0 && (!best || pen > best.pen)) best = { pen, nx: d ? dx / d : 1, ny: d ? dy / d : 0, p, q }; }
         if (!best) continue;
@@ -262,7 +325,13 @@
       const vc = c.P.steeringSpeed * (.8 + .25 * sk) / Math.max(cmax, 1e-3);
       c.in.steer = clamp(diff * 2.6, -1, 1);
       c.in.thr = c.finished ? .5 : sp < vc ? 1 : 0; c.in.brk = sp > vc * 1.1 ? .7 : 0; c.in.hb = false;
+      if (Math.abs(diff) > 1.3 && sp < 8) { c.in.thr = 0; c.in.brk = 1; c.in.steer = -Math.sign(diff); }   // facing a wall after a spin: back out
       if (c.ai && !c.finished && c.charges > 0 && cmax < .012 && sp > c.P.maxSpeed * .6 && this.rnd() < h * (.3 + sk)) this.nitro(c.i);
+      // power-ups: rocket at a car just ahead, oil when someone is right behind, nitro on a straight
+      if (c.ai && c.item && !c.finished && this.t > c.itemAt + .8) {
+        const near = d => this.cars.some(o => o !== c && o.prog - c.prog > d[0] && o.prog - c.prog < d[1]);
+        if ((c.item === 'rocket' && near([3, 40])) || (c.item === 'oil' && (near([-30, -3]) || this.t > c.itemAt + 7)) || (c.item === 'nitro' && cmax < .012)) this.useItem(c.i);
+      }
       // a gentle rubber band keeps the pack together for young drivers
       const me = this.cars.find(x => !x.ai);
       if (c.ai && me) { const gap = (c.prog - me.prog) / N; c.band = gap > .2 ? .94 : gap < -.2 ? 1.04 : 1; }

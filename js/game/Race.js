@@ -75,6 +75,13 @@
   const fmtT = t => `${Math.floor(t / 60)}:${(t % 60).toFixed(1).padStart(4, '0')}`;
   const LOCK = '<svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><rect x="2.5" y="7" width="11" height="8" rx="1.5" fill="currentColor"/><path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="currentColor" stroke-width="2" fill="none"/></svg>';
 
+  // power-ups: [name, message when used, icon]
+  const ITEMS = {
+    oil: ['Oil splash', 'Oil dropped!', '<svg viewBox="0 0 24 24"><path d="M12 3c3 4.5 6 8 6 11a6 6 0 0 1-12 0c0-3 3-6.5 6-11z" fill="#14171b" stroke="#fff" stroke-width="1.6"/><path d="M9 14a3 3 0 0 0 2 3" stroke="#22E5E0" stroke-width="1.6" fill="none" stroke-linecap="round"/></svg>'],
+    nitro: ['Nitro', 'NITRO!', '<svg viewBox="0 0 24 24"><path d="M14 2 5 14h6l-2 8 9-12h-6z" fill="#fff"/></svg>'],
+    rocket: ['Rocket', 'Rocket away!', '<svg viewBox="0 0 24 24"><path d="M12 2c3 2 4 6 4 10v5H8v-5c0-4 1-8 4-10z" fill="#fff"/><path d="M8 13l-3 4v3l3-2zM16 13l3 4v3l-3-2z" fill="#E8423F"/><path d="M10 19h4l-2 3z" fill="#FFC53D"/><circle cx="12" cy="9" r="1.6" fill="#1d2126"/></svg>']
+  };
+
   class RaceScreen {
     /* opts: {player:{name,type,color,stats}, league, seed, sfx(k), onStart(), onDone(result), onExit()} */
     constructor(opts) { this.o = opts; }
@@ -100,6 +107,7 @@
         <div class="rc-msg" aria-live="assertive"></div>
         <div class="rc-bottom"><div class="rc-pads" aria-label="Steering"><button class="rc-pad" data-pad="-1" aria-label="Steer left">${arrow('M15 4 7 12l8 8')}</button><button class="rc-pad" data-pad="1" aria-label="Steer right">${arrow('m9 4 8 8-8 8')}</button></div>
           <div class="rc-right"><button class="rc-btn rc-launch" data-r="launch">Launch!</button>
+          <button class="rc-btn rc-item" data-r="item" hidden disabled aria-label="Use power-up"><span class="ic"></span><span class="nm">Find a ? box</span></button>
           <button class="rc-btn rc-drift" data-hb hidden aria-label="Drift (handbrake)">Drift</button>
           <button class="rc-btn rc-nitro" data-r="nitro" hidden>Nitro <span class="pips"></span></button></div></div>
         <div class="rc-panel"></div>`;
@@ -112,7 +120,7 @@
       };
       document.addEventListener('keydown', this.onKey);
       this.view = new NB.DriveView(el.querySelector('.rc-stage'), this.sim, this.racers, { mapTop: 112 });
-      this.view.onFrame = dt => this.frame(dt); this.view.onNitro = () => this.act('nitro');
+      this.view.onFrame = dt => this.frame(dt); this.view.onNitro = () => this.act('nitro'); this.view.onItem = () => this.act('item');
       this.ei = 0;
       this.grid();
     }
@@ -129,7 +137,7 @@
         <div class="rg">${row(this.racers[0])}${this.rivals.map(row).join('')}</div>
         <p class="rg-tip">${tip}</p>
         <p class="rg-track">Today's track: <b>${this.track.name}</b>, ${this.sim.laps} laps. <span>${this.track.tip}</span> You start <b>${ord(this.slot + 1)}</b> on the grid.</p>
-        <p class="rg-how"><b>How to race:</b> tap <b>Launch</b> when the lights go green, then your car drives itself forward. Steer with <b>◀ ▶</b> or drag your finger. Hold <b>Drift</b> to slide round tight corners. Drive over blue cans for extra nitro and tap <b>Nitro</b> on straights. Keys: arrows to drive, space to drift, N for nitro.</p>
+        <p class="rg-how"><b>How to race:</b> tap <b>Launch</b> when the lights go green, then your car drives itself forward. Steer with <b>◀ ▶</b> or drag your finger. Hold <b>Drift</b> to slide round tight corners. Hit the <b>ramps</b> for big air. Drive through <b>?</b> boxes for a power-up (an oil splash to drop behind you, extra nitro, or a rocket that chases the car in front) and tap it to use it. Tap <b>Nitro</b> on straights. Keys: arrows to drive, space to drift, N for nitro, E for the power-up.</p>
         <div class="rg-acts"><button class="rc-cta" data-r="start">Start race ▶</button>${B ? '' : '<button class="rc-sec" data-r="garage">Upgrade first</button>'}<button class="rc-sec" data-r="exit">Not now</button></div>`);
     }
     panel(html) { const p = this.el.querySelector('.rc-panel'); p.innerHTML = html; p.hidden = !html; }
@@ -147,12 +155,14 @@
       } else if (a === 'launch' && this.started && !this.launched) {
         const r = s.launch(); this.launched = true;
         this.el.querySelector('.rc-launch').hidden = true;
-        const nb = this.el.querySelector('.rc-nitro'); nb.hidden = false; this.el.querySelector('.rc-drift').hidden = false; this.pips();
+        const nb = this.el.querySelector('.rc-nitro'); nb.hidden = false; this.el.querySelector('.rc-drift').hidden = false; this.el.querySelector('.rc-item').hidden = false; this.pips();
         if (r === 'perfect') { this.msg('PERFECT START!', 'good'); this.o.sfx('nitro'); }
         else if (r === 'jump') { this.msg('Jump start! Held back', 'bad'); this.o.sfx('bad'); }
         else this.msg('Go go go!', '');
       } else if (a === 'nitro') {
         if (s.nitro(0)) { this.msg('NITRO!', 'nitro'); this.o.sfx('nitro'); this.pips(); }
+      } else if (a === 'item') {
+        const it = s.cars[0].item; if (s.useItem(0)) { this.msg(ITEMS[it][1], 'nitro'); this.o.sfx('nitro'); }
       } else if (a === 'exit') this.close();
       else if (a === 'garage') this.close('garage');
       else if (a === 'done') this.close();
@@ -165,9 +175,13 @@
       const order = s.order(), me = s.cars[0], pos = order.indexOf(me) + 1;
       const t = Math.max(0, s.t - (s.goAt || 0));
       for (; this.ei < s.events.length; this.ei++) {
-        const e = s.events[this.ei]; if (e.i !== 0 && e.j !== 0) continue;
+        const e = s.events[this.ei];
+        if (e.type === 'boom' && e.by === 0 && e.i > 0) { this.msg('DIRECT HIT!', 'good'); this.o.sfx('good'); continue; }
+        if (e.i !== 0 && e.j !== 0) continue;
         if (e.type === 'haz') { this.msg(e.msg, 'bad'); this.o.sfx('bad'); }
-        else if (e.type === 'pickup') { this.msg('+1 NITRO', 'nitro'); this.o.sfx('good'); this.pips(); }
+        else if (e.type === 'pickup') { this.msg(`Got ${ITEMS[e.item][0]}!`, 'nitro'); this.o.sfx('good'); }
+        else if (e.type === 'boom') { this.msg('Rocket hit!', 'bad'); this.o.sfx('bad'); }
+        else if (e.type === 'air') { this.msg(e.t > .6 ? 'BIG AIR!' : 'AIR!', 'good'); this.o.sfx('nitro'); }
         else if (e.type === 'lap') { this.msg(e.lap === s.laps - 1 ? 'FINAL LAP' : `LAP ${e.lap + 1}`, ''); this.o.sfx('good'); }
         else if (e.type === 'respawn') this.msg('Back on track', '');
       }
@@ -177,6 +191,11 @@
       this.el.querySelector('.rc-time').textContent = fmtT(s.phase === 'count' ? 0 : me.finished ? me.time - s.goAt : t);
       this.el.querySelector('.rc-speed b').textContent = Math.round(Math.hypot(me.vx, me.vy) * 4.2);
       this.el.classList.toggle('boost', me.nitroT > 0);
+      if (me.item !== this.shown && this.launched) {
+        this.shown = me.item; const b = this.el.querySelector('.rc-item');
+        b.disabled = !me.item; b.dataset.item = me.item || ''; b.querySelector('.ic').innerHTML = me.item ? ITEMS[me.item][2] : '';
+        b.querySelector('.nm').textContent = me.item ? ITEMS[me.item][0] : 'Find a ? box';
+      }
       if (this.launched) { const nb = this.el.querySelector('.rc-nitro'); nb.disabled = me.charges <= 0 || me.nitroT > 0 || me.nitroCd > 0; }
       if (me.finished && !this.flagged) { this.flagged = true; this.msg(pos === 1 ? 'YOU WIN!' : `Finished ${ord(pos)}`, pos === 1 ? 'good' : ''); }
       if (s.phase === 'done') this.results();
@@ -187,7 +206,7 @@
       const res = this.o.onDone({ place: pos, time: s.cars[0].time - s.goAt, league: this.o.league }) || {};
       if (pos === 1) this.view.fireworks();
       const L = LEAGUES[Math.min(this.o.league, LEAGUES.length - 1)];
-      this.el.querySelector('.rc-nitro').hidden = true; this.el.querySelector('.rc-drift').hidden = true;
+      this.el.querySelector('.rc-nitro').hidden = true; this.el.querySelector('.rc-drift').hidden = true; this.el.querySelector('.rc-item').hidden = true;
       this.panel(`<div class="job-nova rc-nova"><div class="jn-n"></div><p class="jn-say">${pos === 1 ? 'Victory! Your maths made that car fly!' : pos <= 2 ? 'So close! A few more clean answers and you win.' : 'Good race! Every right answer makes your car faster.'}</p></div>
         <h2 class="${pos === 1 ? 'win' : ''}">${pos === 1 ? 'Race won!' : `You finished ${ord(pos)}`}</h2>
         <div class="rg">${fin.map((c, k) => `<div class="rg-row ${c.ai ? '' : 'me'}"><span class="rg-p">${ord(k + 1)}</span><span class="rg-sw" style="background:${c.color}"></span><b>${c.ai ? c.name : 'You'}</b><span class="rg-r">${fmtT(Math.max(0, c.time - s.goAt))}</span></div>`).join('')}</div>

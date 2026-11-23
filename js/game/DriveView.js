@@ -3,8 +3,8 @@
    of travel and zooms out a little at speed (not with reduced motion), so the player is always on screen.
    The static world (ground, sea, road, kerbs, walls, scenery) is painted once into 256 px tiles;
    skids, hazards, nitro canisters, particles and cars are drawn each frame in world units.
-   Controls: ◀ ▶ pads or drag to steer, a Drift button (handbrake), Nitro. Keys: arrows / WASD,
-   Space = handbrake, Shift or N = nitro (via onNitro). Gas is automatic until ↑ / W is pressed. */
+   Controls: ◀ ▶ pads or drag to steer, a Drift button (handbrake), Nitro, power-up. Keys: arrows / WASD,
+   Space = handbrake, Shift or N = nitro (via onNitro), E or X = use power-up (via onItem). Gas is automatic until ↑ / W is pressed. */
 (function (NB) {
   const TAU = Math.PI * 2, clamp = (v, a, b) => Math.max(a, Math.min(b, v));
   const rng = seed => { let s = (seed >>> 0) || 1; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; };
@@ -84,6 +84,7 @@
       // finish line and grid boxes
       across(0, () => { const n = 10, cw = tr.hw * 2 / n; for (let q = 0; q < n; q++) for (let rr = 0; rr < 2; rr++) { g.fillStyle = (q + rr) & 1 ? '#111' : '#fff'; g.fillRect(rr * cw - cw, -tr.hw + q * cw, cw, cw); } });
       for (let slot = 0; slot < 4; slot++) across(tr.N - 4 - (slot >> 1) * 5, () => { g.strokeStyle = 'rgba(255,255,255,.8)'; g.lineWidth = .22; const y = (slot & 1 ? 1 : -1) * 3.3; g.beginPath(); g.moveTo(-2.6, y - 1.4); g.lineTo(2.9, y - 1.4); g.moveTo(-2.6, y + 1.4); g.lineTo(2.9, y + 1.4); g.moveTo(2.9, y - 1.4); g.lineTo(2.9, y + 1.4); g.stroke(); });
+      for (const m of tr.ramps) { g.save(); g.translate(m.x, m.y); g.rotate(m.a); drawRamp(g, m.len, m.w); g.restore(); }
       for (const o of this.scenery) if (o.x > x0 - 16 && o.x < x1 + 16 && o.y > y0 - 16 && o.y < y1 + 16) this.deco(g, o);
     }
     deco(g, o) {
@@ -145,6 +146,7 @@
         const k = map[e.key.toLowerCase()];
         if (k) { this.keys[k] = e.type === 'keydown'; if (k === 'u' && e.type === 'keydown') this.manualGas = true; if (k !== 'hb' || this.sim.cars[0].launchAt != null) e.preventDefault(); }
         if (e.type === 'keydown' && (e.key === 'Shift' || e.key.toLowerCase() === 'n') && this.onNitro) this.onNitro();
+        if (e.type === 'keydown' && ['e', 'x'].includes(e.key.toLowerCase()) && this.onItem) this.onItem();
       };
       document.addEventListener('keydown', this.kd); document.addEventListener('keyup', this.kd);
     }
@@ -165,12 +167,9 @@
     sprite(w, h, f) { const c = document.createElement('canvas'), s = this.ppu * this.dpr; c.width = Math.ceil(w * s); c.height = Math.ceil(h * s); const g = c.getContext('2d'); g.scale(s, s); f(g, w, h); return c; }
     makeSprites() {
       this.hs = {};
-      for (const k in NB.Drive.HAZ) { const R = NB.Drive.HAZ[k].r, S = R * 2.8; this.hs[k] = { c: this.sprite(S, S, g => { g.translate(S / 2, S / 2); drawHaz(g, k, R); }), s: S }; }
-      this.pickS = this.sprite(4, 4, g => {
-        g.translate(2, 2); const gl = g.createRadialGradient(0, 0, .3, 0, 0, 2); gl.addColorStop(0, 'rgba(94,195,232,.9)'); gl.addColorStop(1, 'rgba(94,195,232,0)'); g.fillStyle = gl; g.fillRect(-2, -2, 4, 4);
-        g.fillStyle = '#1d2126'; g.beginPath(); g.roundRect(-.6, -1.1, 1.2, 2.2, .3); g.fill(); g.fillStyle = '#5EC3E8'; g.beginPath(); g.roundRect(-.45, -.95, .9, 1.9, .25); g.fill();
-        g.fillStyle = '#fff'; g.beginPath(); g.moveTo(.15, -.75); g.lineTo(-.3, .1); g.lineTo(0, .1); g.lineTo(-.15, .75); g.lineTo(.3, -.1); g.lineTo(0, -.1); g.closePath(); g.fill();
-      });
+      for (const k in NB.Drive.HAZ) { const R = NB.Drive.HAZ[k].r, S = R * 3.2; this.hs[k] = { c: this.sprite(S, S, g => { g.translate(S / 2, S / 2); drawHaz(g, k, R); }), s: S }; }
+      this.boxS = this.sprite(3.4, 3.4, g => drawBox(g));
+      this.rocketS = this.sprite(1.4, 3.4, g => { g.translate(.7, 1.7); drawRocket(g); });
       this.flame = this.sprite(1.2, 3, (g, w, h) => { const fl = g.createLinearGradient(0, 0, 0, h); fl.addColorStop(0, '#fff'); fl.addColorStop(.25, GOLD); fl.addColorStop(1, 'rgba(232,74,63,0)'); g.fillStyle = fl; g.beginPath(); g.moveTo(0, 0); g.quadraticCurveTo(w / 2, h * .2, w / 2, h); g.quadraticCurveTo(w / 2, h * .2, w, 0); g.closePath(); g.fill(); });
       this.smoke = document.createElement('canvas'); this.smoke.width = this.smoke.height = 64;
       const sg = this.smoke.getContext('2d'), gr = sg.createRadialGradient(32, 32, 2, 32, 32, 32); gr.addColorStop(0, 'rgba(235,235,240,.75)'); gr.addColorStop(1, 'rgba(235,235,240,0)'); sg.fillStyle = gr; sg.fillRect(0, 0, 64, 64);
@@ -204,7 +203,7 @@
       const zt = calm ? 1 : 1 - .14 * clamp(sp / me.P.maxSpeed, 0, 1.3); this.z += (zt - this.z) * Math.min(1, dt * 2);
       // smoke and skids when sliding, dust off the road, sparks on nitro
       s.cars.forEach((c, i) => {
-        const v = Math.hypot(c.vx, c.vy); if (v < 3) { this.lastWheel[i] = null; return; }
+        const v = Math.hypot(c.vx, c.vy); if (v < 3 || c.air > 0) { this.lastWheel[i] = null; return; }
         const sz = NB.carTop.SIZE[c.type] || NB.carTop.SIZE.hatch, fx = Math.cos(c.a), fy = Math.sin(c.a), bx = c.x - fx * sz.L * .32, by = c.y - fy * sz.L * .32, wx = -fy * sz.W * .38, wy = fx * sz.W * .38;
         const sliding = c.slip > 4.5 || (c.hb && v > 8) || c.oilT > 0;
         if (sliding) {
@@ -215,6 +214,7 @@
         } else this.lastWheel[i] = null;
         if (c.off && Math.random() < dt * 20) this.parts.push({ x: bx, y: by, vx: -c.vx * .15 + (Math.random() - .5) * 3, vy: -c.vy * .15 + (Math.random() - .5) * 3, t: .5, T: .5, s: .45, k: 'bit', c: this.st.dust });
       });
+      for (const m of s.rockets) if (Math.random() < dt * 40) this.parts.push({ x: m.x - Math.cos(m.a) * 1.6, y: m.y - Math.sin(m.a) * 1.6, vx: 0, vy: 0, t: .5, T: .5, s: .9, grow: 3, k: 'smoke' });
       this.parts = this.parts.filter(p => (p.t -= dt) > 0); if (this.parts.length > 260) this.parts.splice(0, this.parts.length - 260);
       for (const p of this.parts) { p.x += p.vx * dt; p.y += p.vy * dt; if (p.grow) p.s += p.grow * dt; }
       this.shake = calm ? 0 : Math.max(0, this.shake - dt * 26); if (this.flash > 0) this.flash -= dt;
@@ -228,7 +228,14 @@
       } else if (e.type === 'haz') {
         burst(12, { oil: '#1d2126', cone: '#FF8A2A', sand: '#ead09c', hole: '#3a3f46' }[e.kind], 8);
         if (mine) { this.shake = Math.max(this.shake, e.kind === 'hole' ? 9 : 3); this.flash = .22; if (navigator.vibrate) navigator.vibrate(e.kind === 'hole' ? 40 : 18); }
-      } else if (e.type === 'pickup') burst(14, CYAN, 9);
+      } else if (e.type === 'pickup') burst(14, PINK, 9);
+      else if (e.type === 'boom') {
+        burst(22, '#FF8A2A', 18, 'bit', .6); burst(12, GOLD, 24, 'spark', .4); this.parts.push({ x: e.x, y: e.y, vx: 0, vy: 0, t: .7, T: .7, s: 3, grow: 9, k: 'smoke' });
+        const me = this.sim.cars[0], near = (me.x - e.x) ** 2 + (me.y - e.y) ** 2 < 900;
+        if (near && !this.auto && !me.ai && !still()) this.shake = Math.max(this.shake, e.i === 0 ? 12 : 5);
+        if (e.i === 0 && !this.auto && !me.ai) { this.flash = .3; if (navigator.vibrate) navigator.vibrate(60); }
+      } else if (e.type === 'land') { burst(10, this.st.dust, 7); if (mine) this.shake = Math.max(this.shake, 4); }
+      else if (e.type === 'item' && e.item === 'oil') burst(8, '#1d2126', 5);
       else if (e.type === 'respawn') { const c = this.sim.cars[e.i]; this.parts.push({ x: c.x, y: c.y, vx: 0, vy: 0, t: .6, T: .6, s: 2, grow: 10, k: 'smoke' }); }
       else if (e.type === 'nitro' && mine) this.boost();
     }
@@ -254,7 +261,9 @@
         if (z.kind !== 'cone' && (z.x - me.x) ** 2 + (z.y - me.y) ** 2 < 1600) { g.strokeStyle = `rgba(255,197,61,${.25 + pulse * .45})`; g.lineWidth = .25; g.beginPath(); g.arc(z.x, z.y, z.r * (1.2 + pulse * .12), 0, TAU); g.stroke(); }
         g.save(); g.translate(z.x, z.y); if (z.kind === 'cone') g.rotate(z.a); g.drawImage(S.c, -S.s / 2, -S.s / 2, S.s, S.s); g.restore();
       }
-      for (const p of this.tr.pick) if (p.t <= 0) { const b = 1 + Math.sin(performance.now() / 200 + p.k) * .08; g.drawImage(this.pickS, p.x - 2 * b, p.y - 2 * b, 4 * b, 4 * b); }
+      const now = performance.now();
+      for (const p of this.tr.boxes) if (p.t <= 0) { const b = 1 + Math.sin(now / 200 + p.k) * .08; g.save(); g.translate(p.x, p.y); g.rotate(now / 900 + p.x); g.drawImage(this.boxS, -1.7 * b, -1.7 * b, 3.4 * b, 3.4 * b); g.restore(); }
+      for (const m of s.rockets) { g.save(); g.translate(m.x, m.y); g.rotate(m.a + Math.PI / 2); g.drawImage(this.rocketS, -.7, -1.7, 1.4, 3.4); g.restore(); }
       for (const p of this.parts) {
         const a = Math.min(1, p.t / p.T * 1.6);
         if (p.k === 'smoke') { g.globalAlpha = a * .7; g.drawImage(this.smoke, p.x - p.s / 2, p.y - p.s / 2, p.s, p.s); }
@@ -273,7 +282,13 @@
     }
     drawCar(g, i) {
       const c = this.sim.cars[i], sp = this.sprites[i], PX = NB.carTop.PX, L = (NB.carTop.SIZE[c.type] || NB.carTop.SIZE.hatch).L;
-      g.save(); g.translate(c.x, c.y); g.rotate(c.a + Math.PI / 2);
+      const up = c.air > 0 ? Math.sin(Math.PI * (1 - c.air / c.airT)) : 0;
+      if (up) {                                                    // in the air: shadow stays on the road, the car grows
+        const W = (NB.carTop.SIZE[c.type] || NB.carTop.SIZE.hatch).W;
+        g.save(); g.translate(c.x + up * 1.4, c.y + up * 1.8); g.rotate(c.a + Math.PI / 2); g.fillStyle = `rgba(0,0,0,${.35 - up * .12})`;
+        g.beginPath(); g.roundRect(-W / 2, -L / 2, W, L, .6); g.fill(); g.restore();
+      }
+      g.save(); g.translate(c.x, c.y); g.rotate(c.a + Math.PI / 2); if (up) g.scale(1 + up * .38, 1 + up * .38);
       const flames = c.nitroT > 0 || (this.racers[i].mods && this.racers[i].mods.nos >= 5 && Math.hypot(c.vx, c.vy) > 25);
       if (flames) { const f = (c.nitroT > 0 ? 1 : .45) * (.8 + Math.random() * .4); g.drawImage(this.flame, -.6, L / 2 - .15, 1.2, 3 * f); }
       g.drawImage(sp, -sp.width / PX / 2, -sp.height / PX / 2, sp.width / PX, sp.height / PX);
@@ -299,26 +314,76 @@
     }
   }
 
-  /* hazard drawings, in world units: r is the hazard's size */
+  /* hazard drawings, in world units: r is the hazard's size. A fixed seed keeps each shape the same every race. */
+  function blob(g, r, n, wob, seed) {   // a wobbly closed shape
+    const R = rng(seed), pts = Array.from({ length: n }, (_, k) => { const a = k / n * TAU, rr = r * (1 - wob / 2 + R() * wob); return [Math.cos(a) * rr, Math.sin(a) * rr]; });
+    g.beginPath(); pts.forEach((p, k) => { const q = pts[(k + 1) % n], mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2; k ? g.quadraticCurveTo(p[0], p[1], mx, my) : g.moveTo(mx, my); });
+    const p = pts[0], q = pts[1]; g.quadraticCurveTo(p[0], p[1], (p[0] + q[0]) / 2, (p[1] + q[1]) / 2); g.closePath();
+  }
   function drawHaz(g, kind, r) {
-    if (kind === 'oil') {
-      g.fillStyle = '#16191d'; g.beginPath(); g.ellipse(0, 0, r * 1.05, r * .75, .4, 0, TAU); g.fill(); g.beginPath(); g.ellipse(r * .55, r * .35, r * .45, r * .32, 0, 0, TAU); g.fill(); g.beginPath(); g.arc(-r * .9, r * .5, r * .18, 0, TAU); g.arc(r * 1.1, -r * .3, r * .14, 0, TAU); g.fill();
-      g.strokeStyle = 'rgba(120,130,140,.6)'; g.lineWidth = .18; g.beginPath(); g.ellipse(-r * .15, -r * .1, r * .58, r * .33, .4, 0, TAU); g.stroke();
-      g.fillStyle = 'rgba(255,255,255,.5)'; g.beginPath(); g.ellipse(-r * .4, -r * .25, r * .16, r * .07, .4, 0, TAU); g.fill();
-    } else if (kind === 'hole') {
-      g.fillStyle = '#2f343a'; g.beginPath(); g.ellipse(0, 0, r * 1.15, r * .95, 0, 0, TAU); g.fill();
-      g.fillStyle = '#121417'; g.beginPath(); g.ellipse(0, r * .08, r * .85, r * .68, 0, 0, TAU); g.fill();
-      g.strokeStyle = 'rgba(255,255,255,.18)'; g.lineWidth = .15; g.beginPath(); g.ellipse(0, 0, r * 1.15, r * .95, 0, Math.PI * 1.1, Math.PI * 1.8); g.stroke();
-    } else if (kind === 'cone') {
-      g.fillStyle = 'rgba(0,0,0,.4)'; g.beginPath(); g.arc(r * .3, r * .35, r * 1.05, 0, TAU); g.fill();
-      g.fillStyle = '#FF7A1A'; g.beginPath(); g.arc(0, 0, r, 0, TAU); g.fill();
-      g.strokeStyle = '#fff'; g.lineWidth = r * .3; g.beginPath(); g.arc(0, 0, r * .6, 0, TAU); g.stroke();
-      g.fillStyle = '#ffc08a'; g.beginPath(); g.arc(-r * .1, -r * .1, r * .22, 0, TAU); g.fill();
-    } else if (kind === 'sand') {
-      g.fillStyle = '#ecd29d'; g.beginPath(); g.ellipse(0, 0, r * 1.2, r * .7, -.2, 0, TAU); g.fill();
-      g.strokeStyle = '#c69f63'; g.lineWidth = .16; [-.3, .1, .45].forEach(k => { g.beginPath(); g.ellipse(0, r * k, r * .8, r * .12, -.2, Math.PI, TAU); g.stroke(); });
+    if (kind === 'oil') {   // a splash: wobbly pool, thrown droplets, a rainbow sheen
+      const R = rng(7);
+      g.fillStyle = 'rgba(0,0,0,.25)'; blob(g, r * .95, 14, .55, 3); g.save(); g.translate(.15, .2); g.fill(); g.restore();
+      g.fillStyle = '#121418'; blob(g, r * .92, 14, .55, 3); g.fill();
+      for (let k = 0; k < 9; k++) {
+        const a = k / 9 * TAU + R() * .5, d = r * (1.02 + R() * .3), s = r * (.08 + R() * .1);
+        g.save(); g.translate(Math.cos(a) * d, Math.sin(a) * d); g.rotate(a); g.beginPath(); g.ellipse(0, 0, s * 1.8, s, 0, 0, TAU); g.fill(); g.restore();
+        g.beginPath(); g.moveTo(Math.cos(a - .08) * r * .7, Math.sin(a - .08) * r * .7); g.lineTo(Math.cos(a) * (d - s), Math.sin(a) * (d - s)); g.lineTo(Math.cos(a + .08) * r * .7, Math.sin(a + .08) * r * .7); g.fill();
+      }
+      const sh = g.createLinearGradient(-r * .6, -r * .5, r * .5, r * .4);
+      sh.addColorStop(0, 'rgba(155,92,255,.35)'); sh.addColorStop(.35, 'rgba(34,229,224,.28)'); sh.addColorStop(.65, 'rgba(255,197,61,.2)'); sh.addColorStop(1, 'rgba(255,61,139,0)');
+      g.fillStyle = sh; blob(g, r * .5, 9, .5, 11); g.save(); g.translate(-r * .15, -r * .12); g.fill(); g.restore();
+      g.fillStyle = 'rgba(255,255,255,.75)'; g.beginPath(); g.ellipse(-r * .38, -r * .3, r * .16, r * .06, -.5, 0, TAU); g.fill(); g.beginPath(); g.arc(-r * .12, -r * .42, r * .04, 0, TAU); g.fill();
+    } else if (kind === 'hole') {   // broken asphalt: jagged rim, deep middle, cracks, loose bits
+      const R = rng(5);
+      g.strokeStyle = '#1d2126'; g.lineWidth = .14;
+      for (let k = 0; k < 5; k++) { const a = k / 5 * TAU + R(); g.beginPath(); g.moveTo(Math.cos(a) * r * .8, Math.sin(a) * r * .8); g.lineTo(Math.cos(a + .2) * r * 1.15, Math.sin(a + .2) * r * 1.15); g.lineTo(Math.cos(a - .1) * r * 1.35, Math.sin(a - .1) * r * 1.35); g.stroke(); }
+      g.fillStyle = '#3a3f46'; g.beginPath(); for (let k = 0; k < 11; k++) { const a = k / 11 * TAU, rr = r * (.85 + R() * .3); g.lineTo(Math.cos(a) * rr, Math.sin(a) * rr * .85); } g.closePath(); g.fill();
+      g.fillStyle = '#16191d'; g.beginPath(); for (let k = 0; k < 9; k++) { const a = k / 9 * TAU, rr = r * (.55 + R() * .2); g.lineTo(Math.cos(a) * rr, Math.sin(a) * rr * .8 + r * .08); } g.closePath(); g.fill();
+      g.strokeStyle = 'rgba(255,255,255,.22)'; g.lineWidth = .12; g.beginPath(); g.arc(0, 0, r * .95, Math.PI * 1.05, Math.PI * 1.75); g.stroke();
+      g.fillStyle = '#6b737b'; for (let k = 0; k < 5; k++) { const a = R() * TAU, d = r * (1 + R() * .3); g.fillRect(Math.cos(a) * d, Math.sin(a) * d, .22, .18); }
+    } else if (kind === 'cone') {   // from above: square rubber base, round cone, reflective band
+      g.fillStyle = 'rgba(0,0,0,.35)'; g.beginPath(); g.roundRect(-r + .2, -r + .25, r * 2, r * 2, r * .3); g.fill();
+      g.fillStyle = '#c4520f'; g.beginPath(); g.roundRect(-r, -r, r * 2, r * 2, r * .3); g.fill();
+      const cg = g.createRadialGradient(-r * .25, -r * .25, r * .05, 0, 0, r * .85); cg.addColorStop(0, '#ffb070'); cg.addColorStop(1, '#FF7A1A');
+      g.fillStyle = cg; g.beginPath(); g.arc(0, 0, r * .82, 0, TAU); g.fill();
+      g.strokeStyle = '#fff'; g.lineWidth = r * .22; g.beginPath(); g.arc(0, 0, r * .5, 0, TAU); g.stroke();
+      g.fillStyle = '#ffe2c4'; g.beginPath(); g.arc(0, 0, r * .18, 0, TAU); g.fill();
+    } else if (kind === 'sand') {   // a drift blown across the road, ripples and pebbles
+      g.fillStyle = 'rgba(236,210,157,.55)'; blob(g, r * 1.25, 12, .4, 9); g.fill();
+      g.fillStyle = '#ecd29d'; blob(g, r * .95, 12, .4, 9); g.fill();
+      g.strokeStyle = '#c69f63'; g.lineWidth = .16; [-.45, -.1, .25, .55].forEach(k => { g.beginPath(); g.moveTo(-r * .75, r * k); g.quadraticCurveTo(-r * .2, r * (k - .22), r * .2, r * k); g.quadraticCurveTo(r * .5, r * (k + .18), r * .78, r * (k - .05)); g.stroke(); });
+      g.fillStyle = '#a88452'; [[.4, -.6], [-.5, .45], [.6, .35]].forEach(([x, y]) => { g.beginPath(); g.arc(r * x, r * y, .14, 0, TAU); g.fill(); });
     }
   }
+  /* jump ramp, drawn along +x (driving direction): yellow kicker with chevrons and a white lip */
+  function drawRamp(g, len, w) {
+    g.fillStyle = 'rgba(0,0,0,.35)'; g.fillRect(len, -w / 2, 1.2, w);                       // the drop after the lip
+    g.fillStyle = '#2e3238'; g.fillRect(-.25, -w / 2 - .25, len + .5, w + .5);
+    const rg = g.createLinearGradient(0, 0, len, 0); rg.addColorStop(0, '#d9a21f'); rg.addColorStop(1, '#ffd75a');
+    g.fillStyle = rg; g.fillRect(0, -w / 2, len, w);
+    g.fillStyle = '#1d2126'; for (let y = -w / 2 + .8; y < w / 2 - .6; y += 1.6) { g.beginPath(); g.moveTo(.4, y - .55); g.lineTo(1.4, y); g.lineTo(.4, y + .55); g.lineTo(.9, y); g.closePath(); g.fill(); g.beginPath(); g.moveTo(1.5, y - .55); g.lineTo(2.5, y); g.lineTo(1.5, y + .55); g.lineTo(2, y); g.closePath(); g.fill(); }
+    g.fillStyle = '#fff'; g.fillRect(len - .35, -w / 2, .35, w);
+  }
+  /* power-up box: a glowing cube with a question mark */
+  function drawBox(g) {
+    g.translate(1.7, 1.7);
+    const gl = g.createRadialGradient(0, 0, .5, 0, 0, 1.7); gl.addColorStop(0, 'rgba(255,61,139,.6)'); gl.addColorStop(1, 'rgba(255,61,139,0)'); g.fillStyle = gl; g.fillRect(-1.7, -1.7, 3.4, 3.4);
+    g.fillStyle = '#1d2126'; g.beginPath(); g.roundRect(-1.15, -1.15, 2.3, 2.3, .35); g.fill();
+    const bg = g.createLinearGradient(-1, -1, 1, 1); bg.addColorStop(0, '#ff7ab0'); bg.addColorStop(.5, PINK); bg.addColorStop(1, '#9b5cff');
+    g.fillStyle = bg; g.beginPath(); g.roundRect(-1, -1, 2, 2, .28); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.35)'; g.beginPath(); g.roundRect(-.85, -.85, 1.7, .5, .2); g.fill();
+    g.fillStyle = '#fff'; g.font = '900 1.5px system-ui, sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText('?', 0, .08);
+  }
+  /* rocket, nose up */
+  function drawRocket(g) {
+    g.fillStyle = '#e8423f'; g.beginPath(); g.moveTo(-.55, 1.1); g.lineTo(-.7, 1.5); g.lineTo(-.3, 1.3); g.closePath(); g.moveTo(.55, 1.1); g.lineTo(.7, 1.5); g.lineTo(.3, 1.3); g.closePath(); g.fill();
+    g.fillStyle = '#f1f3f5'; g.beginPath(); g.roundRect(-.38, -.9, .76, 2.3, .3); g.fill();
+    g.fillStyle = '#e8423f'; g.beginPath(); g.moveTo(-.38, -.7); g.quadraticCurveTo(0, -1.7, .38, -.7); g.closePath(); g.fill();
+    g.fillStyle = '#1d2126'; g.fillRect(-.38, .1, .76, .22);
+    g.fillStyle = GOLD; g.beginPath(); g.moveTo(-.25, 1.4); g.lineTo(0, 1.7); g.lineTo(.25, 1.4); g.closePath(); g.fill();
+  }
+  DriveView.drawHaz = drawHaz; DriveView.drawRamp = drawRamp; DriveView.drawBox = drawBox; DriveView.drawRocket = drawRocket;
 
   DriveView.STYLE = STYLE;
   NB.DriveView = DriveView;
