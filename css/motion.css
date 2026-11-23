@@ -1,0 +1,83 @@
+/* Motion language for Neon Bay — loaded last so it overrides earlier animation choices.
+   Principles: things move because the player did something; one orchestrated moment per screen;
+   neon ignites, counters roll, objects have weight. No ambient pulsing except where it means "do this next". */
+:root{
+  --m-quick:140ms; --m-base:280ms; --m-slow:560ms;
+  --m-out:cubic-bezier(.16,.84,.3,1);
+  --m-spring:linear(0, .007, .028, .064, .114, .176, .25, .332, .421, .515, .611, .705, .794, .874, .943, 1.001, 1.045, 1.076, 1.094, 1.1, 1.096, 1.085, 1.068, 1.049, 1.029, 1.011, .996, .985, .978, .975, .976, .98, .986, .992, .998, 1.002, 1.005, 1.006, 1.005, 1.003, 1);
+}
+@supports not (animation-timing-function: linear(0, 1)){ :root{--m-spring:cubic-bezier(.2,.9,.25,1.12)}}
+
+/* ---------- FX elements ---------- */
+.fx-spark{position:fixed; z-index:95; height:2px; border-radius:2px; pointer-events:none; transform-origin:0 50%; box-shadow:0 0 6px currentColor}
+.fx-bill{position:fixed; z-index:96; width:28px; height:20px; pointer-events:none; filter:drop-shadow(0 0 6px rgba(46,229,157,.7))}
+.fx-bill svg{width:100%; height:100%; display:block}
+.fx-sweep{position:absolute; top:0; bottom:0; left:0; width:40%; pointer-events:none; z-index:4;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.08) 35%,rgba(32,217,210,.22) 50%,rgba(255,255,255,.08) 65%,transparent)}
+.odo{display:inline-block; height:1em; line-height:1em; overflow:hidden; vertical-align:-.12em}
+.odo-strip{display:block}
+.odo-strip span{display:block; height:1em; line-height:1em}
+.odo-s{display:inline-block}
+
+/* ---------- remove ambient, attention-seeking loops ---------- */
+ .race-card.ready .rc-go, .crate:not(:disabled), .tapnum:not(:disabled),
+.slot.live:not(.boxes), .board-eq.pulse, .v-area .cell.on, .band.act, .stage .fresh{animation:none!important}
+/* the one thing that means "this is next" gets a lit tube, not a pulse */
+
+.slot.live:not(.boxes){box-shadow:0 0 0 3px rgba(255,157,69,.22),0 0 18px rgba(255,157,69,.45)}
+
+/* generic fade-and-rise entrances become quiet: content is simply there, or is written on */
+@keyframes nbRise{from{opacity:0}to{opacity:1}}
+@keyframes nbPop{from{opacity:.4}to{opacity:1}}
+@keyframes nbSlide{from{clip-path:inset(-20px 100% -20px -20px)}to{clip-path:inset(-20px -20px -20px -20px)}}
+@keyframes nbFly{from{opacity:0}to{opacity:1}}
+@keyframes nbGlow{0%{opacity:.2}10%{opacity:1}18%{opacity:.3}34%{opacity:.9}44%{opacity:.5}100%{opacity:1}}
+.board-visual.enter > *{animation:none}
+.pkg,.hop,.dl,.note10,.coin1,.part{animation-duration:var(--m-base); animation-timing-function:var(--m-out)}
+
+/* a step change on the board is one sweep of light, not every child fading in */
+.board-visual{position:relative}
+@media (prefers-reduced-motion:no-preference){
+  .board-visual.enter::after{content:""; position:absolute; inset:-6px; pointer-events:none; border-radius:12px;
+    background:linear-gradient(100deg,transparent 38%,rgba(32,217,210,.14) 48%,rgba(255,255,255,.12) 50%,transparent 62%);
+    animation:mSweep 700ms var(--m-out) forwards}}
+@keyframes mSweep{from{transform:translateX(-70%)}to{transform:translateX(70%); opacity:0}}
+
+/* ---------- worksheet: a new line is written on, its step tube ignites ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .sh-row.new{animation:mWrite 420ms var(--m-out) both}
+  .sh-row.new .sh-lbl i{animation:nbGlow 520ms linear both 120ms}
+  .slot.right{animation:mLock 360ms var(--m-spring)}}
+@keyframes mWrite{from{clip-path:inset(-24px 100% -24px -24px)}to{clip-path:inset(-24px -24px -24px -24px)}}
+@keyframes mLock{from{border-color:#fff; box-shadow:0 0 0 2px #fff,0 0 30px rgba(46,229,157,.9)}}
+
+/* typed digits settle into the box */
+.slot .kd{display:inline-block}
+@media (prefers-reduced-motion:no-preference){ .slot .kd.in{animation:mKey 180ms var(--m-spring)}}
+@keyframes mKey{from{transform:translateY(.28em); opacity:.3}to{transform:none; opacity:1}}
+
+/* ---------- mission complete: one orchestrated sequence ---------- */
+@media (prefers-reduced-motion:no-preference){
+  .mcomp .mc-title{animation:mTitle 620ms var(--m-out) both}
+  .mcomp .flags svg{animation:mFlag 900ms var(--m-out) both 120ms}
+  .mcomp .earned{animation:nbRise 300ms ease-out both 520ms}
+  .mcomp .mc-sub{animation:nbRise 300ms ease-out both 900ms}
+  .mcomp .mc-car{animation:mDrive 900ms var(--m-out) both 650ms}
+  .mcomp .mc-actions{animation:nbRise 260ms ease-out both 1250ms}}
+@keyframes mTitle{0%{clip-path:inset(-40px 100% -40px -40px); filter:brightness(2)}60%{clip-path:inset(-40px -40px -40px -40px); filter:brightness(1.4)}100%{clip-path:none; filter:none}}
+@keyframes mFlag{from{transform:rotate(-24deg) translateY(10px); opacity:0}to{transform:none; opacity:1}}
+@keyframes mDrive{from{transform:translateX(-55%); filter:blur(6px); opacity:0}to{transform:none; filter:none; opacity:1}}
+.flags svg:last-child{animation-name:mFlagR!important}
+@keyframes mFlagR{from{transform:scaleX(-1) rotate(-24deg) translateY(10px); opacity:0}to{transform:scaleX(-1); opacity:1}}
+
+/* ---------- small, honest feedback on controls ---------- */
+.k,.ro,.q-choice,.nbl-btn,.b-go,.gm-buy,.rc-btn{transition:transform var(--m-quick) var(--m-out),box-shadow var(--m-base) var(--m-out),filter var(--m-base) var(--m-out)}
+.ro:hover:not(:disabled),.q-choice:hover:not(:disabled),.nbl-btn:hover:not(:disabled){transform:none}
+.k:active,.ro:active,.b-go:active,.gm-buy:active{transform:translateY(2px) scale(.98)}
+.cash-chip b,.st b{font-variant-numeric:tabular-nums}
+
+/* lesson reward pills are replaced by bills flying into the wallet */
+.nbl-toast{display:none!important}
+
+@media (prefers-reduced-motion:reduce){
+  .board-visual.enter::after{display:none}}
