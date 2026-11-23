@@ -109,7 +109,7 @@
       if (L.v !== 4) { const R = PM().restart(this.id); R.v = 4; R.phase = 'sheet'; R.si = 0; R.cur = null; PM().update(this.id, () => {}); }
       const H = this.c.handover;
       this.M = (this.c.method && NB.Methods[this.c.method]) || MULT1;
-      this.voiceReady = Promise.race([NB.VOICE.load(this.id), new Promise(r => setTimeout(r, 3000))]);   // this lesson's recorded voice lines
+      this.voiceReady = Promise.race([Promise.all([NB.VOICE.load(this.id), NB.VOICE.load('common')]), new Promise(r => setTimeout(r, 3000))]);   // this lesson's recorded voice lines
       const qOf = x => x.q || { a: x.a, b: x.b, key: `${x.a}x${x.b}` };
       this.seq = [{ stage: 0, q: qOf(H.watch) }, { stage: 1, q: qOf(H.together) }]
         .concat(Array.from({ length: H.less.count }, () => ({ stage: 2 })), Array.from({ length: H.alone.count }, () => ({ stage: 3 })));

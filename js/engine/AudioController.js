@@ -64,7 +64,6 @@
       return this.asked[name];
     }
   };
-  NB.VOICE.load('common');
 
   class AudioController {
     constructor({ lessonId, onWord, onState, isMuted }) {
@@ -171,6 +170,7 @@
         };
 
         if (this.isMuted()) return silent();
+        NB.VOICE.load('common');   // praise and tips: fetched the first time NOVA speaks
         const seq = this.recorded(text);
         if (seq) {   // play the recorded sentences in order; the caption follows along
           this.mode = 'file';
