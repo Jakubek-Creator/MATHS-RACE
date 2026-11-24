@@ -38,31 +38,50 @@
   }
 
   /* ======================= ADDING & SUBTRACTING ======================= */
-  E['add-1'] = () => {
+  E['add-1'] = () => {   // hands-on: the child moves the blocks; the column method fills in beside them
     const a = 47, bb = 38; let g, A, B;
-    const cubes = () => [...A.cubes, ...B.cubes];
+    const tray = [118, 92, 120, 36], slotU = i => [122 + (i % 8) * 14, 96 + Math.floor(i / 8) * 15];
+    const moveCube = (S, id, i) => { const e = S.get(id), [tx, ty] = slotU(i); S.to(id, tx - +e.getAttribute('x'), ty - +e.getAttribute('y')); };
+    const hit = (S, id, x, y, w, h) => S.r(id, x, y, w, h, { fill: 'rgba(255,255,255,.001)', rx: 6 });
     return { view: [360, 250], remember: 'Start with the units. If a column makes 10 or more, swap 10 units for 1 ten: write the units, carry the ten.',
       steps: [
-        { title: 'Set it out', math: `Line up the ${k('tens')} and the ${k('units')}.`, say: "Here are 47 and 38 as blocks. The long rods are tens and the little cubes are units. To add in columns, line them up: units under units, tens under tens.",
-          run: async S => { A = S.blocks('A', 14, 10, 4, 7); S.t('la', 100, 26, '47', { size: 18, label: true, fill: C.mute });
-            B = S.blocks('B', 14, 150, 3, 8, { d: 300 }); S.t('lb', 100, 166, '38', { size: 18, label: true, fill: C.mute }); await S.wait(500); g = columns(S, { x: 320, a, b: bb, n: 2 }); await S.wait(600); } },
-        { title: 'Add the units', math: `7 + 8 = ${b('15')} units`, say: 'Always start with the units. 7 units plus 8 units. Put them together and count: 15 units.',
-          run: async S => { colHL(S, g, 0); S.sfx('tick');
-            cubes().forEach((id, i) => { const e = S.get(id), x = +e.getAttribute('x'), y = +e.getAttribute('y'); S.to(id, 14 + i * 10.5 - x, 108 - y); });
-            await S.wait(700); S.t('u15', 214, 112, '15 units', { size: 15, label: true, fill: C.units, pop: true }); await S.wait(500); } },
-        { title: 'Swap 10 units for 1 ten', math: `15 = ${b('1 ten')} + ${b('5 units')}<br>Write ${k('5')}, carry ${k('1')}`, say: "15 units is too many for one column. 10 units make 1 ten, so we swap them. The 5 units stay: write 5 in the units column. The new ten is carried over to the tens column.",
-          run: async S => { const cs = cubes(); colHL(S, g, 0);
-            cs.slice(0, 10).forEach(id => S.fade(id, .15)); S.r('swap', 12, 104, 105, 14, { stroke: C.carry, sw: 2, rx: 4, pop: true }); await S.wait(600);
-            S.del('swap'); cs.slice(0, 10).forEach(id => S.del(id)); S.del('u15');
-            S.r('newrod', 54, 10, 7, 70, { fill: C.carry, stroke: C.ink, sw: 1, rx: 1.5, from: [-10, 100], pop: true }); S.sfx('good');
-            cs.slice(10).forEach((id, i) => { const e = S.get(id), x = +e.getAttribute('x'), y = +e.getAttribute('y'); S.to(id, 120 + i * 10.5 - x, 108 - y); });
-            await S.wait(500); write(S, g, 0, 5); await S.wait(300); carry(S, g, 1, 1); await S.wait(600); } },
-        { title: 'Add the tens', math: `4 + 3 + ${k('1')} = ${b('8')} tens`, say: 'Now the tens column. 4 tens plus 3 tens, plus the 1 ten we carried, makes 8 tens. Write 8 in the tens column.',
-          run: async S => { colHL(S, g, 1);
-            [...B.rods].forEach((id, i) => S.to(id, 64 + i * 10 - (14 + i * 10), -140)); S.paint('newrod', C.tens); await S.wait(700);
-            S.del('la'); S.del('lb'); S.t('t8', 140, 46, '8 tens', { size: 15, label: true, fill: C.tens, pop: true }); write(S, g, 1, 8); await S.wait(500); } },
+        { title: 'Set it out', math: `Line up the ${k('tens')} and the ${k('units')}.`, say: "Here are 47 and 38 as blocks. The long rods are tens and the little cubes are units. In columns we line them up: units under units, tens under tens.",
+          run: async S => { A = S.blocks('A', 14, 10, 4, 7); S.t('la', 14, 92, '47', { size: 15, label: true, fill: C.mute, anchor: 'start' });
+            B = S.blocks('B', 14, 150, 3, 8, { d: 300 }); S.t('lb', 14, 232, '38', { size: 15, label: true, fill: C.mute, anchor: 'start' }); await S.wait(500); g = columns(S, { x: 320, a, b: bb, n: 2 }); await S.wait(600); } },
+        { title: 'Put the units together', math: `7 + 8 = ${b('15')} units`, say: 'Always start with the units. Drag the units from 47, and then the units from 38, into the units box.',
+          run: async S => {
+            colHL(S, g, 0); S.r('trayBox', ...tray, { stroke: C.units, sw: 2, dash: '5 4', rx: 6, pop: true }); S.t('trayL', tray[0] + tray[2] / 2, tray[1] - 9, 'units box', { size: 11, label: true, fill: C.units });
+            hit(S, 'hA', 50, 20, 30, 64); hit(S, 'hB', 40, 160, 30, 64);
+            const into = (S, cubes, from) => cubes.forEach((id, i) => moveCube(S, id, from + i));
+            let gotA = false, gotB = false;
+            await S.ask((done, S) => {
+              S.drag('hA', [tray], () => { gotA = true; S.del('hA'); into(S, A.cubes, 0); S.sfx('tick'); if (gotB) setTimeout(done, 600); return true; });
+              S.drag('hB', [tray], () => { gotB = true; S.del('hB'); into(S, B.cubes, 7); S.sfx('tick'); if (gotA) setTimeout(done, 600); return true; });
+            });
+            S.del('hA'); S.del('hB'); into(S, A.cubes, 0); into(S, B.cubes, 7);
+            S.t('u15', tray[0] + tray[2] / 2, tray[1] + tray[3] + 14, '15 units', { size: 14, label: true, fill: C.units, pop: true }); await S.wait(400);
+          } },
+        { title: 'Swap 10 units for 1 ten', math: `15 = ${b('1 ten')} + ${b('5 units')}<br>Write ${k('5')}, carry ${k('1')}`, say: "15 units is too many for one column. Tap the units box to bundle 10 units into 1 ten. Then drag the new ten over to the tens.",
+          run: async S => {
+            colHL(S, g, 0); const cs = [...A.cubes, ...B.cubes];
+            const bundle = () => { cs.slice(0, 10).forEach(id => S.del(id)); cs.slice(10).forEach((id, i) => moveCube(S, id, i)); S.r('newrod', 200, 60, 7, 70, { fill: C.carry, stroke: C.ink, sw: 1, rx: 1.5, pop: true }); S.del('u15'); S.sfx('good'); };
+            const toTens = () => { S.to('newrod', 54 - 200, 10 - 60); write(S, g, 0, 5); carry(S, g, 1, 1); };
+            let stage = 0;
+            await S.ask((done, S) => {
+              hit(S, 'hT', ...tray);
+              S.tap('hT', () => { if (stage) return; stage = 1; S.del('hT'); bundle(); hit(S, 'hR', 192, 56, 24, 80); S.drag('hR', [[10, 4, 80, 92]], () => { S.del('hR'); toTens(); S.sfx('tick'); setTimeout(done, 700); return true; }); });
+            });
+            S.del('hT'); S.del('hR'); if (stage === 0 || !S.get('r0')) { if (!S.get('newrod')) bundle(); toTens(); } await S.wait(400);
+          } },
+        { title: 'Add the tens', math: `4 + 3 + ${k('1')} = ${b('8')} tens`, say: 'Now the tens. Drag the 3 tens from 38 up to join the others. 4 tens, plus 3 tens, plus the 1 we carried.',
+          run: async S => {
+            colHL(S, g, 1); S.paint('newrod', C.tens); hit(S, 'hBt', 10, 146, 34, 80);
+            const join = () => { B.rods.forEach((id, i) => S.to(id, 64 + i * 10 - (14 + i * 10), -140)); S.del('lb'); S.del('la'); S.t('t8', 140, 46, '8 tens', { size: 15, label: true, fill: C.tens, pop: true }); write(S, g, 1, 8); };
+            await S.ask((done, S) => S.drag('hBt', [[4, 0, 110, 100]], () => { S.del('hBt'); join(); S.sfx('good'); setTimeout(done, 600); return true; }));
+            S.del('hBt'); if (!S.get('t8')) join(); await S.wait(300);
+          } },
         { title: 'Read the answer', math: `47 + 38 = ${b('85')}`, say: 'Read the answer row from left to right: 8 tens and 5 units. 85. So 47 plus 38 is 85.',
-          run: async S => { S.hl(g.X(1) - 18, g.yR - 20, 70, 40); S.t('ans', 180, 220, '47 + 38 = 85', { size: 24, fill: C.good, pop: true }); S.sfx('good'); await S.wait(400); } }
+          run: async S => { S.hl(g.X(1) - 18, g.yR - 20, 70, 40); S.t('ans', 180, 226, '47 + 38 = 85', { size: 22, fill: C.good, pop: true }); S.sfx('good'); await S.wait(400); } }
       ] };
   };
 
@@ -211,7 +230,43 @@
       run: async S => { ladder(S, 0); S.hl(X(qStart) - 16, top - 30, (ds.length - qStart) * cw + 6, 32); S.sfx('good'); await S.wait(300); } });
     return { view: [360, 70 + (row + 1) * 64], steps, remember: 'Divide, multiply, subtract, bring down. Then do it again until every digit is used.' };
   }
-  E['div-1'] = () => longDiv(96, 4);
+  E['div-1'] = () => {   // hands-on sharing first (what dividing means), then the written method
+    const sc = longDiv(96, 4), plateX = p => 52 + p * 85, PY = 220, s = 5;
+    const rodPos = (p, j) => [plateX(p) - 26 + j * 8, PY - 58], cubePos = (p, j) => [plateX(p) + (j % 2) * 9, PY - 50 + Math.floor(j / 2) * 9];
+    const toPos = (S, id, [tx, ty]) => { const e = S.get(id); S.to(id, tx - +e.getAttribute('x'), ty - +e.getAttribute('y')); };
+    const share = [
+      { title: 'Share the tens', math: `9 tens shared by 4: ${b('2 tens')} each, ${k('1')} left`, say: "96 dollars shared between 4 of the crew. Dividing means sharing fairly. Here are 9 tens and 6 units. Tap the tens to give one ten to each person. Keep going while everyone can get one.",
+        run: async S => {
+          for (let p = 0; p < 4; p++) { S.el('ellipse', `pl${p}`, { cx: plateX(p), cy: PY, rx: 36, ry: 10, fill: '#6b737b' }, { pop: true }); S.t(`pn${p}`, plateX(p), PY + 22, ['Mia', 'Rico', 'Lu', 'Dex'][p], { size: 12, label: true, fill: C.mute }); }
+          for (let i = 0; i < 9; i++) S.r(`rd${i}`, 16 + i * 9, 14, s, 50, { fill: C.tens, stroke: C.ink, sw: 1, rx: 1, pop: true, delay: i * 40 });
+          for (let i = 0; i < 6; i++) S.r(`cb${i}`, 110 + (i % 3) * 9, 40 + Math.floor(i / 3) * 9, s + 2, s + 2, { fill: C.units, stroke: C.ink, sw: 1, rx: 1, pop: true });
+          S.r('hRods', 10, 8, 90, 62, { fill: 'rgba(255,255,255,.001)' });
+          let given = 0; const round = () => { for (let p = 0; p < 4; p++) toPos(S, `rd${given++}`, rodPos(p, Math.floor((given - 1) / 4))); };
+          await S.ask((done, S) => S.tap('hRods', () => { if (given >= 8) { S.say('Only 1 ten is left. That is not enough for everyone, so stop sharing the tens.'); return; } round(); S.sfx('tick'); if (given >= 8) setTimeout(done, 700); }));
+          while (given < 8) round(); S.del('hRods'); S.t('left', 60, 80, '1 ten left', { size: 13, label: true, fill: C.carry, pop: true }); await S.wait(300);
+        } },
+      { title: 'Swap the last ten', math: `1 ten = 10 units. 10 + 6 = ${b('16')} units`, say: 'One ten is left over. Tap it to swap it for 10 units. Now we have 16 units to share.',
+        run: async S => {
+          const swap = () => { S.del('rd8'); S.del('left'); for (let i = 0; i < 10; i++) S.r(`cb${6 + i}`, 110 + ((6 + i) % 3) * 9, 40 + Math.floor((6 + i) / 3) * 9 - 18, s + 2, s + 2, { fill: C.units, stroke: C.carry, sw: 1.5, rx: 1, pop: true, delay: i * 30 }); S.t('u16', 180, 40, '16 units', { size: 13, label: true, fill: C.units, pop: true }); S.sfx('good'); };
+          S.r('h8', 74, 6, 36, 66, { fill: 'rgba(255,255,255,.001)' });
+          await S.ask((done, S) => S.tap('h8', () => { if (!S.get('rd8')) return; swap(); setTimeout(done, 700); }));
+          S.del('h8'); if (S.get('rd8')) swap(); await S.wait(300);
+        } },
+      { title: 'Share the units', math: `16 ÷ 4 = ${b(4)} each`, say: 'Now tap the units to share them, one to each person, until they are all gone.',
+        run: async S => {
+          S.r('hCubes', 104, 10, 90, 80, { fill: 'rgba(255,255,255,.001)' });
+          let given = 0; const round = () => { for (let p = 0; p < 4; p++) { toPos(S, `cb${given}`, cubePos(p, Math.floor(given / 4))); given++; } };
+          await S.ask((done, S) => S.tap('hCubes', () => { if (given >= 16) return; round(); S.sfx('tick'); if (given >= 16) setTimeout(done, 700); }));
+          while (given < 16) round(); S.del('hCubes'); S.del('u16');
+          for (let p = 0; p < 4; p++) S.t(`e${p}`, plateX(p), PY - 74, '24', { size: 18, fill: C.good, pop: true, delay: p * 120 });
+          S.t('each', 180, 30, 'Everyone gets 2 tens and 4 units: 24', { size: 14, label: true, fill: C.good, pop: true }); await S.wait(600);
+        } }
+    ];
+    const first = sc.steps[0], run0 = first.run;
+    first.title = 'Now write it the school way'; first.say = 'That is exactly what the bus stop method writes down. ' + first.say;
+    first.run = async S => { S.clear(); await run0(S); };
+    sc.steps = share.concat(sc.steps); return sc;
+  };
   E['div-2'] = () => longDiv(852, 4);
   E['div-3'] = () => longDiv(1365, 5);
 
@@ -259,17 +314,43 @@
     const pw = w / parts;
     for (let i = 0; i < parts; i++) S.r(`${pre}${i}`, x + i * pw, y, pw, h, { fill: i < shade ? col : 'rgba(255,255,255,.06)', stroke: '#fff', sw: 2, rx: 2, pop: !o.still, delay: (o.d || 0) + i * 70 });
   }
-  E['frac-1'] = () => ({ view: [360, 230], remember: 'To find a fraction of an amount: divide by the bottom number, then times by the top number.',
-    steps: [
-      { title: 'What it means', math: `${NB.fracHTML('{f:3/4}')} of 20: cut 20 into ${k(4)} equal parts, take ${k(3)}`, say: 'Three quarters of 20. The bottom number, 4, tells us to cut 20 into 4 equal parts. The top number, 3, tells us how many parts we take.',
-        run: async S => { S.r('whole', 30, 60, 300, 50, { fill: 'rgba(255,255,255,.06)', stroke: '#fff', sw: 2, rx: 3, pop: true }); S.t('w20', 180, 85, '20', { size: 26, pop: true }); S.t('lbl', 180, 34, 'the whole: 20', { size: 14, label: true, fill: C.mute }); await S.wait(700); } },
-      { title: 'Divide by the bottom', math: `20 ÷ ${k(4)} = ${b(5)} in each part`, say: 'Divide by the bottom number. 20 divided by 4 is 5. Each quarter is 5.',
-        run: async S => { S.del('w20'); for (let i = 1; i < 4; i++) S.l(`cut${i}`, 30 + i * 75, 56, 30 + i * 75, 114, { sw: 3, draw: true }); await S.wait(500);
-          for (let i = 0; i < 4; i++) S.t(`p${i}`, 67 + i * 75, 85, '5', { size: 24, pop: true, delay: i * 150 }); for (let i = 0; i < 20; i++) S.c(`dot${i}`, 45 + Math.floor(i / 5) * 75 + (i % 5) * 11, 128, 4, { fill: C.units, pop: true, delay: 600 + i * 30 }); await S.wait(900); } },
-      { title: 'Times by the top', math: `5 × ${k(3)} = ${b(15)}`, say: 'Now times by the top number. We take 3 parts: 5 times 3 is 15.',
-        run: async S => { for (let i = 0; i < 3; i++) S.r(`sh${i}`, 30 + i * 75, 60, 75, 50, { fill: C.carry, op: .55, rx: 2, pop: true, delay: i * 200 }); S.sfx('good'); await S.wait(800); S.t('sum', 142, 160, '5 + 5 + 5 = 15', { size: 20, fill: C.good, pop: true }); await S.wait(400); } },
-      { title: 'The answer', math: `${NB.fracHTML('{f:3/4}')} of 20 = ${b(15)}`, say: 'So three quarters of 20 is 15.', run: async S => { S.t('ans', 180, 204, '¾ of 20 = 15', { size: 24, fill: C.units, pop: true }); await S.wait(300); } }
-    ] });
+  E['frac-1'] = () => {   // hands-on: cut the tray into quarters, deal 20 slices fairly, take 3 parts
+    const X = 30, Y = 120, W = 300, Hh = 60, pw = W / 4, slot = (p, j) => [X + p * pw + 18 + (j % 3) * 19, Y + 18 + Math.floor(j / 3) * 24];
+    const bread = (S, i) => S.c(`br${i}`, 52 + (i % 10) * 28, 30 + Math.floor(i / 10) * 26, 9, { fill: '#f3c87a', stroke: '#b07a2a', sw: 2, pop: true, delay: i * 25 });
+    const dealTo = (S, i) => { const e = S.get(`br${i}`), [tx, ty] = slot(i % 4, Math.floor(i / 4)); S.to(`br${i}`, tx - +e.getAttribute('cx'), ty - +e.getAttribute('cy')); };
+    return { view: [360, 236], remember: 'To find a fraction of an amount: divide by the bottom number, then times by the top number.',
+      steps: [
+        { title: 'Cut it into 4 equal parts', math: `${NB.fracHTML('{f:3/4}')} of 20: the bottom number ${k(4)} means 4 equal parts`, say: "Lu has 20 slices of garlic bread, and three quarters go out for delivery. The bottom number, 4, means 4 equal parts. Tap the 3 dotted lines to cut the tray into 4 equal parts.",
+          run: async S => {
+            S.r('tray', X, Y, W, Hh, { fill: 'rgba(255,255,255,.06)', stroke: '#fff', sw: 2, rx: 4, pop: true });
+            for (let i = 0; i < 20; i++) bread(S, i);
+            for (let c = 1; c < 4; c++) { S.l(`g${c}`, X + c * pw, Y - 8, X + c * pw, Y + Hh + 8, { stroke: C.units, sw: 2, dash: '4 5' }); S.r(`gh${c}`, X + c * pw - 16, Y - 12, 32, Hh + 24, { fill: 'rgba(0,0,0,0)' }); }
+            const cut = c => { S.l(`cut${c}`, X + c * pw, Y - 8, X + c * pw, Y + Hh + 8, { stroke: '#fff', sw: 3, draw: true }); S.del(`g${c}`); S.del(`gh${c}`); };
+            await S.ask((done, S) => { let n = 0; for (let c = 1; c < 4; c++) S.tap(`gh${c}`, () => { if (!S.get(`gh${c}`)) return; cut(c); S.sfx('tick'); if (++n === 3) setTimeout(done, 400); }); });
+            for (let c = 1; c < 4; c++) if (!S.get(`cut${c}`)) cut(c);
+            S.sfx('good'); await S.wait(300);
+          } },
+        { title: 'Share them out fairly', math: `20 ÷ ${k(4)} = ${b(5)} in each part`, say: 'Now share the 20 slices out fairly. Tap the pile to give one slice to every part. Keep going until the pile is empty.',
+          run: async S => {
+            S.r('pileHit', 36, 14, 288, 70, { fill: 'rgba(0,0,0,0)' });
+            let dealt = 0;
+            const round = () => { for (let q = 0; q < 4 && dealt < 20; q++, dealt++) dealTo(S, dealt); };
+            await S.ask((done, S) => { S.tap('pileHit', () => { if (dealt >= 20) return; round(); S.sfx('tick'); if (dealt >= 20) setTimeout(done, 600); }); });
+            while (dealt < 20) round();
+            S.del('pileHit'); for (let p = 0; p < 4; p++) S.t(`n${p}`, X + p * pw + pw / 2, Y + Hh + 22, '5', { size: 22, fill: C.good, pop: true, delay: p * 120 });
+            await S.wait(500);
+          } },
+        { title: 'Take 3 parts', math: `5 × ${k(3)} = ${b(15)}`, say: 'Three quarters means we take 3 of the 4 parts. Tap 3 parts.',
+          run: async S => {
+            for (let p = 0; p < 4; p++) S.r(`part${p}`, X + p * pw + 3, Y + 3, pw - 6, Hh - 6, { fill: 'rgba(0,0,0,0)', rx: 3, under: false });
+            const on = new Set(), shade = p => { S.r(`sh${p}`, X + p * pw + 2, Y + 2, pw - 4, Hh - 4, { fill: C.carry, op: .8, rx: 3, pop: true }); const e = S.get(`sh${p}`); e.parentNode.insertBefore(e, S.get('tray').nextSibling); };
+            await S.ask((done, S) => { for (let p = 0; p < 4; p++) S.tap(`part${p}`, () => { if (on.has(p)) { on.delete(p); S.del(`sh${p}`); return; } if (on.size >= 3) { S.say('Three quarters is just 3 parts. Tap one again to put it back.'); return; } on.add(p); shade(p); S.sfx('tick'); if (on.size === 3) setTimeout(done, 500); }); });
+            for (let p = 0; p < 3; p++) if (!on.has(p) && on.size < 3) { on.add(p); shade(p); }
+            S.sfx('good'); S.t('sum', 180, 228, '5 + 5 + 5 = 15', { size: 18, fill: C.good, pop: true }); await S.wait(500);
+          } },
+        { title: 'The answer', math: `${NB.fracHTML('{f:3/4}')} of 20 = ${b(15)}`, say: 'So three quarters of 20 is 15. Divide by the bottom number, then times by the top.', run: async S => { S.del('sum'); S.t('ans', 180, 228, '¾ of 20 = 15', { size: 24, fill: C.units, pop: true }); await S.wait(300); } }
+      ] };
+  };
   E['frac-2'] = () => ({ view: [360, 230], remember: 'Equivalent fractions: whatever you do to the bottom, do the same to the top.',
     steps: [
       { title: 'Same amount, different slices', math: `${NB.fracHTML('{f:6/8}')} = ${NB.fracHTML('{f:?/4}')}`, say: '6 eighths is the same as how many quarters? Here is 6 eighths: a bar cut into 8 slices with 6 coloured.',

@@ -12,7 +12,7 @@
 
   /* The stage: every call draws or moves one named thing. In instant mode nothing animates and waits are skipped. */
   class Stage {
-    constructor(ex, tok, instant) { this.ex = ex; this.svg = ex.svg; this.tok = tok; this.instant = instant; this.C = C; }
+    constructor(ex, tok, instant, replay) { this.ex = ex; this.svg = ex.svg; this.tok = tok; this.instant = instant; this.replay = !!replay; this.C = C; }
     ok() { if (this.tok !== this.ex.tok) throw STOP; }
     wait(ms) { this.ok(); if (this.instant) return Promise.resolve(); return new Promise((res, rej) => setTimeout(() => (this.tok === this.ex.tok ? res() : rej(STOP)), ms)); }
     get(id) { return this.ex.ids[id]; }
@@ -22,7 +22,7 @@
       const e = document.createElementNS(NS, tag);
       for (const k in attrs) e.setAttribute(k, attrs[k]);
       e.classList.add('xe'); if (o.cls) e.classList.add(...o.cls.split(' '));
-      (o.under ? this.svg.insertBefore(e, this.svg.firstChild) : this.svg.appendChild(e)); this.ex.ids[id] = e;
+      const host = o.parent ? this.get(o.parent) : this.svg; (o.under ? host.insertBefore(e, host.firstChild) : host.appendChild(e)); this.ex.ids[id] = e;
       const start = `${o.from ? `translate(${o.from[0]}px,${o.from[1]}px)` : ''}${o.pop ? ' scale(.2)' : ''}`;
       if (o.draw) { const L = e.getTotalLength ? e.getTotalLength() : 300; e.style.strokeDasharray = L; e.style.strokeDashoffset = this.instant ? 0 : L; }
       if (this.instant) { if (o.op != null) e.style.opacity = o.op; return e; }
@@ -57,6 +57,46 @@
       for (let i = 0; i < ones; i++) { const id = `${pre}o${i}`; this.r(id, cx + (i % 2) * (s + 2), y + s * 10 - (Math.floor(i / 2) + 1) * (s + 2) + 2, s, s, { fill: o.oc || C.units, stroke: C.ink, sw: 1, rx: 1.5, delay: (o.d || 0) + tens * 60 + i * 50, pop: true }); ids.cubes.push(id); }
       return ids;
     }
+    g(id, o = {}) { return this.el('g', id, {}, o); }
+    clear() { this.ok(); this.svg.innerHTML = ''; this.ex.ids = {}; }
+    /* ---------- hands-on: the child does the step on the picture ----------
+       ask(setup): setup(done, S) wires taps and drags and calls done() when the child has finished.
+       Resolves 'done', or 'shown' if NOVA did it (Show me). Replays resolve at once; code after
+       ask() must then put everything in its finished place. */
+    ask(setup) {
+      this.ok(); if (this.replay) return Promise.resolve('replay');
+      const ex = this.ex;
+      return new Promise(res => {
+        let over = false;
+        const finish = how => { if (over || this.tok !== ex.tok) return; over = true; ex.waiting = null; if (ex.o.onWait) ex.o.onWait(false); res(how || 'done'); };
+        ex.waiting = { show: () => finish('shown') }; if (ex.o.onWait) ex.o.onWait(true);
+        setup(finish, this);
+      });
+    }
+    say(text) { if (!this.replay && this.ex.o.hint) this.ex.o.hint(text); }
+    /* tap: fn(e) runs on each tap while this step is live */
+    tap(id, fn) {
+      const e = this.get(id); if (!e) return; e.classList.add('xtap');
+      const h = ev => { ev.preventDefault(); if (this.tok !== this.ex.tok) return; fn(e); };
+      e.addEventListener('pointerup', h); return () => { e.classList.remove('xtap'); e.removeEventListener('pointerup', h); };
+    }
+    pt(ev) { const p = this.svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; return p.matrixTransform(this.svg.getScreenCTM().inverse()); }
+    /* drag: zones [[x, y, w, h], ...]; drop(zoneIndex) returns true to accept, else the thing springs back */
+    drag(id, zones, drop) {
+      const e = this.get(id); if (!e) return; e.classList.add('xdrag');
+      let st = null;
+      e.addEventListener('pointerdown', ev => {
+        if (this.tok !== this.ex.tok) return; ev.preventDefault(); try { e.setPointerCapture(ev.pointerId); } catch (x) {}
+        const p = this.pt(ev); st = { x: p.x, y: p.y, base: e.style.transform || '' }; e.style.transition = 'none'; e.classList.add('held');
+      });
+      e.addEventListener('pointermove', ev => { if (!st) return; const p = this.pt(ev); e.style.transform = `translate(${p.x - st.x}px,${p.y - st.y}px) ${st.base}`; });
+      const up = ev => {
+        if (!st) return; const p = this.pt(ev), base = st.base; st = null; e.style.transition = ''; e.classList.remove('held');
+        const zi = zones.findIndex(([x, y, w, h]) => p.x >= x && p.x <= x + w && p.y >= y && p.y <= y + h);
+        if (!(zi >= 0 && drop(zi))) { e.style.transform = base; this.sfx('bad'); }
+      };
+      e.addEventListener('pointerup', up); e.addEventListener('pointercancel', up);
+    }
     /* sound effect hook (ticks, pops) */
     sfx(k) { if (!this.instant && this.ex.o.sfx) this.ex.o.sfx(k); }
   }
@@ -78,7 +118,8 @@
       const tok = ++this.tok; this.k = k;
       this.svg.innerHTML = ''; this.ids = {}; this.svg.classList.add('inst');
       try {
-        for (let i = 0; i < k; i++) await this.S.steps[i].run(new Stage(this, tok, true));
+        this.waiting = null; if (this.o.onWait) this.o.onWait(false);
+        for (let i = 0; i < k; i++) await this.S.steps[i].run(new Stage(this, tok, true, true));
         this.svg.getBoundingClientRect(); this.svg.classList.remove('inst');
         const st = this.S.steps[k];
         this.book.querySelector('.ex-n').textContent = `Step ${k + 1} of ${this.count}`;
@@ -88,7 +129,7 @@
         this.host.querySelectorAll('.ex-dots i').forEach((d, i) => { d.className = i < k ? 'done' : i === k ? 'now' : ''; });
         if (this.o.onStep) this.o.onStep(k);
         const talk = this.o.speak ? this.o.speak(st, k) : Promise.resolve();
-        await st.run(new Stage(this, tok, still()));
+        await st.run(new Stage(this, tok, still(), false));
         await talk;
         if (tok === this.tok && this.o.onStepDone) this.o.onStepDone(k);
       } catch (e) { if (e !== STOP) throw e; }

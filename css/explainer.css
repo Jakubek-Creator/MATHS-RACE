@@ -55,3 +55,12 @@ svg.inst .xe{transition:none !important}
   .ex-dots{grid-column:1 / -1}
   .ex-remember{font-size:.9rem; padding:6px 10px}
 }
+
+/* hands-on steps: things you can tap glow, things you can drag lift when held */
+.xtap,.xdrag{cursor:pointer; touch-action:none}
+.xdrag{cursor:grab} .xdrag.held{cursor:grabbing; filter:drop-shadow(0 6px 6px rgba(0,0,0,.5))}
+@media (prefers-reduced-motion:no-preference){ .xtap{animation:xtap 1.1s ease-in-out infinite} }
+@keyframes xtap{50%{filter:drop-shadow(0 0 6px rgba(248,197,55,.95))}}
+.ex-ctl .nbl-btn.showme{background:var(--slate3,#444d56) !important; color:#fff !important}
+.ex.waiting .ex-book{border-left-color:var(--pink,#FF3D8B)}
+.ex.waiting .ex-n::after{content:" · your turn on the picture"; color:#d1236b}

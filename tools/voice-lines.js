@@ -35,7 +35,7 @@ const { chromium } = require('playwright'), fs = require('fs'), path = require('
     ["That's how it's done. Now you do one, and I'll help with every step.", "You did every step yourself! Next, I'll give you less help.",
       "No hints needed! Done! You're ready. The next ones are all yours. I'll only step in if you get stuck.",
       'Perfect, no help at all!', 'Done. You finished on your own!', 'Perfect deal, no help needed!', 'Deal done. Nice work sticking with it!',
-      'Your turn. Fill in the glowing box.', 'This time I only tell you which step comes next. Tap Hint if you need more.'].forEach(add);
+      'Your turn. Fill in the glowing box.', 'Three quarters is just 3 parts. Tap one again to put it back.', 'Only 1 ten is left. That is not enough for everyone, so stop sharing the tens.', 'This time I only tell you which step comes next. Tap Hint if you need more.'].forEach(add);
     return { lines: [...out].map(([h, o]) => ({ h, t: o.t, b: o.by.size > 1 || o.by.has('common') ? 'common' : [...o.by][0] })), skipped };
   });
   fs.writeFileSync(path.join(__dirname, 'voice-lines.json'), JSON.stringify(lines.lines, null, 1));

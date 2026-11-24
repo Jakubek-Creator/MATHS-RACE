@@ -183,6 +183,8 @@
         sfx: k => this.h.sfx(k),
         speak: (st, k) => this.say(`learn-${k}`, k === 0 && !this.exSaidIntro ? `${story} ${st.say}` : st.say, { state: 'explaining' }),
         onStep: () => { this.exSaidIntro = true; this.exControls(); },
+        onWait: on => { const n = this.$('[data-ex="next"]'), box = this.$('.ex'); if (box) box.classList.toggle('waiting', on); if (n) { n.textContent = on ? 'Show me ▶' : this.ex && this.ex.last ? 'Finish ▶' : 'Next step ▶'; n.classList.toggle('showme', on); } },
+        hint: t => this.say('learn-hint', t, { state: 'encouraging' }),
         onStepDone: () => { this.teacher.set('pointing'); if (this.ex && this.ex.last) this.learnDone(); }
       });
       const ex = this.ex; this.voiceReady.then(() => { if (this.ex === ex) ex.go(this.sheetDone() ? script.steps.length - 1 : 0); });
@@ -196,10 +198,10 @@
     }
     exAct(a) {
       const ex = this.ex; if (!ex) return;
-      this.audio.stop(); this.h.sfx('tick');
+      if (!(a === 'next' && ex.waiting)) this.audio.stop(); this.h.sfx('tick');
       if (a === 'back') ex.go(ex.k - 1);
       else if (a === 'replay') ex.go(ex.k);
-      else if (a === 'next') { if (ex.last) this.learnDone(); else ex.go(ex.k + 1); }
+      else if (a === 'next') { if (ex.waiting) ex.waiting.show(); else if (ex.last) this.learnDone(); else ex.go(ex.k + 1); }
       else if (a === 'mine') this.next();
     }
     learnDone() {

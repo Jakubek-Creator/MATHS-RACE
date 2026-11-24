@@ -770,11 +770,6 @@
   "b": "mult-2"
  },
  {
-  "h": "12bi2xv",
-  "t": "4 tens is 40.",
-  "b": "mult-2"
- },
- {
   "h": "p6p8l4",
   "t": "Big deal: 6 sports cars at 324 thousand each.",
   "b": "mult-3"
@@ -907,7 +902,7 @@
  {
   "h": "3tp5xi",
   "t": "Now the tens.",
-  "b": "mult-3"
+  "b": "common"
  },
  {
   "h": "1idkwy9",
@@ -1042,6 +1037,56 @@
  {
   "h": "zrtdfc",
   "t": "We use the bus stop: divide, multiply, subtract, bring down.",
+  "b": "div-1"
+ },
+ {
+  "h": "1y7aqsl",
+  "t": "96 dollars shared between 4 of the crew.",
+  "b": "div-1"
+ },
+ {
+  "h": "qrrm86",
+  "t": "Dividing means sharing fairly.",
+  "b": "div-1"
+ },
+ {
+  "h": "1jfo4z8",
+  "t": "Here are 9 tens and 6 units.",
+  "b": "div-1"
+ },
+ {
+  "h": "132iey1",
+  "t": "Tap the tens to give one ten to each person.",
+  "b": "div-1"
+ },
+ {
+  "h": "jbql8u",
+  "t": "Keep going while everyone can get one.",
+  "b": "div-1"
+ },
+ {
+  "h": "1qy613l",
+  "t": "One ten is left over.",
+  "b": "div-1"
+ },
+ {
+  "h": "87kvvl",
+  "t": "Tap it to swap it for 10 units.",
+  "b": "div-1"
+ },
+ {
+  "h": "6nokqn",
+  "t": "Now we have 16 units to share.",
+  "b": "div-1"
+ },
+ {
+  "h": "1je9xkz",
+  "t": "Now tap the units to share them, one to each person, until they are all gone.",
+  "b": "div-1"
+ },
+ {
+  "h": "oywa10",
+  "t": "That is exactly what the bus stop method writes down.",
   "b": "div-1"
  },
  {
@@ -1232,12 +1277,12 @@
  {
   "h": "1oy3xwp",
   "t": "6 plus ?",
-  "b": "div-1"
+  "b": "common"
  },
  {
   "h": "yq3fpe",
   "t": "equals 8",
-  "b": "common"
+  "b": "div-1"
  },
  {
   "h": "wa36sq",
@@ -1370,14 +1415,29 @@
   "b": "div-1"
  },
  {
-  "h": "yq3fpo",
-  "t": "equals 6",
-  "b": "div-1"
- },
- {
   "h": "12fxdst",
   "t": "Put it next to the 1.",
   "b": "common"
+ },
+ {
+  "h": "yq3fpf",
+  "t": "equals 9",
+  "b": "div-1"
+ },
+ {
+  "h": "88qx99",
+  "t": "Subtract: 9 minus 9.",
+  "b": "div-1"
+ },
+ {
+  "h": "1xtwxke",
+  "t": "Count up from 9 to 9.",
+  "b": "div-1"
+ },
+ {
+  "h": "1w0xxmu",
+  "t": "9 plus ?",
+  "b": "div-1"
  },
  {
   "h": "veicr5",
@@ -1647,12 +1707,12 @@
  {
   "h": "wa36sr",
   "t": "Bring down the 5.",
-  "b": "common"
+  "b": "div-2"
  },
  {
   "h": "12fxdsv",
   "t": "Put it next to the 3.",
-  "b": "div-2"
+  "b": "common"
  },
  {
   "h": "xsm4uz",
@@ -2125,23 +2185,8 @@
   "b": "div-3"
  },
  {
-  "h": "a9fe1",
-  "t": "7 times 6 equals 42, and 8 times 6 equals 48 is too big.",
-  "b": "div-3"
- },
- {
-  "h": "1wy98b2",
-  "t": "Multiply: 7 times 6",
-  "b": "div-3"
- },
- {
-  "h": "223chc",
-  "t": "Count up in 6s, 7 times.",
-  "b": "div-3"
- },
- {
-  "h": "14pqzqx",
-  "t": "42 plus ?",
+  "h": "wa36so",
+  "t": "Bring down the 6.",
   "b": "div-3"
  },
  {
@@ -2745,43 +2790,48 @@
   "b": "frac-1"
  },
  {
-  "h": "ej9u7v",
-  "t": "The bottom number, 4, tells us to cut 20 into 4 equal parts.",
+  "h": "pc7tcc",
+  "t": "The bottom number, 4, means 4 equal parts.",
   "b": "frac-1"
  },
  {
-  "h": "n2obet",
-  "t": "The top number, 3, tells us how many parts we take.",
+  "h": "r1gk9v",
+  "t": "Tap the 3 dotted lines to cut the tray into 4 equal parts.",
   "b": "frac-1"
  },
  {
-  "h": "aaqn7c",
-  "t": "Divide by the bottom number.",
+  "h": "18agtup",
+  "t": "Now share the 20 slices out fairly.",
   "b": "frac-1"
  },
  {
-  "h": "blp7zk",
-  "t": "20 divided by 4 is 5.",
+  "h": "1imgdu2",
+  "t": "Tap the pile to give one slice to every part.",
   "b": "frac-1"
  },
  {
-  "h": "1804rkh",
-  "t": "Each quarter is 5.",
+  "h": "gmt1y2",
+  "t": "Keep going until the pile is empty.",
   "b": "frac-1"
  },
  {
-  "h": "1yei16n",
-  "t": "Now times by the top number.",
+  "h": "1dbyxk2",
+  "t": "Three quarters means we take 3 of the 4 parts.",
   "b": "frac-1"
  },
  {
-  "h": "n768bp",
-  "t": "We take 3 parts: 5 times 3 is 15.",
+  "h": "1keu1qv",
+  "t": "Tap 3 parts.",
   "b": "frac-1"
  },
  {
   "h": "15s5c91",
   "t": "So three quarters of 20 is 15.",
+  "b": "frac-1"
+ },
+ {
+  "h": "16xj4e8",
+  "t": "Divide by the bottom number, then times by the top.",
   "b": "frac-1"
  },
  {
@@ -2892,6 +2942,16 @@
  {
   "h": "pozwgj",
   "t": "So 2 thirds of 12 is 8.",
+  "b": "frac-1"
+ },
+ {
+  "h": "y3q9jb",
+  "t": "The top number says take 3 slices.",
+  "b": "frac-1"
+ },
+ {
+  "h": "1luaqo4",
+  "t": "You want 3 of them.",
   "b": "frac-1"
  },
  {
@@ -3032,16 +3092,6 @@
  {
   "h": "drsqip",
   "t": "The top number you just worked out.",
-  "b": "frac-2"
- },
- {
-  "h": "g5lyj2",
-  "t": "The bottom was divided by 4.",
-  "b": "frac-2"
- },
- {
-  "h": "ob65tr",
-  "t": "Divide the top by 4 too.",
   "b": "frac-2"
  },
  {
@@ -3270,8 +3320,8 @@
   "b": "frac-3"
  },
  {
-  "h": "17r5mk1",
-  "t": "Convert 1/2.",
+  "h": "god5iw",
+  "t": "The top stays the same: ?",
   "b": "frac-3"
  },
  {
@@ -3287,36 +3337,6 @@
  {
   "h": "db4crr",
   "t": "Do times 2 to the top too.",
-  "b": "frac-3"
- },
- {
-  "h": "1ooo1lg",
-  "t": "What's the smallest number both 2 and 3 go into?",
-  "b": "frac-3"
- },
- {
-  "h": "bf7fgt",
-  "t": "Count in 3s: 3, 6, 9, 12… Which one does 2 also go into?",
-  "b": "frac-3"
- },
- {
-  "h": "1ukbzou",
-  "t": "2 times 3 equals 6 and 3 times 2 equals 6.",
-  "b": "frac-3"
- },
- {
-  "h": "8t87cb",
-  "t": "2 times 3 equals 6.",
-  "b": "frac-3"
- },
- {
-  "h": "1b8ip4b",
-  "t": "3 times 2 equals 6.",
-  "b": "frac-3"
- },
- {
-  "h": "zi6noe",
-  "t": "Add the tops: 3 plus 2",
   "b": "frac-3"
  },
  {
@@ -3345,8 +3365,8 @@
   "b": "add-1"
  },
  {
-  "h": "1p60l5u",
-  "t": "To add in columns, line them up: units under units, tens under tens.",
+  "h": "1vhcvgq",
+  "t": "In columns we line them up: units under units, tens under tens.",
   "b": "add-1"
  },
  {
@@ -3355,13 +3375,8 @@
   "b": "add-1"
  },
  {
-  "h": "uivq0g",
-  "t": "7 units plus 8 units.",
-  "b": "add-1"
- },
- {
-  "h": "125wkob",
-  "t": "Put them together and count: 15 units.",
+  "h": "1t4n6qs",
+  "t": "Drag the units from 47, and then the units from 38, into the units box.",
   "b": "add-1"
  },
  {
@@ -3370,33 +3385,23 @@
   "b": "add-1"
  },
  {
-  "h": "14sxkpe",
-  "t": "10 units make 1 ten, so we swap them.",
+  "h": "eimqc0",
+  "t": "Tap the units box to bundle 10 units into 1 ten.",
   "b": "add-1"
  },
  {
-  "h": "bpebjq",
-  "t": "The 5 units stay: write 5 in the units column.",
+  "h": "9lykrc",
+  "t": "Then drag the new ten over to the tens.",
   "b": "add-1"
  },
  {
-  "h": "1180t89",
-  "t": "The new ten is carried over to the tens column.",
+  "h": "7jj0t8",
+  "t": "Drag the 3 tens from 38 up to join the others.",
   "b": "add-1"
  },
  {
-  "h": "1l8k48g",
-  "t": "Now the tens column.",
-  "b": "add-1"
- },
- {
-  "h": "19weze0",
-  "t": "4 tens plus 3 tens, plus the 1 ten we carried, makes 8 tens.",
-  "b": "add-1"
- },
- {
-  "h": "f8ak78",
-  "t": "Write 8 in the tens column.",
+  "h": "1j8oxaq",
+  "t": "4 tens, plus 3 tens, plus the 1 we carried.",
   "b": "add-1"
  },
  {
@@ -3790,21 +3795,6 @@
   "b": "add-2"
  },
  {
-  "h": "aa8rnz",
-  "t": "10 is too big for one column.",
-  "b": "add-2"
- },
- {
-  "h": "12r350m",
-  "t": "Take 10 away from 10.",
-  "b": "add-2"
- },
- {
-  "h": "14ahqxy",
-  "t": "10 minus 10 equals 0",
-  "b": "add-2"
- },
- {
   "h": "58yo7l",
   "t": "The tank had 352 litres and 127 went into the cars.",
   "b": "add-3"
@@ -4105,23 +4095,33 @@
   "b": "add-3"
  },
  {
+  "h": "qc7oai",
+  "t": "1 plus 10 equals what",
+  "b": "add-3"
+ },
+ {
+  "h": "vhjtd1",
+  "t": "Borrow 10 from the next column: 1 plus 10.",
+  "b": "add-3"
+ },
+ {
+  "h": "ct3scw",
+  "t": "1 plus 10 equals 11",
+  "b": "add-3"
+ },
+ {
+  "h": "9fcivu",
+  "t": "equals 11",
+  "b": "add-3"
+ },
+ {
+  "h": "yq3fpl",
+  "t": "equals 3",
+  "b": "add-3"
+ },
+ {
   "h": "nbd8hf",
   "t": "Swap 1 hundred for 10 tens.",
-  "b": "add-3"
- },
- {
-  "h": "yq3fpk",
-  "t": "equals 2",
-  "b": "add-3"
- },
- {
-  "h": "1sniui5",
-  "t": "Count up from 1 to 2.",
-  "b": "add-3"
- },
- {
-  "h": "1w0xxmu",
-  "t": "9 plus ?",
   "b": "add-3"
  },
  {
@@ -4345,13 +4345,13 @@
   "b": "ang-1"
  },
  {
-  "h": "1fxx51p",
-  "t": "2 times 90 equals what",
+  "h": "1ido52m",
+  "t": "1 times 90 equals what",
   "b": "ang-1"
  },
  {
-  "h": "1jp4rgr",
-  "t": "Count in 90s: 90, 180.",
+  "h": "1vu98gi",
+  "t": "Count in 90s: 90.",
   "b": "ang-1"
  },
  {
@@ -5552,6 +5552,26 @@
  {
   "h": "1lsrcsy",
   "t": "Fill in the glowing box.",
+  "b": "common"
+ },
+ {
+  "h": "16dnu8p",
+  "t": "Three quarters is just 3 parts.",
+  "b": "common"
+ },
+ {
+  "h": "14ey76g",
+  "t": "Tap one again to put it back.",
+  "b": "common"
+ },
+ {
+  "h": "1ugsflq",
+  "t": "Only 1 ten is left.",
+  "b": "common"
+ },
+ {
+  "h": "eqju9y",
+  "t": "That is not enough for everyone, so stop sharing the tens.",
   "b": "common"
  },
  {
