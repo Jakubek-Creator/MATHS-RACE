@@ -4,6 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Neon Bay Maths Missions</title>
+<meta name="description" content="Learn maths step by step, then race your car.">
+<meta name="theme-color" content="#1d2126">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="192x192" href="img/icons/icon-192.png">
+<link rel="apple-touch-icon" href="img/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Maths Race">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@1,700;1,800;1,900&family=Barlow:wght@500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
@@ -54,5 +63,7 @@
 <script src="js/content/methods2.js"></script>
 <script src="js/content/explain.js"></script>
 <script src="js/app.js"></script>
+<script>/* installable app + offline play when served from a normal website (e.g. GitHub Pages) */
+if ('serviceWorker' in navigator && /^https?:$/.test(location.protocol)) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));</script>
 </body>
 </html>
