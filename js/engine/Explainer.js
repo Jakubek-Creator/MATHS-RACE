@@ -96,6 +96,7 @@
       const h = ev => { ev.preventDefault(); if (this.tok !== this.ex.tok) return; fn(e); };
       e.addEventListener('pointerup', h); return () => { e.classList.remove('xtap'); e.removeEventListener('pointerup', h); };
     }
+    untap(id) { const e = this.get(id); if (e) e.classList.remove('xtap'); }
     pt(ev) { const p = this.svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; return p.matrixTransform(this.svg.getScreenCTM().inverse()); }
     /* drag: zones [[x, y, w, h], ...]; drop(zoneIndex) returns true to accept, else the thing springs back */
     drag(id, zones, drop) {
@@ -142,12 +143,14 @@
         const st = this.S.steps[k];
         this.book.querySelector('.ex-n').textContent = `Step ${k + 1} of ${this.count}`;
         this.book.querySelector('.ex-title').textContent = st.title;
-        this.book.querySelector('.ex-math').innerHTML = st.math || '';
+        const mathEl = this.book.querySelector('.ex-math');   // with a question, the working stays hidden until it is answered
+        mathEl.innerHTML = st.choices ? '<span class="ex-wait">Answer the question below…</span>' : (st.math || '');
         this.book.classList.remove('in'); void this.book.offsetWidth; this.book.classList.add('in');
         this.host.querySelectorAll('.ex-dots i').forEach((d, i) => { d.className = i < k ? 'done' : i === k ? 'now' : ''; });
         if (this.o.onStep) this.o.onStep(k);
         const talk = this.o.speak ? this.o.speak(st, k) : Promise.resolve();
         await st.run(new Stage(this, tok, still(), false));
+        if (st.choices && tok === this.tok) { mathEl.innerHTML = st.math || ''; mathEl.classList.remove('in'); void mathEl.offsetWidth; mathEl.classList.add('in'); }
         await talk;
         if (tok === this.tok && this.o.onStepDone) this.o.onStepDone(k);
       } catch (e) { if (e !== STOP) throw e; }

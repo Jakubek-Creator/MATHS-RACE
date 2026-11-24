@@ -313,7 +313,7 @@
   /* the child taps cubes off each pan; the balance tips until both sides lose the same */
   async function takeBoth(S, Lids, Rids, n, xw) {
     let l = 0, r = 0; const gone = new Set(), lw = () => xw + Lids.length - l, rw = () => Rids.length - r;
-    const off = id => { gone.add(id); S.to(id, 0, -120); S.fade(id, 0); };
+    const off = id => { gone.add(id); S.untap(id); S.to(id, 0, -120); S.fade(id, 0); };
     await S.ask((done, S) => {
       Lids.forEach(id => S.tap(id, () => { if (gone.has(id)) return; if (l >= n) return S.say(`Only ${n} came off the left.`); off(id); l++; tilt(S, lw(), rw()); S.sfx('tick'); if (l === n && r === n) setTimeout(done, 600); }));
       Rids.forEach(id => S.tap(id, () => { if (gone.has(id)) return; if (r >= n) return S.say(`That's ${n} already. Take the same from both sides.`); off(id); r++; tilt(S, lw(), rw()); S.sfx('tick'); if (l === n && r === n) setTimeout(done, 600); }));
@@ -485,7 +485,7 @@
           run: async S => {
             const show = n => { if (n >= 1) sector(S, 'sA', 0, 65, C.tens); if (n >= 2) sector(S, 'sB', 65, 105, C.units); S.t('s1', 300, 30, n >= 2 ? '65 + 40 = 105' : '65', { size: 18, pop: true }); };
             hitR(S, 'hA', ox + 10, oy - 120, 150, 115); hitR(S, 'hB', ox - 60, oy - 140, 90, 130); let got = 0, a = false, bb = false;
-            await S.ask((done, S) => { S.tap('hA', () => { if (a) return; a = true; got++; show(got); S.sfx('tick'); if (got === 2) setTimeout(done, 600); }); S.tap('hB', () => { if (bb) return; bb = true; got++; show(got); S.sfx('tick'); if (got === 2) setTimeout(done, 600); }); });
+            await S.ask((done, S) => { S.tap('hA', () => { if (a) return; a = true; S.untap('hA'); got++; show(got); S.sfx('tick'); if (got === 2) setTimeout(done, 600); }); S.tap('hB', () => { if (bb) return; bb = true; S.untap('hB'); got++; show(got); S.sfx('tick'); if (got === 2) setTimeout(done, 600); }); });
             S.del('hA'); S.del('hB'); show(2); await S.wait(300);
           } }),
         lines({ title: 'Take away from 180', math: `180 − 105 = ${b(75)}`, choices: [Q('x = 180 − 105 = ?', ['75°', '85°', '105°'], '75°', '180 take away 105 is 75. Check: 105 plus 75 makes 180.')], say: 'x gets whatever is left of the 180. What is 180 take away 105?',
