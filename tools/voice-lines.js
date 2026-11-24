@@ -18,7 +18,7 @@ const { chromium } = require('playwright'), fs = require('fs'), path = require('
         if (NB.Explain[key]) {   // the worked example (same words as SheetLesson.enterLearn)
           const sc = NB.Explain[key](qOf(H.watch));
           add(H.watch.intro.replace(/\s*(Watch me|Watch out|Tap Show me|tap Show me)[^.]*\./g, '').trim());
-          sc.steps.forEach(st => add(st.say));
+          sc.steps.forEach(st => { add(st.say); (st.extra || []).forEach(add); });
           add(`Remember: ${sc.remember} Now you try one, and I'll help with every step.`);
         }
         const sh = M.build(qOf(H.together), 'together'), cap = sh.say.charAt(0).toUpperCase() + sh.say.slice(1);

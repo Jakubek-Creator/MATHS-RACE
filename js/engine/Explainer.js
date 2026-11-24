@@ -68,9 +68,25 @@
       const ex = this.ex;
       return new Promise(res => {
         let over = false;
-        const finish = how => { if (over || this.tok !== ex.tok) return; over = true; ex.waiting = null; if (ex.o.onWait) ex.o.onWait(false); res(how || 'done'); };
+        let cleanup = null;
+        const finish = how => { if (over || this.tok !== ex.tok) return; over = true; ex.waiting = null; if (cleanup) cleanup(); if (ex.o.onWait) ex.o.onWait(false); res(how || 'done'); };
         ex.waiting = { show: () => finish('shown') }; if (ex.o.onWait) ex.o.onWait(true);
-        setup(finish, this);
+        cleanup = setup(finish, this) || null;
+      });
+    }
+    /* predict-then-reveal: a question with answer buttons under the picture. A wrong pick says why, and the
+       child tries again. c = { q, opts, ans, why }. Resolves when answered right (or Show me). */
+    choose(c) {
+      if (this.replay) return Promise.resolve('replay');
+      const box = this.ex.host.querySelector('.ex-choice');
+      return this.ask(done => {
+        box.innerHTML = `<p>${c.q}</p><div>${c.opts.map(o => `<button class="nbl-btn" data-c="${o}">${o}</button>`).join('')}</div>`; box.hidden = false;
+        box.onclick = e => {
+          const b = e.target.closest('[data-c]'); if (!b || b.disabled) return;
+          if (b.dataset.c === String(c.ans)) { b.classList.add('ok'); this.sfx('good'); box.querySelectorAll('button').forEach(x => (x.disabled = true)); setTimeout(() => done(), 650); }
+          else { b.classList.add('no'); b.disabled = true; this.sfx('bad'); this.say(c.why); }
+        };
+        return () => { box.hidden = true; box.onclick = null; box.innerHTML = ''; };
       });
     }
     say(text) { if (!this.replay && this.ex.o.hint) this.ex.o.hint(text); }
@@ -107,6 +123,7 @@
       const [w, h] = script.view || [360, 240];
       host.innerHTML = `<div class="ex"><div class="ex-stage"><svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Worked example picture"></svg></div>
         <div class="ex-book" aria-live="polite"><div class="ex-head"><span class="ex-n"></span><b class="ex-title"></b></div><div class="ex-math"></div></div>
+        <div class="ex-choice" hidden></div>
         <div class="ex-dots">${script.steps.map((_, i) => `<i data-i="${i}"></i>`).join('')}</div></div>`;
       this.svg = host.querySelector('svg'); this.book = host.querySelector('.ex-book');
     }
@@ -119,6 +136,7 @@
       this.svg.innerHTML = ''; this.ids = {}; this.svg.classList.add('inst');
       try {
         this.waiting = null; if (this.o.onWait) this.o.onWait(false);
+        const cb = this.host.querySelector('.ex-choice'); if (cb) { cb.hidden = true; cb.innerHTML = ''; cb.onclick = null; }
         for (let i = 0; i < k; i++) await this.S.steps[i].run(new Stage(this, tok, true, true));
         this.svg.getBoundingClientRect(); this.svg.classList.remove('inst');
         const st = this.S.steps[k];
