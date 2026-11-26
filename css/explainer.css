@@ -77,3 +77,12 @@ svg.inst .xe{transition:none !important}
 
 .ex-wait{color:#8a8f96; font-style:italic; font-weight:600}
 @media (prefers-reduced-motion:no-preference){ .ex-math.in{animation:exIn .4s ease-out} }
+
+/* fingers: nothing on the picture starts a scroll or a text selection */
+.ex-stage svg{-webkit-user-select:none; user-select:none; -webkit-touch-callout:none; -webkit-tap-highlight-color:transparent}
+.ex-stage svg .xtap,.ex-stage svg .xdrag{touch-action:none}
+.ex.waiting .ex-stage svg{touch-action:none}
+
+/* room under the question so the answer buttons never hide behind the button bar */
+.learning .a-board{padding-bottom:16px !important}
+.ex-choice{scroll-margin-bottom:24px}

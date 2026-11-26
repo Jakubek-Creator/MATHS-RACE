@@ -145,7 +145,7 @@
             const [fx, fy] = ch.pos(1, 4, 40);
             const swap = () => { S.del('A1_4'); for (let i = 0; i < 10; i++) { const [tx, ty] = ch.pos(0, 2 + i, 40); S.c(`X0_${i}`, tx, ty, 5.5, { fill: C.units, stroke: C.carry, sw: 2, from: [fx - tx, fy - ty], pop: true, delay: i * 40 }); } S.sfx('good');
               S.l('x5', g.X(1) - 9, g.yA + 9, g.X(1) + 9, g.yA - 9, { stroke: C.red, sw: 2.5, draw: true }); S.t('k1', g.X(1) + 2, g.yK, '4', { size: 16, fill: C.carry, pop: true }); S.t('k0', g.X(0) - 14, g.yA - 4, '1', { size: 15, fill: C.carry, pop: true }); };
-            S.c('grab', fx, fy, 13, { fill: 'rgba(255,255,255,.001)' });
+            S.c('grab', fx, fy, 22, { fill: 'rgba(255,255,255,.001)' });
             await S.ask((done, S) => S.drag('grab', [[ch.cx(0), 10, ch.w, 236]], () => { S.del('grab'); swap(); setTimeout(done, 700); return true; }));
             S.del('grab'); if (S.get('A1_4')) swap(); await S.wait(400); } }),
         lines({ title: 'Take away the units', math: `12 − 7 = ${b('5')}`, choices: [Q('12 − 7 = ?', [5, 6, 9], 5, '12 take away 7 is 5. Count back 7 from 12: 11, 10, 9, 8, 7, 6, 5.')],

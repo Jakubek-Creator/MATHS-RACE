@@ -81,6 +81,7 @@
       const box = this.ex.host.querySelector('.ex-choice');
       return this.ask(done => {
         box.innerHTML = `<p>${c.q}</p><div>${c.opts.map(o => `<button class="nbl-btn" data-c="${o}">${o}</button>`).join('')}</div>`; box.hidden = false;
+        setTimeout(() => { try { box.scrollIntoView({ block: 'end', behavior: 'smooth' }); } catch (e) { box.scrollIntoView(false); } }, 60);
         box.onclick = e => {
           const b = e.target.closest('[data-c]'); if (!b || b.disabled) return;
           if (b.dataset.c === String(c.ans)) { b.classList.add('ok'); this.sfx('good'); box.querySelectorAll('button').forEach(x => (x.disabled = true)); setTimeout(() => done(), 650); }
@@ -91,28 +92,48 @@
     }
     say(text) { if (!this.replay && this.ex.o.hint) this.ex.o.hint(text); }
     /* tap: fn(e) runs on each tap while this step is live */
+    /* Touch rules (phones): the picture keeps the finger (no page scroll, no cancelled drags), moves are
+       followed on the whole window, and drops near a target still count.
+       tap: fn runs when a finger goes down and up on the thing without sliding away. */
     tap(id, fn) {
       const e = this.get(id); if (!e) return; e.classList.add('xtap');
-      const h = ev => { ev.preventDefault(); if (this.tok !== this.ex.tok) return; fn(e); };
-      e.addEventListener('pointerup', h); return () => { e.classList.remove('xtap'); e.removeEventListener('pointerup', h); };
+      let down = null;
+      e.addEventListener('pointerdown', ev => { if (this.tok !== this.ex.tok) return; ev.preventDefault(); down = { id: ev.pointerId, x: ev.clientX, y: ev.clientY }; });
+      e.addEventListener('pointerup', ev => {
+        if (!down || ev.pointerId !== down.id) return; const far = Math.hypot(ev.clientX - down.x, ev.clientY - down.y) > 24; down = null;
+        if (far || this.tok !== this.ex.tok) return; ev.preventDefault(); fn(e);
+      });
+      e.addEventListener('pointercancel', () => { down = null; });
     }
     untap(id) { const e = this.get(id); if (e) e.classList.remove('xtap'); }
     pt(ev) { const p = this.svg.createSVGPoint(); p.x = ev.clientX; p.y = ev.clientY; return p.matrixTransform(this.svg.getScreenCTM().inverse()); }
-    /* drag: zones [[x, y, w, h], ...]; drop(zoneIndex) returns true to accept, else the thing springs back */
+    /* drag: zones [[x, y, w, h], ...]; drop(zoneIndex) returns true to accept, else the thing springs back.
+       A quick tap (no slide) also works: it puts the thing in the first zone, so a child who can't drag still can. */
     drag(id, zones, drop) {
       const e = this.get(id); if (!e) return; e.classList.add('xdrag');
       let st = null;
-      e.addEventListener('pointerdown', ev => {
-        if (this.tok !== this.ex.tok) return; ev.preventDefault(); try { e.setPointerCapture(ev.pointerId); } catch (x) {}
-        const p = this.pt(ev); st = { x: p.x, y: p.y, base: e.style.transform || '' }; e.style.transition = 'none'; e.classList.add('held');
-      });
-      e.addEventListener('pointermove', ev => { if (!st) return; const p = this.pt(ev); e.style.transform = `translate(${p.x - st.x}px,${p.y - st.y}px) ${st.base}`; });
-      const up = ev => {
-        if (!st) return; const p = this.pt(ev), base = st.base; st = null; e.style.transition = ''; e.classList.remove('held');
-        const zi = zones.findIndex(([x, y, w, h]) => p.x >= x && p.x <= x + w && p.y >= y && p.y <= y + h);
-        if (!(zi >= 0 && drop(zi))) { e.style.transform = base; this.sfx('bad'); }
+      const move = ev => {
+        if (!st || ev.pointerId !== st.pid) return; ev.preventDefault();
+        const p = this.pt(ev); st.moved = Math.max(st.moved, Math.hypot(ev.clientX - st.cx, ev.clientY - st.cy));
+        e.style.transform = `translate(${p.x - st.x}px,${p.y - st.y}px) ${st.base}`;
       };
-      e.addEventListener('pointerup', up); e.addEventListener('pointercancel', up);
+      const end = ev => {
+        if (!st || ev.pointerId !== st.pid) return;
+        window.removeEventListener('pointermove', move); window.removeEventListener('pointerup', end); window.removeEventListener('pointercancel', end);
+        const s0 = st; st = null; e.style.transition = ''; e.classList.remove('held');
+        if (this.tok !== this.ex.tok) return;
+        if (ev.type === 'pointercancel') { e.style.transform = s0.base; return; }
+        if (s0.moved < 10) { e.style.transform = s0.base; if (!drop(0)) this.sfx('bad'); return; }   // a tap: send it to its place
+        const p = this.pt(ev), pad = 28;
+        const zi = zones.findIndex(([x, y, w, h]) => p.x >= x - pad && p.x <= x + w + pad && p.y >= y - pad && p.y <= y + h + pad);
+        if (!(zi >= 0 && drop(zi))) { e.style.transform = s0.base; this.sfx('bad'); }
+      };
+      e.addEventListener('pointerdown', ev => {
+        if (this.tok !== this.ex.tok || st) return; ev.preventDefault();
+        const p = this.pt(ev); st = { pid: ev.pointerId, x: p.x, y: p.y, cx: ev.clientX, cy: ev.clientY, moved: 0, base: e.style.transform || '' };
+        e.style.transition = 'none'; e.classList.add('held'); if (e.parentNode) e.parentNode.appendChild(e);   // lift it above the rest
+        window.addEventListener('pointermove', move, { passive: false }); window.addEventListener('pointerup', end); window.addEventListener('pointercancel', end);
+      });
     }
     /* sound effect hook (ticks, pops) */
     sfx(k) { if (!this.instant && this.ex.o.sfx) this.ex.o.sfx(k); }
@@ -127,6 +148,8 @@
         <div class="ex-choice" hidden></div>
         <div class="ex-dots">${script.steps.map((_, i) => `<i data-i="${i}"></i>`).join('')}</div></div>`;
       this.svg = host.querySelector('svg'); this.book = host.querySelector('.ex-book');
+      const hold = ev => { if (ev.target.closest && ev.target.closest('.xdrag,.xtap')) ev.preventDefault(); };
+      this.svg.addEventListener('touchstart', hold, { passive: false }); this.svg.addEventListener('touchmove', hold, { passive: false });
     }
     get count() { return this.S.steps.length; }
     get last() { return this.k >= this.count - 1; }
